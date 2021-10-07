@@ -98,7 +98,8 @@ public class RegisterSubmit extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-            progressDialog.dismiss();
+            if(progressDialog != null)
+                progressDialog.dismiss();
             Log.d(TAG, "POST response  - " + result);
         }
 
