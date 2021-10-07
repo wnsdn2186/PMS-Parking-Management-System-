@@ -31,6 +31,7 @@
                     android:textColor="#FFF"
                     android:textSize="23dp"
                     android:textAlignment="center"
+                    android:fontFamily="@font/bmhanna_11yrs_ttf"
                     android:textStyle="bold"/>
 
                 <LinearLayout
@@ -55,7 +56,8 @@
                         android:paddingStart="15dp"
                         android:textColor="@color/black"
                         android:textSize="16dp"
-                        android:importantForAutofill="no"/>
+                        android:importantForAutofill="no"
+                        android:fontFamily="@font/bmhanna_11yrs_ttf"/>
 
                     <ImageView
                         android:id="@+id/search_btn"
