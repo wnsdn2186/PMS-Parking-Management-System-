@@ -54,7 +54,7 @@ public class ManageCustomer extends AppCompatActivity {
         add_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), CustomerRegister.class));
+                startActivity(new Intent(getApplicationContext(), RegisterName.class));
                 overridePendingTransition(R.anim.horizon_enter, R.anim.none);
             }
         });
