@@ -1,10 +1,9 @@
 package com.example.pms;
 
-import android.accounts.Account;
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -18,20 +17,19 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
 
-public class CarRegister  extends AppCompatActivity {
+public class CustomerRegister extends AppCompatActivity {
     private Toolbar toolbar;
     private TextView textView;
     private String jsonString;
@@ -43,12 +41,14 @@ public class CarRegister  extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_car_register);
+        setContentView(R.layout.activity_customer_register);
 
         data1 = (EditText)findViewById(R.id.cName);
         data2 = (EditText)findViewById(R.id.cPnum);
         data3 = (EditText)findViewById(R.id.cCnum);
-        data4 = "2021-10-06";
+
+        data2.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
+
 
         Button button = (Button)findViewById(R.id.btn_register);
         button.setOnClickListener(new View.OnClickListener() {
@@ -57,16 +57,41 @@ public class CarRegister  extends AppCompatActivity {
                 String name = data1.getText().toString();
                 String pnum = data2.getText().toString();
                 String cnum = data3.getText().toString();
-                String date = data4;
 
-                data1.setText("");
-                data2.setText("");
-                data3.setText("");
+                // 타임존 한국 지정
+                TimeZone tz;
 
-                JsonParse jsonParse = new JsonParse();
-                jsonParse.execute("http://" + IP_ADDRESS + "/register.php", name, pnum, cnum, date);
+                //날짜 및 시간 형식 지정
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.KOREA);
+                tz = TimeZone.getTimeZone("Asia/Seoul");
+                simpleDateFormat.setTimeZone(tz);
 
-                Toast.makeText(getApplicationContext(), "id : "+name +" 님의 회원가입이 완료 되었습니다.", Toast.LENGTH_LONG).show();
+                //Date 객체 사용
+                Date today = new Date();
+                String date = simpleDateFormat.format(today);
+
+                if (name.length() == 0 ) {
+                    Toast.makeText(getApplicationContext(), "이름을 입력하세요!", Toast.LENGTH_LONG).show();
+                    data1.requestFocus();
+                    return;
+                } else if (pnum.length() == 0) {
+                    Toast.makeText(getApplicationContext(), "전화번호를 입력하세요!", Toast.LENGTH_LONG).show();
+                    data2.requestFocus();
+                    return;
+                } else if (cnum.length() == 0) {
+                    Toast.makeText(getApplicationContext(), "차량번호를 입력하세요!", Toast.LENGTH_LONG).show();
+                    data3.requestFocus();
+                    return;
+                } else {
+                    JsonParse jsonParse = new JsonParse();
+                    jsonParse.execute("http://" + IP_ADDRESS + "/register.php", name, pnum, cnum, date);
+
+                    Toast.makeText(getApplicationContext(), "id : "+name +" 님의 회원가입이 완료 되었습니다.", Toast.LENGTH_LONG).show();
+
+                    data1.setText("");
+                    data2.setText("");
+                    data3.setText("");
+                }
             }
         });
 

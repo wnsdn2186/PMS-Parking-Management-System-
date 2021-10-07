@@ -20,7 +20,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity"/>
-        <activity android:name=".CarRegister"/>
+        <activity android:name=".ManageCustomer"/>
+        <activity android:name=".CustomerRegister"/>
         <activity android:name=".CarSearch"/>
         <activity android:name=".Statistics">
         </activity>
