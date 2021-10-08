@@ -23,6 +23,7 @@
             android:layout_weight="1"
             android:text="차량등록"
             android:textColor="@color/black"
+            android:fontFamily="@font/bmhanna_11yrs_ttf"
             android:id="@+id/CarRegister">
         </Button>
 
@@ -32,6 +33,7 @@
             android:layout_weight="1"
             android:text="차량검색"
             android:textColor="@color/black"
+            android:fontFamily="@font/bmhanna_11yrs_ttf"
             android:id="@+id/CarSearch">
         </Button>
     </LinearLayout>
@@ -50,6 +52,7 @@
             android:layout_weight="1"
             android:text="차단기ON/OFF"
             android:textColor="@color/black"
+            android:fontFamily="@font/bmhanna_11yrs_ttf"
             android:id="@+id/Barrier">
         </Button>
 
@@ -59,6 +62,7 @@
             android:layout_weight="1"
             android:text="통계"
             android:textColor="@color/black"
+            android:fontFamily="@font/bmhanna_11yrs_ttf"
             android:id="@+id/Statistics">
         </Button>
 
