@@ -31,7 +31,8 @@
                     android:textColor="#FFF"
                     android:textSize="23dp"
                     android:textAlignment="center"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold"
+                    android:fontFamily="@font/bmhanna_11yrs_ttf"/>
 
                 <TextView
                     android:id="@+id/tv1"
@@ -41,6 +42,7 @@
                     android:layout_below="@id/AddCustomer_title"
                     android:layout_marginTop="180dp"
                     android:textColor="@color/black"
+                    android:fontFamily="@font/bmhanna_11yrs_ttf"
                     android:textStyle="bold"
                     android:text=""/>
 
@@ -52,6 +54,7 @@
                     android:layout_below="@id/tv1"
                     android:layout_marginTop="12dp"
                     android:textColor="@color/black"
+                    android:fontFamily="@font/bmhanna_11yrs_ttf"
                     android:textStyle="bold"
                     android:text="전화번호는"/>
 
@@ -62,6 +65,7 @@
                     android:singleLine="true"
                     android:hint="여기에 입력하세요."
                     android:textSize="40dp"
+                    android:fontFamily="@font/bmhanna_11yrs_ttf"
                     android:maxLength="13"
                     android:inputType="phone"
                     android:layout_below="@+id/tv2"
@@ -75,6 +79,7 @@
                     android:textStyle="bold"
                     android:textColor="@color/black"
                     android:text="입니다."
+                    android:fontFamily="@font/bmhanna_11yrs_ttf"
                     android:layout_below="@id/pnumField"
                     android:layout_marginTop="12dp"/>
 

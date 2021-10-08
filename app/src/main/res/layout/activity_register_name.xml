@@ -31,7 +31,8 @@
                     android:textColor="#FFF"
                     android:textSize="23dp"
                     android:textAlignment="center"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold"
+                    android:fontFamily="@font/bmhanna_11yrs_ttf"/>
 
                 <TextView
                     android:id="@+id/tv1"
@@ -42,7 +43,8 @@
                     android:layout_marginTop="180dp"
                     android:textColor="@color/black"
                     android:textStyle="bold"
-                    android:text="고객님의 성함은"/>
+                    android:text="고객님의 성함은"
+                    android:fontFamily="@font/bmhanna_11yrs_ttf"/>
 
                 <EditText
                     android:id="@+id/nameField"
@@ -52,7 +54,8 @@
                     android:hint="여기에 입력하세요."
                     android:textSize="40dp"
                     android:layout_below="@+id/tv1"
-                    android:layout_marginTop="12dp"/>
+                    android:layout_marginTop="12dp"
+                    android:fontFamily="@font/bmhanna_11yrs_ttf"/>
 
                 <TextView
                     android:id="@+id/tv2"
@@ -63,7 +66,8 @@
                     android:textColor="@color/black"
                     android:text="입니다."
                     android:layout_below="@id/nameField"
-                    android:layout_marginTop="12dp"/>
+                    android:layout_marginTop="12dp"
+                    android:fontFamily="@font/bmhanna_11yrs_ttf"/>
 
             </RelativeLayout>
 
