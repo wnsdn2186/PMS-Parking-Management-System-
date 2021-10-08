@@ -71,11 +71,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        register = (CardView)findViewById(R.id.register_card);
-        search = (CardView)findViewById(R.id.search_card);
-        barrier = (CardView)findViewById(R.id.barrier_card);
-        analytics = (CardView)findViewById(R.id.analytics_card);
-        barrierSwitch = (Switch)findViewById(R.id.barrier_switch);
+        register = (CardView) findViewById(R.id.register_card);
+        search = (CardView) findViewById(R.id.search_card);
+        barrier = (CardView) findViewById(R.id.barrier_card);
+        analytics = (CardView) findViewById(R.id.analytics_card);
+        barrierSwitch = (Switch) findViewById(R.id.barrier_switch);
 
         register.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
         barrierSwitch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(barrierSwitch.isChecked())
+                if (barrierSwitch.isChecked())
                     SEND_MESSAGE = BAR_ON;
                 else
                     SEND_MESSAGE = BAR_OFF;
@@ -114,16 +114,6 @@ public class MainActivity extends AppCompatActivity {
                 overridePendingTransition(R.anim.horizon_enter, R.anim.none);
             }
         });
-    }
-
-    public void BarrierBtn(View view){
-        if(barrierSwitch.isChecked())
-            SEND_MESSAGE = BAR_ON;
-        else
-            SEND_MESSAGE = BAR_OFF;
-
-        SocketThread thread = new SocketThread(ADDR, SEND_MESSAGE);
-        thread.start();
     }
 
     class SocketThread extends Thread implements Serializable {
@@ -152,24 +142,24 @@ public class MainActivity extends AppCompatActivity {
                     public void run() {
                         if (nReadSize > 0) {
                             //보내는 Message가 Bar Open 명령일 때
-                            if(java.util.Arrays.equals(SEND_MESSAGE, BAR_ON) == true){
-                                if(java.util.Arrays.equals(RECV_MESSAGE, BAR_RESULT_ON) == true){
+                            if (java.util.Arrays.equals(SEND_MESSAGE, BAR_ON) == true) {
+                                if (java.util.Arrays.equals(RECV_MESSAGE, BAR_RESULT_ON) == true) {
                                     Status = 1;
                                     Toast.makeText(MainActivity.this, "차단기가 열렸습니다.", Toast.LENGTH_LONG).show();
-                                }else if(java.util.Arrays.equals(RECV_MESSAGE, BAR_RESULT_OFF) == true){
+                                } else if (java.util.Arrays.equals(RECV_MESSAGE, BAR_RESULT_OFF) == true) {
                                     Toast.makeText(MainActivity.this, "차단기가 열리지 않습니다.", Toast.LENGTH_LONG).show();
-                                }else{
+                                } else {
                                     Toast.makeText(MainActivity.this, "다시 시도하세요.", Toast.LENGTH_LONG).show();
                                 }
 
                                 //보내는 Message가 Bar Off 명령일 때
-                            }else if(java.util.Arrays.equals(SEND_MESSAGE, BAR_OFF) == true){
-                                if(java.util.Arrays.equals(RECV_MESSAGE, BAR_RESULT_ON) == true){
+                            } else if (java.util.Arrays.equals(SEND_MESSAGE, BAR_OFF) == true) {
+                                if (java.util.Arrays.equals(RECV_MESSAGE, BAR_RESULT_ON) == true) {
                                     Status = 0;
                                     Toast.makeText(MainActivity.this, "차단기가 닫혔습니다.", Toast.LENGTH_LONG).show();
-                                }else if(java.util.Arrays.equals(RECV_MESSAGE, BAR_RESULT_OFF) == true){
+                                } else if (java.util.Arrays.equals(RECV_MESSAGE, BAR_RESULT_OFF) == true) {
                                     Toast.makeText(MainActivity.this, "차단기가 닫히지 않습니다.", Toast.LENGTH_LONG).show();
-                                }else{
+                                } else {
                                     Toast.makeText(MainActivity.this, "다시 시도하세요.", Toast.LENGTH_LONG).show();
                                 }
                             }
