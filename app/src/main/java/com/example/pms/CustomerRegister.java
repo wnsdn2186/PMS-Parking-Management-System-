@@ -35,7 +35,7 @@ public class CustomerRegister extends AppCompatActivity {
     private String jsonString;
     private EditText data1, data2, data3;
     private String data4;
-    private static String IP_ADDRESS = "221.139.167.8";
+    private static String IP_ADDRESS = "13.59.85.177";
     ArrayList<Customer> cusList;
 
     @Override
@@ -112,7 +112,9 @@ public class CustomerRegister extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-            progressDialog.dismiss();
+            if(progressDialog != null) {
+                progressDialog.dismiss();
+            }
             Log.d(TAG, "POST response  - " + result);
         }
 
