@@ -2,7 +2,6 @@ package com.example.pms;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -12,36 +11,38 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-public class RegisterPhone extends AppCompatActivity {
+public class RegisterDate extends AppCompatActivity {
+    private String cname, pnum;
     private FloatingActionButton next_btn;
     private TextView tv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register_phone);
+        setContentView(R.layout.activity_register_car);
 
-        EditText phone = (EditText) findViewById(R.id.pnumField);
-        phone.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
+        cname = getIntent().getStringExtra("name");
+        pnum = getIntent().getStringExtra("phone");
 
-        String cname = getIntent().getStringExtra("name");
         String st = cname + "님의";
         tv = (TextView)findViewById(R.id.tv1);
         tv.setText(st);
 
-        next_btn = (FloatingActionButton)findViewById(R.id.phoneNext);
+        next_btn = (FloatingActionButton)findViewById(R.id.carNext);
         next_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String pnum = phone.getText().toString();
+                EditText car = (EditText) findViewById(R.id.cnumField);
+                String cnum = car.getText().toString();
 
-                if (pnum.length() == 0 ) {
-                    Toast.makeText(getApplicationContext(), "전화번호를 입력하세요!", Toast.LENGTH_LONG).show();
-                    phone.requestFocus();
+                if (cnum.length() == 0 ) {
+                    Toast.makeText(getApplicationContext(), "차량번호를 입력하세요!", Toast.LENGTH_LONG).show();
+                    car.requestFocus();
                 } else {
-                    Intent it = new Intent(RegisterPhone.this, RegisterCar.class);
+                    Intent it = new Intent(RegisterDate.this, RegisterSubmit.class);
                     it.putExtra("name", cname);
                     it.putExtra("phone", pnum);
+                    it.putExtra("car", cnum);
                     startActivity(it);
                     overridePendingTransition(R.anim.horizon_enter, R.anim.none);
                     finish();
@@ -52,7 +53,9 @@ public class RegisterPhone extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        startActivity(new Intent(getApplicationContext(), RegisterName.class));
+        Intent back = new Intent(RegisterDate.this, RegisterPhone.class);
+        back.putExtra("name", cname);
+        startActivity(back);
         overridePendingTransition(R.anim.horizon_enter, R.anim.none);
         finish();
     }
