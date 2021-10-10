@@ -30,7 +30,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
-
 public class ManageCustomer extends AppCompatActivity {
     private ImageView search_btn;
     private FloatingActionButton add_btn;
@@ -49,10 +48,10 @@ public class ManageCustomer extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage_customer);
 
-        et = (EditText) findViewById(R.id.search_box);
+        et = (EditText)findViewById(R.id.search_box);
         et.setText("");
 
-        rc = (RecyclerView) findViewById(R.id.listView_main_list);
+        rc = (RecyclerView)findViewById(R.id.listView_main_list);
         rc.setLayoutManager(new LinearLayoutManager(this));
 
         cust = new ArrayList<>();
@@ -63,7 +62,8 @@ public class ManageCustomer extends AppCompatActivity {
         cAdapter.notifyDataSetChanged();
 
         GetData task = new GetData();
-        task.execute("http://" + IP_ADDRESS + "/list.php", "");
+      
+        task.execute( "http://" + IP_ADDRESS + "/list.php", "");
 
         search_btn = (ImageView) findViewById(R.id.search_btn);
         search_btn.setOnClickListener(new View.OnClickListener() {
