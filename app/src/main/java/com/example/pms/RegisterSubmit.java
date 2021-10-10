@@ -52,7 +52,7 @@ public class RegisterSubmit extends AppCompatActivity {
         tv3 = (TextView) findViewById(R.id.car);
         tv3.setText(cnum);
 
-        cancel = (Button)findViewById(R.id.btn_cancel);
+        cancel = (Button) findViewById(R.id.btn_cancel);
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -60,7 +60,7 @@ public class RegisterSubmit extends AppCompatActivity {
             }
         });
 
-        submit = (Button)findViewById(R.id.btn_submit);
+        submit = (Button) findViewById(R.id.btn_submit);
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -80,16 +80,17 @@ public class RegisterSubmit extends AppCompatActivity {
                 RegisterSubmit.JsonParse jsonParse = new RegisterSubmit.JsonParse();
                 jsonParse.execute("http://" + IP_ADDRESS + "/register.php", cname, pnum, cnum, date);
 
-                Toast.makeText(getApplicationContext(), "id : " + cname +" 님의 회원가입이 완료 되었습니다.", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "id : " + cname + " 님의 회원가입이 완료 되었습니다.", Toast.LENGTH_LONG).show();
 
                 finish();
             }
         });
     }
 
-    public class JsonParse extends AsyncTask<String,Void,String> {
+    public class JsonParse extends AsyncTask<String, Void, String> {
         ProgressDialog progressDialog;
         String TAG = "JsonParseTest";
+
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -98,19 +99,19 @@ public class RegisterSubmit extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-            if(progressDialog != null)
+            if (progressDialog != null)
                 progressDialog.dismiss();
             Log.d(TAG, "POST response  - " + result);
         }
 
         @Override
         protected String doInBackground(String... params) {
-            String name = (String)params[1];
-            String pnum = (String)params[2];
-            String carNum = (String)params[3];
-            String regDate = (String)params[4];
+            String name = (String) params[1];
+            String pnum = (String) params[2];
+            String carNum = (String) params[3];
+            String regDate = (String) params[4];
 
-            String serverURL = (String)params[0];
+            String serverURL = (String) params[0];
             String postParameters = "name=" + name + "&pnum=" + pnum + "&carNum=" + carNum + "&regDate=" + regDate;
 
             try {
@@ -131,10 +132,9 @@ public class RegisterSubmit extends AppCompatActivity {
                 Log.d(TAG, "POST response code - " + responseStatusCode);
 
                 InputStream inputStream;
-                if(responseStatusCode == HttpURLConnection.HTTP_OK) {
+                if (responseStatusCode == HttpURLConnection.HTTP_OK) {
                     inputStream = httpURLConnection.getInputStream();
-                }
-                else{
+                } else {
                     inputStream = httpURLConnection.getErrorStream();
                 }
 
@@ -144,7 +144,7 @@ public class RegisterSubmit extends AppCompatActivity {
                 StringBuilder sb = new StringBuilder();
                 String line = null;
 
-                while((line = bufferedReader.readLine()) != null){
+                while ((line = bufferedReader.readLine()) != null) {
                     sb.append(line);
                 }
 

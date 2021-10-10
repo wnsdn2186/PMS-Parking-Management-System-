@@ -43,14 +43,14 @@ public class CustomerRegister extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer_register);
 
-        data1 = (EditText)findViewById(R.id.cName);
-        data2 = (EditText)findViewById(R.id.cPnum);
-        data3 = (EditText)findViewById(R.id.cCnum);
+        data1 = (EditText) findViewById(R.id.cName);
+        data2 = (EditText) findViewById(R.id.cPnum);
+        data3 = (EditText) findViewById(R.id.cCnum);
 
         data2.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
 
 
-        Button button = (Button)findViewById(R.id.btn_register);
+        Button button = (Button) findViewById(R.id.btn_register);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -70,7 +70,7 @@ public class CustomerRegister extends AppCompatActivity {
                 Date today = new Date();
                 String date = simpleDateFormat.format(today);
 
-                if (name.length() == 0 ) {
+                if (name.length() == 0) {
                     Toast.makeText(getApplicationContext(), "이름을 입력하세요!", Toast.LENGTH_LONG).show();
                     data1.requestFocus();
                     return;
@@ -86,7 +86,7 @@ public class CustomerRegister extends AppCompatActivity {
                     JsonParse jsonParse = new JsonParse();
                     jsonParse.execute("http://" + IP_ADDRESS + "/register.php", name, pnum, cnum, date);
 
-                    Toast.makeText(getApplicationContext(), "id : "+name +" 님의 회원가입이 완료 되었습니다.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "id : " + name + " 님의 회원가입이 완료 되었습니다.", Toast.LENGTH_LONG).show();
 
                     data1.setText("");
                     data2.setText("");
@@ -101,9 +101,10 @@ public class CustomerRegister extends AppCompatActivity {
         getSupportActionBar().setTitle("");
     }
 
-    public class JsonParse extends AsyncTask<String,Void,String> {
+    public class JsonParse extends AsyncTask<String, Void, String> {
         ProgressDialog progressDialog;
         String TAG = "JsonParseTest";
+
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -118,12 +119,12 @@ public class CustomerRegister extends AppCompatActivity {
 
         @Override
         protected String doInBackground(String... params) {
-            String name = (String)params[1];
-            String pnum = (String)params[2];
-            String carNum = (String)params[3];
-            String regDate = (String)params[4];
+            String name = (String) params[1];
+            String pnum = (String) params[2];
+            String carNum = (String) params[3];
+            String regDate = (String) params[4];
 
-            String serverURL = (String)params[0];
+            String serverURL = (String) params[0];
             String postParameters = "name=" + name + "&pnum=" + pnum + "&carNum=" + carNum + "&regDate=" + regDate;
 
             try {
@@ -144,10 +145,9 @@ public class CustomerRegister extends AppCompatActivity {
                 Log.d(TAG, "POST response code - " + responseStatusCode);
 
                 InputStream inputStream;
-                if(responseStatusCode == HttpURLConnection.HTTP_OK) {
+                if (responseStatusCode == HttpURLConnection.HTTP_OK) {
                     inputStream = httpURLConnection.getInputStream();
-                }
-                else{
+                } else {
                     inputStream = httpURLConnection.getErrorStream();
                 }
 
@@ -157,7 +157,7 @@ public class CustomerRegister extends AppCompatActivity {
                 StringBuilder sb = new StringBuilder();
                 String line = null;
 
-                while((line = bufferedReader.readLine()) != null){
+                while ((line = bufferedReader.readLine()) != null) {
                     sb.append(line);
                 }
 

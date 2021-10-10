@@ -3,21 +3,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/Back"
-        android:title="뒤로가기"
         android:icon="@drawable/ic_backspace_24"
-        app:showAsAction="always"/>
+        android:title="뒤로가기"
+        app:showAsAction="always" />
 
     <item
         android:id="@+id/Home"
-        android:title="홈으로"
         android:fontFamily="@font/bmhanna_11yrs_ttf"
         android:icon="@drawable/ic_home_24"
-        app:showAsAction="always"/>
+        android:title="홈으로"
+        app:showAsAction="always" />
 
     <item
         android:id="@+id/Setting"
-        android:title="설정"
         android:fontFamily="@font/bmhanna_11yrs_ttf"
         android:icon="@drawable/ic_settings_24"
-        app:showAsAction="always"/>
+        android:title="설정"
+        app:showAsAction="always" />
 </menu>

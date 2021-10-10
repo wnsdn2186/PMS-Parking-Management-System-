@@ -85,12 +85,12 @@ public class MainActivity extends AppCompatActivity {
         search = (CardView) findViewById(R.id.search_card);
         barrier = (CardView) findViewById(R.id.barrier_card);
         analytics = (CardView) findViewById(R.id.analytics_card);
-        mypage = (CardView)findViewById(R.id.mypage_card);
+        mypage = (CardView) findViewById(R.id.mypage_card);
         barrierSwitch = (Switch) findViewById(R.id.barrier_switch);
 
-        ImageButton settingbtn = (ImageButton)findViewById(R.id.SettingBtn);
-        ImageButton backbtn = (ImageButton)findViewById(R.id.BackBtn);
-        settingbtn.setOnClickListener(new View.OnClickListener(){
+        ImageButton settingbtn = (ImageButton) findViewById(R.id.SettingBtn);
+        ImageButton backbtn = (ImageButton) findViewById(R.id.BackBtn);
+        settingbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), Setting.class));
@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        backbtn.setOnClickListener(new View.OnClickListener(){
+        backbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
@@ -124,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
         barrierSwitch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(Status == 0)
+                if (Status == 0)
                     customDialog = new CustomDialog(MainActivity.this, Confirm, Cancel, "차단바가 열립니다");
                 else
                     customDialog = new CustomDialog(MainActivity.this, Confirm, Cancel, "차단바가 닫힙니다");
@@ -140,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        mypage.setOnClickListener(new View.OnClickListener(){
+        mypage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), MyPage.class));
@@ -149,13 +149,12 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private View.OnClickListener Confirm = new View.OnClickListener(){
+    private View.OnClickListener Confirm = new View.OnClickListener() {
         public void onClick(View v) {
-            if(Status == 0) {
+            if (Status == 0) {
                 SEND_MESSAGE = BAR_ON;
                 barrierSwitch.setChecked(true);
-            }
-            else {
+            } else {
                 SEND_MESSAGE = BAR_OFF;
                 barrierSwitch.setChecked(false);
             }
@@ -167,7 +166,7 @@ public class MainActivity extends AppCompatActivity {
 
     private View.OnClickListener Cancel = new View.OnClickListener() {
         public void onClick(View v) {
-            if(barrierSwitch.isChecked())
+            if (barrierSwitch.isChecked())
                 barrierSwitch.setChecked(false);
             else
                 barrierSwitch.setChecked(true);

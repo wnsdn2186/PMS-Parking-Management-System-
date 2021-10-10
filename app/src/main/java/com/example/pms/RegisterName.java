@@ -21,14 +21,14 @@ public class RegisterName extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_name);
 
-        next_btn = (FloatingActionButton)findViewById(R.id.nameNext);
+        next_btn = (FloatingActionButton) findViewById(R.id.nameNext);
         next_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 EditText name = (EditText) findViewById(R.id.nameField);
                 String cname = name.getText().toString();
 
-                if (cname.length() == 0 ) {
+                if (cname.length() == 0) {
                     Toast.makeText(getApplicationContext(), "성함을 입력하세요!", Toast.LENGTH_LONG).show();
                     name.requestFocus();
                 } else {

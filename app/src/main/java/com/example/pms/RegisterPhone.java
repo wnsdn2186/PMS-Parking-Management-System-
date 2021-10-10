@@ -26,16 +26,16 @@ public class RegisterPhone extends AppCompatActivity {
 
         String cname = getIntent().getStringExtra("name");
         String st = cname + "님의";
-        tv = (TextView)findViewById(R.id.tv1);
+        tv = (TextView) findViewById(R.id.tv1);
         tv.setText(st);
 
-        next_btn = (FloatingActionButton)findViewById(R.id.phoneNext);
+        next_btn = (FloatingActionButton) findViewById(R.id.phoneNext);
         next_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String pnum = phone.getText().toString();
 
-                if (pnum.length() == 0 ) {
+                if (pnum.length() == 0) {
                     Toast.makeText(getApplicationContext(), "전화번호를 입력하세요!", Toast.LENGTH_LONG).show();
                     phone.requestFocus();
                 } else {

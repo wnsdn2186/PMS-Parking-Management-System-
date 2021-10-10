@@ -27,17 +27,17 @@ public class RegisterCar extends AppCompatActivity {
         pnum = getIntent().getStringExtra("phone");
 
         String st = cname + "님의";
-        tv = (TextView)findViewById(R.id.tv1);
+        tv = (TextView) findViewById(R.id.tv1);
         tv.setText(st);
 
-        next_btn = (FloatingActionButton)findViewById(R.id.carNext);
+        next_btn = (FloatingActionButton) findViewById(R.id.carNext);
         next_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 EditText car = (EditText) findViewById(R.id.cnumField);
                 String cnum = car.getText().toString();
 
-                if (cnum.length() == 0 ) {
+                if (cnum.length() == 0) {
                     Toast.makeText(getApplicationContext(), "차량번호를 입력하세요!", Toast.LENGTH_LONG).show();
                     car.requestFocus();
                 } else {

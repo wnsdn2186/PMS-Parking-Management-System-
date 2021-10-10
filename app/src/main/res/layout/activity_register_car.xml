@@ -1,86 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/background3">
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <RelativeLayout
-                android:layout_marginTop="12dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
+                android:layout_marginTop="12dp"
                 android:layout_marginRight="20dp">
 
                 <TextView
                     android:id="@+id/AddCustomer_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/bmhanna_11yrs_ttf"
                     android:text="신규 고객 등록"
+                    android:textAlignment="center"
                     android:textColor="#FFF"
                     android:textSize="23dp"
-                    android:textAlignment="center"
-                    android:textStyle="bold"
-                    android:fontFamily="@font/bmhanna_11yrs_ttf"/>
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/tv1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="40dp"
                     android:layout_below="@id/AddCustomer_title"
                     android:layout_marginTop="180dp"
-                    android:textColor="@color/black"
-                    android:textStyle="bold"
+                    android:fontFamily="@font/bmhanna_11yrs_ttf"
                     android:text=""
-                    android:fontFamily="@font/bmhanna_11yrs_ttf"/>
+                    android:textColor="@color/black"
+                    android:textSize="40dp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/tv2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="40dp"
                     android:layout_below="@id/tv1"
                     android:layout_marginTop="12dp"
-                    android:textColor="@color/black"
-                    android:textStyle="bold"
+                    android:fontFamily="@font/bmhanna_11yrs_ttf"
                     android:text="차량번호는"
-                    android:fontFamily="@font/bmhanna_11yrs_ttf"/>
+                    android:textColor="@color/black"
+                    android:textSize="40dp"
+                    android:textStyle="bold" />
 
                 <EditText
                     android:id="@+id/cnumField"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:singleLine="true"
-                    android:hint="여기에 입력하세요."
-                    android:textSize="40dp"
-                    android:maxLength="10"
                     android:layout_below="@+id/tv2"
                     android:layout_marginTop="12dp"
-                    android:fontFamily="@font/bmhanna_11yrs_ttf"/>
+                    android:fontFamily="@font/bmhanna_11yrs_ttf"
+                    android:hint="여기에 입력하세요."
+                    android:maxLength="10"
+                    android:singleLine="true"
+                    android:textSize="40dp" />
 
                 <TextView
                     android:id="@+id/tv3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="40dp"
-                    android:textStyle="bold"
-                    android:textColor="@color/black"
-                    android:text="입니다."
                     android:layout_below="@id/cnumField"
                     android:layout_marginTop="12dp"
-                    android:fontFamily="@font/bmhanna_11yrs_ttf"/>
+                    android:fontFamily="@font/bmhanna_11yrs_ttf"
+                    android:text="입니다."
+                    android:textColor="@color/black"
+                    android:textSize="40dp"
+                    android:textStyle="bold" />
 
             </RelativeLayout>
 
@@ -96,7 +95,7 @@
             android:background="@color/blue"
             android:backgroundTint="@color/blue"
             android:contentDescription="@string/app_name"
-            android:src="@drawable/ic_next"/>
+            android:src="@drawable/ic_next" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
