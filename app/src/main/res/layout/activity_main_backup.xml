@@ -13,58 +13,54 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
+        android:layout_weight="1"
         android:gravity="center"
-        android:orientation="horizontal"
-        android:layout_weight="1">
+        android:orientation="horizontal">
 
         <Button
+            android:id="@+id/CarRegister"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:fontFamily="@font/bmhanna_11yrs_ttf"
             android:text="차량등록"
-            android:textColor="@color/black"
-            android:fontFamily="@font/bmhanna_11yrs_ttf"
-            android:id="@+id/CarRegister">
-        </Button>
+            android:textColor="@color/black"></Button>
 
         <Button
+            android:id="@+id/CarSearch"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="차량검색"
-            android:textColor="@color/black"
             android:fontFamily="@font/bmhanna_11yrs_ttf"
-            android:id="@+id/CarSearch">
-        </Button>
+            android:text="차량검색"
+            android:textColor="@color/black"></Button>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
+        android:layout_weight="1"
         android:gravity="center"
-        android:orientation="horizontal"
-        android:layout_weight="1">
+        android:orientation="horizontal">
 
         <Button
+            android:id="@+id/Barrier"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:fontFamily="@font/bmhanna_11yrs_ttf"
             android:text="차단기ON/OFF"
-            android:textColor="@color/black"
-            android:fontFamily="@font/bmhanna_11yrs_ttf"
-            android:id="@+id/Barrier">
-        </Button>
+            android:textColor="@color/black"></Button>
 
         <Button
+            android:id="@+id/Statistics"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="통계"
-            android:textColor="@color/black"
             android:fontFamily="@font/bmhanna_11yrs_ttf"
-            android:id="@+id/Statistics">
-        </Button>
+            android:text="통계"
+            android:textColor="@color/black"></Button>
 
     </LinearLayout>
 </LinearLayout>

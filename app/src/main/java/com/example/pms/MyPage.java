@@ -12,17 +12,18 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-public class Statistics extends AppCompatActivity {
+public class MyPage extends AppCompatActivity {
     private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_statistics);
+        setContentView(R.layout.activity_mypage);
 
         ImageButton settingbtn = (ImageButton) findViewById(R.id.SettingBtn);
         ImageButton backbtn = (ImageButton) findViewById(R.id.BackBtn);
         ImageButton homebtn = (ImageButton) findViewById(R.id.HomeBtn);
+
         settingbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -37,6 +38,7 @@ public class Statistics extends AppCompatActivity {
                 finish();
             }
         });
+
         homebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

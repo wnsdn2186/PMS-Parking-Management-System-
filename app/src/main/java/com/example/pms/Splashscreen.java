@@ -3,6 +3,7 @@ package com.example.pms;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.PixelFormat;
+import android.media.Image;
 import android.os.Bundle;
 import android.view.Window;
 import android.view.animation.Animation;
@@ -35,19 +36,13 @@ public class Splashscreen extends Activity {
         l.clearAnimation();
         l.startAnimation(anim);
 
-        anim = AnimationUtils.loadAnimation(this, R.anim.translate);
-        anim.reset();
-        ImageView iv = (ImageView) findViewById(R.id.splash);
-        iv.clearAnimation();
-        iv.startAnimation(anim);
-
         splashTread = new Thread() {
             @Override
             public void run() {
                 try {
                     int waited = 0;
                     // Splash screen pause time(3000)
-                    while (waited < 1000) {
+                    while (waited < 1500) {
                         sleep(100);
                         waited += 100;
                     }
