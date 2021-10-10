@@ -30,7 +30,7 @@ public class RegisterSubmit extends AppCompatActivity {
     private Button cancel, submit;
     private TextView tv1, tv2, tv3;
     private String cname, pnum, cnum;
-    private static String IP_ADDRESS = "221.139.167.8";
+    private static String IP_ADDRESS = "13.59.85.177";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

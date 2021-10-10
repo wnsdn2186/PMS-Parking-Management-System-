@@ -31,7 +31,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/bmhanna_11yrs_ttf"
-                    android:text="고객 관리"
+                    android:text=""
                     android:textAlignment="center"
                     android:textColor="#FFF"
                     android:textSize="23dp"
@@ -48,6 +48,7 @@
                     android:orientation="horizontal">
 
                     <EditText
+                        android:id="@+id/search_box"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:layout_below="@id/customerManage_title"
@@ -74,6 +75,14 @@
                 </LinearLayout>
 
             </RelativeLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/listView_main_list"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_margin="5dp"
+                android:layout_weight="6"
+                android:padding="5dp" />
 
         </LinearLayout>
 

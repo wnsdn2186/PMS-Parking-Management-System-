@@ -3,8 +3,11 @@ package com.example.pms;
 public class Customer {
     String name;
     String cnum;
-    String register_date;
     String pnum;
+    String start_date;
+    String end_date;
+    String rdate;
+
 
     public String getName() {
         return name;
@@ -22,19 +25,35 @@ public class Customer {
         this.cnum = cnum;
     }
 
-    public String getStart_date() {
-        return register_date;
-    }
-
-    public void setStart_date(String register_date) {
-        this.register_date = register_date;
-    }
-
     public String getPnum() {
         return pnum;
     }
 
     public void setPnum(String pnum) {
         this.pnum = pnum;
+    }
+
+    public String getStart_date() {
+        return start_date;
+    }
+
+    public void setStart_date(String start_date) {
+        this.start_date = start_date;
+    }
+
+    public String getEnd_date() {
+        return end_date;
+    }
+
+    public void setEnd_date(String end_date) {
+        this.end_date = end_date;
+    }
+
+    public String getRdate() {
+        return rdate;
+    }
+
+    public void setRdate(String rdate) {
+        this.rdate = rdate;
     }
 }
