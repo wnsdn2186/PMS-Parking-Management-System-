@@ -30,7 +30,8 @@
         <activity android:name=".RegisterSubmit"/>
         <activity android:name=".CarSearch"/>
         <activity android:name=".Statistics"/>
-        <activity android:name=".Setting">
+        <activity android:name=".Setting"/>
+        <activity android:name=".MyPage">
         </activity>
     </application>
 </manifest>

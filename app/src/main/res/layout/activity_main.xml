@@ -10,8 +10,8 @@
     android:orientation="vertical">
 
     <include
-        android:id="@+id/toolbar"
-        layout="@layout/toolbar_main" />
+        android:id="@+id/toolbar_home"
+        layout="@layout/toolbar_home" />
 
     <LinearLayout
         android:layout_width="match_parent"
