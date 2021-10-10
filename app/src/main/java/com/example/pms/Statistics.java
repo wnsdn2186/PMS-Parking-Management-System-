@@ -1,9 +1,12 @@
 package com.example.pms;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,12 +19,31 @@ public class Statistics  extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_statistics);
-    }
 
-    public boolean onCreateOptionsMenu(Menu menu) {
+        ImageButton settingbtn = (ImageButton)findViewById(R.id.SettingBtn);
+        ImageButton backbtn = (ImageButton)findViewById(R.id.BackBtn);
+        ImageButton homebtn = (ImageButton)findViewById(R.id.HomeBtn);
+        settingbtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), Setting.class));
+                overridePendingTransition(R.anim.horizon_enter, R.anim.none);
+            }
+        });
 
-        MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.toolbar_menu, menu);
-        return true;
+        backbtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        homebtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                overridePendingTransition(R.anim.horizon_enter, R.anim.none);
+                finish();
+            }
+        });
     }
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/toolbar"
+    android:id="@+id/toolbar_home"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/sky"
@@ -11,6 +11,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:gravity="center"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -28,49 +29,38 @@
                 android:id="@+id/BackBtn"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_gravity="center"
                 android:layout_weight="0.2"
                 android:backgroundTint="@color/sky"
-                android:src="@drawable/ic_backspace_24"
-                android:onClick="BackBtn"></ImageButton>
+                android:src="@drawable/ic_backspace_24"></ImageButton>
+
         </LinearLayout>
 
         <Space
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="0.3"></Space>
-
-        <ImageButton
-            android:id="@+id/HomeBtn"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:backgroundTint="@color/sky"
-            android:src="@drawable/ic_home_24"
-            android:onClick="HomeBtn"></ImageButton>
-
-        <Space
-            android:layout_width="10dp"
-            android:layout_height="match_parent"></Space>
+            android:layout_gravity="center"
+            android:layout_weight="0.4"></Space>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="horizontal">
-
             <ImageButton
                 android:id="@+id/SettingBtn"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_gravity="center"
                 android:layout_weight="0.2"
                 android:backgroundTint="@color/sky"
-                android:src="@drawable/ic_settings_24"
-                android:onClick="SettingBtn"></ImageButton>
+                android:src="@drawable/ic_settings_24"></ImageButton>
 
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"></Space>
+
         </LinearLayout>
     </LinearLayout>
 </androidx.appcompat.widget.Toolbar>

@@ -1,21 +1,30 @@
 package com.example.pms;
 
+import android.app.Notification;
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
+import android.os.Handler;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.Switch;
+import android.widget.Toast;
+
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
-
-import android.content.Intent;
-import android.os.Bundle;
-import android.os.Handler;
-import android.view.View;
-import android.widget.EditText;
-import android.widget.Switch;
-import android.widget.Toast;
 
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
 import java.net.Socket;
+import java.util.function.ToLongBiFunction;
 
 public class MainActivity extends AppCompatActivity {
     int maxBufferSize = 11;//최대 버퍼 사이즈
@@ -65,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private CardView register, search, barrier, analytics;
     private Switch barrierSwitch;
+    CustomDialog customDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +86,23 @@ public class MainActivity extends AppCompatActivity {
         barrier = (CardView) findViewById(R.id.barrier_card);
         analytics = (CardView) findViewById(R.id.analytics_card);
         barrierSwitch = (Switch) findViewById(R.id.barrier_switch);
+
+        ImageButton settingbtn = (ImageButton)findViewById(R.id.SettingBtn);
+        ImageButton backbtn = (ImageButton)findViewById(R.id.BackBtn);
+        settingbtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), Setting.class));
+                overridePendingTransition(R.anim.horizon_enter, R.anim.none);
+            }
+        });
+
+        backbtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         register.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,16 +123,13 @@ public class MainActivity extends AppCompatActivity {
         barrierSwitch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (barrierSwitch.isChecked())
-                    SEND_MESSAGE = BAR_ON;
+                if(Status == 0)
+                    customDialog = new CustomDialog(MainActivity.this, Confirm, Cancel, "차단바가 열립니다");
                 else
-                    SEND_MESSAGE = BAR_OFF;
-
-                SocketThread thread = new SocketThread(ADDR, SEND_MESSAGE);
-                thread.start();
+                    customDialog = new CustomDialog(MainActivity.this, Confirm, Cancel, "차단바가 닫힙니다");
+                customDialog.show();
             }
         });
-
 
         analytics.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,6 +139,32 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    private View.OnClickListener Confirm = new View.OnClickListener(){
+        public void onClick(View v) {
+            if(Status == 0) {
+                SEND_MESSAGE = BAR_ON;
+                barrierSwitch.setChecked(true);
+            }
+            else {
+                SEND_MESSAGE = BAR_OFF;
+                barrierSwitch.setChecked(false);
+            }
+            SocketThread thread = new SocketThread(ADDR, SEND_MESSAGE);
+            thread.start();
+            customDialog.dismiss();
+        }
+    };
+
+    private View.OnClickListener Cancel = new View.OnClickListener() {
+        public void onClick(View v) {
+            if(barrierSwitch.isChecked())
+                barrierSwitch.setChecked(false);
+            else
+                barrierSwitch.setChecked(true);
+            customDialog.dismiss();
+        }
+    };
 
     class SocketThread extends Thread implements Serializable {
         String IP; // 서버 IP

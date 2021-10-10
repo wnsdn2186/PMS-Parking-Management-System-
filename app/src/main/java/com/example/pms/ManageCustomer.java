@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,6 +42,33 @@ public class ManageCustomer extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage_customer);
+
+        ImageButton settingbtn = (ImageButton)findViewById(R.id.SettingBtn);
+        ImageButton backbtn = (ImageButton)findViewById(R.id.BackBtn);
+        ImageButton homebtn = (ImageButton)findViewById(R.id.HomeBtn);
+        settingbtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), Setting.class));
+                overridePendingTransition(R.anim.horizon_enter, R.anim.none);
+            }
+        });
+
+        backbtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        homebtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                overridePendingTransition(R.anim.horizon_enter, R.anim.none);
+                finish();
+            }
+        });
+
 
         search_btn = (ImageView)findViewById(R.id.search_btn);
         search_btn.setOnClickListener(new View.OnClickListener() {

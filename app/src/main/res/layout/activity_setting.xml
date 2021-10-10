@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/lin_lay"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_gravity="center"
+    android:background="@drawable/background4"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar_main" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginRight="20dp">
+
+            <TextView
+                android:id="@+id/mypage_txtdashboard"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/bmhanna_11yrs_ttf"
+                android:text="관리자"
+                android:textColor="#FFF"
+                android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/mypage_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/mypage_txtdashboard"
+                android:fontFamily="@font/bmhanna_11yrs_ttf"
+                android:text="OOO 님"
+                android:textColor="#FFF"
+                android:textSize="20dp"></TextView>
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="82dp"
+                android:layout_height="82dp"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/user" />
+
+        </RelativeLayout>
+    </LinearLayout>
+</LinearLayout>
