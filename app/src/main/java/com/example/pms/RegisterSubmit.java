@@ -161,7 +161,7 @@ public class RegisterSubmit extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Intent back = new Intent(RegisterSubmit.this, RegisterCar.class);
+        Intent back = new Intent(RegisterSubmit.this, Register.class);
         back.putExtra("name", cname);
         back.putExtra("phone", pnum);
         startActivity(back);

@@ -4,21 +4,14 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.telephony.PhoneNumberFormattingTextWatcher;
-import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -34,12 +27,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.TimeZone;
 
 public class ManageCustomer extends AppCompatActivity {
     private ImageView search_btn;
@@ -87,7 +75,7 @@ public class ManageCustomer extends AppCompatActivity {
         add_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), RegisterName.class));
+                startActivity(new Intent(getApplicationContext(), Register.class));
                 overridePendingTransition(R.anim.horizon_enter, R.anim.none);
                 finish();
             }
