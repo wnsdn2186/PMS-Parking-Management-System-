@@ -49,10 +49,6 @@ public class ManageCustomer extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage_customer);
 
-        ImageButton settingbtn = (ImageButton) findViewById(R.id.SettingBtn);
-        ImageButton backbtn = (ImageButton) findViewById(R.id.BackBtn);
-        ImageButton homebtn = (ImageButton) findViewById(R.id.HomeBtn);
-
         et = (EditText) findViewById(R.id.search_box);
         et.setText("");
 
@@ -68,6 +64,28 @@ public class ManageCustomer extends AppCompatActivity {
 
         GetData task = new GetData();
         task.execute("http://" + IP_ADDRESS + "/list.php", "");
+
+        search_btn = (ImageView) findViewById(R.id.search_btn);
+        search_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "검색", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        add_btn = (FloatingActionButton) findViewById(R.id.addCustomer);
+        add_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), Register.class));
+                overridePendingTransition(R.anim.horizon_enter, R.anim.none);
+                finish();
+            }
+        });
+
+        ImageButton settingbtn = (ImageButton) findViewById(R.id.SettingBtn);
+        ImageButton backbtn = (ImageButton) findViewById(R.id.BackBtn);
+        ImageButton homebtn = (ImageButton) findViewById(R.id.HomeBtn);
 
         settingbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,24 +106,6 @@ public class ManageCustomer extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                overridePendingTransition(R.anim.horizon_enter, R.anim.none);
-                finish();
-            }
-        });
-
-        search_btn = (ImageView) findViewById(R.id.search_btn);
-        search_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "검색", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        add_btn = (FloatingActionButton) findViewById(R.id.addCustomer);
-        add_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), Register.class));
                 overridePendingTransition(R.anim.horizon_enter, R.anim.none);
                 finish();
             }
