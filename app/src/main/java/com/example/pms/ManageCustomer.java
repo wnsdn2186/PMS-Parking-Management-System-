@@ -4,13 +4,8 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -18,7 +13,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -34,11 +28,8 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Locale;
-import java.util.TimeZone;
+
 
 public class ManageCustomer extends AppCompatActivity {
     private ImageView search_btn;
@@ -61,7 +52,6 @@ public class ManageCustomer extends AppCompatActivity {
         ImageButton settingbtn = (ImageButton) findViewById(R.id.SettingBtn);
         ImageButton backbtn = (ImageButton) findViewById(R.id.BackBtn);
         ImageButton homebtn = (ImageButton) findViewById(R.id.HomeBtn);
-
 
         et = (EditText) findViewById(R.id.search_box);
         et.setText("");
@@ -93,6 +83,7 @@ public class ManageCustomer extends AppCompatActivity {
                 finish();
             }
         });
+
         homebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -101,7 +92,6 @@ public class ManageCustomer extends AppCompatActivity {
                 finish();
             }
         });
-
 
         search_btn = (ImageView) findViewById(R.id.search_btn);
         search_btn.setOnClickListener(new View.OnClickListener() {
@@ -115,13 +105,14 @@ public class ManageCustomer extends AppCompatActivity {
         add_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), RegisterName.class));
+                startActivity(new Intent(getApplicationContext(), Register.class));
                 overridePendingTransition(R.anim.horizon_enter, R.anim.none);
+                finish();
             }
         });
     }
 
-    private class GetData extends AsyncTask<String, Void, String> {
+    private class GetData extends AsyncTask<String, Void, String>{
         ProgressDialog progressDialog;
         String errorString = null;
 
@@ -141,9 +132,10 @@ public class ManageCustomer extends AppCompatActivity {
 
             Log.d("response", "response - " + result);
 
-            if (result == null) {
+            if (result == null){
                 rs.setText(errorString);
-            } else {
+            }
+            else {
                 mJsonString = result;
                 showResult();
             }
@@ -174,9 +166,10 @@ public class ManageCustomer extends AppCompatActivity {
                 Log.d("response", "response code - " + responseStatusCode);
 
                 InputStream inputStream;
-                if (responseStatusCode == HttpURLConnection.HTTP_OK) {
+                if(responseStatusCode == HttpURLConnection.HTTP_OK) {
                     inputStream = httpURLConnection.getInputStream();
-                } else {
+                }
+                else{
                     inputStream = httpURLConnection.getErrorStream();
                 }
 
@@ -186,7 +179,7 @@ public class ManageCustomer extends AppCompatActivity {
                 StringBuilder sb = new StringBuilder();
                 String line;
 
-                while ((line = bufferedReader.readLine()) != null) {
+                while((line = bufferedReader.readLine()) != null){
                     sb.append(line);
                 }
                 bufferedReader.close();
@@ -200,9 +193,9 @@ public class ManageCustomer extends AppCompatActivity {
         }
     }
 
-    private void showResult() {
+    private void showResult(){
 
-        String TAG_JSON = "cusList";
+        String TAG_JSON="cusList";
         String TAG_IDX = "idx";
         String TAG_NAME = "stcustname1";
         String TAG_PNUM = "sttelno1";
@@ -213,7 +206,7 @@ public class ManageCustomer extends AppCompatActivity {
             JSONObject jsonObject = new JSONObject(mJsonString);
             JSONArray jsonArray = jsonObject.getJSONArray(TAG_JSON);
 
-            for (int i = 0; i < jsonArray.length(); i++) {
+            for(int i=0;i<jsonArray.length();i++){
 
                 JSONObject item = jsonArray.getJSONObject(i);
 
@@ -242,9 +235,8 @@ public class ManageCustomer extends AppCompatActivity {
         Log.d("count", String.valueOf(customerCount));
         title += String.valueOf(customerCount) + ")";
 
-        tv = (TextView) findViewById(R.id.customerManage_title);
+        tv = (TextView)findViewById(R.id.customerManage_title);
         tv.setText(title);
 
     }
-
 }

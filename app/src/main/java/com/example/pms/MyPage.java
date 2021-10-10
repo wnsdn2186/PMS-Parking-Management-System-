@@ -23,6 +23,7 @@ public class MyPage extends AppCompatActivity {
         ImageButton settingbtn = (ImageButton) findViewById(R.id.SettingBtn);
         ImageButton backbtn = (ImageButton) findViewById(R.id.BackBtn);
         ImageButton homebtn = (ImageButton) findViewById(R.id.HomeBtn);
+
         settingbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -37,6 +38,7 @@ public class MyPage extends AppCompatActivity {
                 finish();
             }
         });
+
         homebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

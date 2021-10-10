@@ -37,7 +37,7 @@
         <Space
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="0.3"></Space>
+            android:layout_weight="0.4"></Space>
 
         <ImageButton
             android:id="@+id/HomeBtn"
@@ -47,10 +47,6 @@
             android:backgroundTint="@color/sky"
             android:onClick="HomeBtn"
             android:src="@drawable/ic_home_24"></ImageButton>
-
-        <Space
-            android:layout_width="10dp"
-            android:layout_height="match_parent"></Space>
 
         <LinearLayout
             android:layout_width="match_parent"

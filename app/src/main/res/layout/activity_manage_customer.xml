@@ -10,32 +10,33 @@
         android:id="@+id/toolbar"
         layout="@layout/toolbar_main" />
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
 
             <RelativeLayout
+                android:layout_marginTop="12dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
-                android:layout_marginTop="12dp"
                 android:layout_marginRight="20dp">
 
                 <TextView
                     android:id="@+id/customerManage_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/bmhanna_11yrs_ttf"
                     android:text=""
-                    android:textAlignment="center"
                     android:textColor="#FFF"
                     android:textSize="23dp"
-                    android:textStyle="bold" />
+                    android:textAlignment="center"
+                    android:fontFamily="@font/bmhanna_11yrs_ttf"
+                    android:textStyle="bold"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -51,17 +52,17 @@
                         android:id="@+id/search_box"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
-                        android:layout_below="@id/customerManage_title"
                         android:layout_weight="1"
+                        android:layout_below="@id/customerManage_title"
                         android:background="@drawable/rectangle"
-                        android:fontFamily="@font/bmhanna_11yrs_ttf"
                         android:hint="고객명을 입력하세요."
                         android:imeOptions="actionSearch"
-                        android:importantForAutofill="no"
                         android:inputType="text"
                         android:paddingStart="15dp"
                         android:textColor="@color/black"
-                        android:textSize="16dp" />
+                        android:textSize="16dp"
+                        android:importantForAutofill="no"
+                        android:fontFamily="@font/bmhanna_11yrs_ttf"/>
 
                     <ImageView
                         android:id="@+id/search_btn"
@@ -70,19 +71,19 @@
                         android:background="@drawable/search_icon_background"
                         android:contentDescription="@string/app_name"
                         android:padding="6dp"
-                        android:src="@drawable/ic_search" />
+                        android:src="@drawable/ic_search"/>
 
                 </LinearLayout>
 
             </RelativeLayout>
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/listView_main_list"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_margin="5dp"
                 android:layout_weight="6"
-                android:padding="5dp" />
+                android:layout_margin="5dp"
+                android:padding="5dp"
+                android:id="@+id/listView_main_list"/>
 
         </LinearLayout>
 
@@ -90,12 +91,12 @@
             android:id="@+id/addCustomer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom |center"
+            android:layout_gravity="bottom|center"
             android:layout_margin="16dp"
             android:background="@color/sky"
             android:backgroundTint="@color/sky"
             android:contentDescription="@string/app_name"
-            android:src="@drawable/ic_add" />
+            android:src="@drawable/ic_add"/>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

@@ -33,9 +33,7 @@ public class CarSearch extends AppCompatActivity {
 
         backbtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                finish();
-            }
+            public void onClick(View v) { finish(); }
         });
         homebtn.setOnClickListener(new View.OnClickListener() {
             @Override
