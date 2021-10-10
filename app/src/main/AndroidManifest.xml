@@ -21,12 +21,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"/>
+        <activity android:name=".MainActivity"
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity android:name=".ManageCustomer"/>
-        <activity android:name=".CustomerRegister"/>
-        <activity android:name=".RegisterName"/>
-        <activity android:name=".RegisterPhone"/>
-        <activity android:name=".RegisterCar"/>
+        <activity
+            android:name=".Register"
+            android:windowSoftInputMode="adjustResize"/>
         <activity android:name=".RegisterSubmit"/>
         <activity android:name=".CarSearch"/>
         <activity android:name=".Statistics">
