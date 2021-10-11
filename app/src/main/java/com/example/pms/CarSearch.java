@@ -20,29 +20,12 @@ public class CarSearch extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_car_search);
 
-        ImageButton settingbtn = (ImageButton) findViewById(R.id.SettingBtn);
         ImageButton backbtn = (ImageButton) findViewById(R.id.BackBtn);
-        ImageButton homebtn = (ImageButton) findViewById(R.id.HomeBtn);
-        settingbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), Setting.class));
-                overridePendingTransition(R.anim.horizon_enter, R.anim.none);
-            }
-        });
-
         backbtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) { finish(); }
-        });
-        homebtn.setOnClickListener(new View.OnClickListener() {
-            @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                overridePendingTransition(R.anim.horizon_enter, R.anim.none);
                 finish();
             }
         });
     }
-
 }

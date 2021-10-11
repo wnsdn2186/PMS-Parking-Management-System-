@@ -22,18 +22,27 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity"/>
+
         <activity android:name=".ManageCustomer"
             android:parentActivityName=".MainActivity"/>
+
         <activity
             android:name=".Register"
-            android:windowSoftInputMode="adjustResize"
+            android:parentActivityName=".ManageCustomer"
+            android:windowSoftInputMode="adjustResize"/>
+
+        <activity android:name=".RegisterSubmit"
             android:parentActivityName=".Register"/>
-        <activity android:name=".RegisterSubmit"/>
+
         <activity android:name=".CarSearch"
             android:parentActivityName=".MainActivity"/>
+
         <activity android:name=".Statistics"
             android:parentActivityName=".MainActivity"/>
-        <activity android:name=".Setting"/>
+
+        <activity android:name=".Setting"
+            android:parentActivityName=".MainActivity"/>
+
         <activity android:name=".MyPage"
             android:parentActivityName=".MainActivity">
         </activity>

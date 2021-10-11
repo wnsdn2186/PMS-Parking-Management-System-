@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
     Handler handler = new Handler();// 토스트를 띄우기 위한 메인스레드 핸들러 객체 생성
 
     private Toolbar toolbar;
-    private CardView register, search, barrier, analytics, mypage;
+    private CardView register, search, barrier, analytics, mypage, setting;
     private Switch barrierSwitch;
     CustomDialog customDialog;
 
@@ -86,18 +86,10 @@ public class MainActivity extends AppCompatActivity {
         barrier = (CardView) findViewById(R.id.barrier_card);
         analytics = (CardView) findViewById(R.id.analytics_card);
         mypage = (CardView) findViewById(R.id.mypage_card);
+        setting = (CardView)findViewById(R.id.setting_card);
         barrierSwitch = (Switch) findViewById(R.id.barrier_switch);
 
-        ImageButton settingbtn = (ImageButton) findViewById(R.id.SettingBtn);
         ImageButton backbtn = (ImageButton) findViewById(R.id.BackBtn);
-        settingbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), Setting.class));
-                overridePendingTransition(R.anim.horizon_enter, R.anim.none);
-            }
-        });
-
         backbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -144,6 +136,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), MyPage.class));
+                overridePendingTransition(R.anim.horizon_enter, R.anim.none);
+            }
+        });
+
+        setting.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), Setting.class));
                 overridePendingTransition(R.anim.horizon_enter, R.anim.none);
             }
         });
