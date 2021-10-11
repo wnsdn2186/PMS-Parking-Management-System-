@@ -30,6 +30,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
+
 public class ManageCustomer extends AppCompatActivity {
     private ImageView search_btn;
     private FloatingActionButton add_btn;
@@ -48,10 +49,18 @@ public class ManageCustomer extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage_customer);
 
-        et = (EditText)findViewById(R.id.search_box);
+        ImageButton backbtn = findViewById(R.id.BackBtn);
+        backbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+        et = (EditText) findViewById(R.id.search_box);
         et.setText("");
 
-        rc = (RecyclerView)findViewById(R.id.listView_main_list);
+        rc = (RecyclerView) findViewById(R.id.listView_main_list);
         rc.setLayoutManager(new LinearLayoutManager(this));
 
         cust = new ArrayList<>();
@@ -62,8 +71,7 @@ public class ManageCustomer extends AppCompatActivity {
         cAdapter.notifyDataSetChanged();
 
         GetData task = new GetData();
-      
-        task.execute( "http://" + IP_ADDRESS + "/list.php", "");
+        task.execute("http://" + IP_ADDRESS + "/list.php", "");
 
         search_btn = (ImageView) findViewById(R.id.search_btn);
         search_btn.setOnClickListener(new View.OnClickListener() {
@@ -79,35 +87,6 @@ public class ManageCustomer extends AppCompatActivity {
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), Register.class));
                 overridePendingTransition(R.anim.horizon_enter, R.anim.none);
-                finish();
-            }
-        });
-
-        ImageButton settingbtn = (ImageButton) findViewById(R.id.SettingBtn);
-        ImageButton backbtn = (ImageButton) findViewById(R.id.BackBtn);
-        ImageButton homebtn = (ImageButton) findViewById(R.id.HomeBtn);
-
-        settingbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), Setting.class));
-                overridePendingTransition(R.anim.horizon_enter, R.anim.none);
-            }
-        });
-
-        backbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-
-        homebtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                overridePendingTransition(R.anim.horizon_enter, R.anim.none);
-                finish();
             }
         });
     }

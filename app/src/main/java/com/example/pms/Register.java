@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +24,14 @@ public class Register extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
+        ImageButton backbtn = (ImageButton) findViewById(R.id.BackBtn);
+        backbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         btn = (Button)findViewById(R.id.nextBtn);
 
@@ -123,7 +132,6 @@ public class Register extends AppCompatActivity {
                                 it.putExtra("car", cnum);
                                 startActivity(it);
                                 overridePendingTransition(R.anim.horizon_enter, R.anim.none);
-                                finish();
                             }
                         });
                     }
