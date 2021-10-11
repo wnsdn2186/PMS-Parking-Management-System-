@@ -123,15 +123,27 @@ public class Register extends AppCompatActivity {
                         btn.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                String cnum = car.getText().toString();
-                                cnum = cnum.replaceAll(" ","");
+                                if(name.length() == 0) {
+                                    Toast.makeText(getApplicationContext(), "이름을 입력하세요!", Toast.LENGTH_LONG).show();
+                                    name.requestFocus();
+                                } else if (phone.length() == 0) {
+                                    Toast.makeText(getApplicationContext(), "휴대폰 번호를 입력하세요!", Toast.LENGTH_LONG).show();
+                                    phone.requestFocus();
+                                } else if (car.length() == 0) {
+                                    Toast.makeText(getApplicationContext(), "차량 번호를 입력하세요!", Toast.LENGTH_LONG).show();
+                                    car.requestFocus();
+                                } else {
+                                    String cnum = car.getText().toString();
+                                    cnum = cnum.replaceAll(" ","");
 
-                                Intent it = new Intent(Register.this, RegisterSubmit.class);
-                                it.putExtra("name", name.getText().toString());
-                                it.putExtra("phone", phone.getText().toString());
-                                it.putExtra("car", cnum);
-                                startActivity(it);
-                                overridePendingTransition(R.anim.horizon_enter, R.anim.none);
+                                    Intent it = new Intent(Register.this, RegisterTime.class);
+                                    it.putExtra("name", name.getText().toString());
+                                    it.putExtra("phone", phone.getText().toString());
+                                    it.putExtra("car", cnum);
+                                    startActivity(it);
+                                    overridePendingTransition(R.anim.horizon_enter, R.anim.none);
+                                    finish();
+                                }
                             }
                         });
                     }

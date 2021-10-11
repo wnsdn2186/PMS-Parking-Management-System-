@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/constraintLayout"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_marginTop="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="20dp">
+
+            <TextView
+                android:id="@+id/tv1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="40dp"
+                android:layout_marginTop="30dp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:text="입차 일정"
+                android:fontFamily="@font/font"/>
+
+            <TextView
+                android:id="@+id/sdateTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:textSize="20dp"
+                android:textColor="@color/grey"
+                android:text="날짜"
+                android:layout_below="@+id/tv1"
+                android:fontFamily="@font/font"/>
+
+            <EditText
+                android:id="@+id/sdateField"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:textSize="20dp"
+                android:layout_below="@+id/sdateTv"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/font"/>
+
+            <TextView
+                android:id="@+id/stimeTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:textSize="20dp"
+                android:textColor="@color/grey"
+                android:text="시간"
+                android:layout_below="@+id/sdateField"
+                android:fontFamily="@font/font"/>
+
+            <LinearLayout
+                android:id="@+id/stimeField"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/stimeTv"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/stimeField1"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:maxLength="2"
+                    android:textSize="20dp"
+                    android:textAlignment="center"
+                    android:hint="00 ~ 24"
+                    android:layout_marginTop="12dp"
+                    android:fontFamily="@font/font"/>
+
+                <EditText
+                    android:id="@+id/stimeField2"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/font"
+                    android:singleLine="true"
+                    android:maxLength="2"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="12dp"
+                    android:textSize="20dp"
+                    android:textAlignment="center"
+                    android:hint="00 ~ 60"/>
+
+            </LinearLayout>
+            
+            <View
+                android:id="@+id/line"
+                android:layout_marginTop="30dp"
+                android:layout_below="@+id/stimeField"
+                android:background="@color/sky"
+                android:layout_width="match_parent"
+                android:layout_height="14px"/>
+
+            <TextView
+                android:layout_below="@+id/line"
+                android:id="@+id/tv2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="40dp"
+                android:layout_marginTop="30dp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:text="출차 일정"
+                android:fontFamily="@font/font"/>
+
+            <TextView
+                android:id="@+id/edateTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:textSize="20dp"
+                android:textColor="@color/grey"
+                android:text="날짜"
+                android:layout_below="@+id/tv2"
+                android:fontFamily="@font/font"/>
+
+            <EditText
+                android:id="@+id/edateField"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:textSize="20dp"
+                android:layout_below="@+id/edateTv"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/font"/>
+
+            <TextView
+                android:id="@+id/etimeTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:textSize="20dp"
+                android:textColor="@color/grey"
+                android:text="시간"
+                android:layout_below="@+id/edateField"
+                android:fontFamily="@font/font"/>
+
+            <LinearLayout
+                android:id="@+id/etimeField"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/etimeTv"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/etimeField1"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:maxLength="2"
+                    android:textSize="20dp"
+                    android:textAlignment="center"
+                    android:hint="00 ~ 24"
+                    android:layout_marginTop="12dp"
+                    android:fontFamily="@font/font"/>
+
+                <EditText
+                    android:id="@+id/etimeField2"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/font"
+                    android:singleLine="true"
+                    android:maxLength="2"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="12dp"
+                    android:textSize="20dp"
+                    android:textAlignment="center"
+                    android:hint="00 ~ 60"/>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        app:layout_constraintVertical_weight="1"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <Button
+            android:id="@+id/nextBtn2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="0dp"
+            android:layout_marginLeft="-5dip"
+            android:layout_marginRight="-5dip"
+            android:layout_marginBottom="-5dip"
+            android:text="입력 완료"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/sky"
+            android:fontFamily="@font/font"/>
+
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
