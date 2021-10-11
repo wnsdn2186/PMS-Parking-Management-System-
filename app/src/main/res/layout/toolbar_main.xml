@@ -4,16 +4,39 @@
     android:id="@+id/toolbar"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/red"
+    android:background="@color/sky"
+    app:contentInsetStart="0dp"
     app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/toolbarText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="PMS"
-        android:textColor="@color/white"
-        android:textSize="20dp"
-        android:textStyle="bold"></TextView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"></Space>
+
+            <ImageButton
+                android:id="@+id/BackBtn"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.2"
+                android:backgroundTint="@color/sky"
+                android:onClick="BackBtn"
+                android:src="@drawable/ic_backspace_24"></ImageButton>
+        </LinearLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.2"></Space>
+    </LinearLayout>
 </androidx.appcompat.widget.Toolbar>
