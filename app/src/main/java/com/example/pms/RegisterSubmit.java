@@ -29,7 +29,7 @@ import java.util.TimeZone;
 public class RegisterSubmit extends AppCompatActivity {
     private Button cancel, submit;
     private TextView tv1, tv2, tv3;
-    private String cname, pnum, cnum;
+    private String cname, pnum, cnum, sdate, stime1, stime2, edate, etime1, etime2;
     private static String IP_ADDRESS = "13.59.85.177";
 
     @Override
@@ -40,6 +40,23 @@ public class RegisterSubmit extends AppCompatActivity {
         cname = getIntent().getStringExtra("name");
         pnum = getIntent().getStringExtra("phone");
         cnum = getIntent().getStringExtra("car");
+        sdate = getIntent().getStringExtra("sdate");
+        stime1 = getIntent().getStringExtra("stime1");
+        stime2 = getIntent().getStringExtra("stime2");
+        edate = getIntent().getStringExtra("edate");
+        etime1 = getIntent().getStringExtra("etime1");
+        etime2 = getIntent().getStringExtra("etime2");
+
+        sdate = new StringBuilder(sdate).insert(4, "-").toString();
+        sdate = new StringBuilder(sdate).insert(7, "-").toString();
+        String startDate = sdate + " " + stime1 + ":" + stime2 + ":00";
+        Log.d("print", sdate);
+
+        edate = new StringBuilder(edate).insert(4, "-").toString();
+        edate = new StringBuilder(edate).insert(7, "-").toString();
+        String endDate = edate + " " + etime1 + ":" + etime2 + ":00";
+        Log.d("print", edate);
+
 
         Log.d("HERE: ", cname + " " + pnum + " " + cnum);
 
@@ -74,11 +91,10 @@ public class RegisterSubmit extends AppCompatActivity {
 
                 //Date 객체 사용
                 Date today = new Date();
-                String date = simpleDateFormat.format(today);
-
+                String regDate = simpleDateFormat.format(today);
 
                 RegisterSubmit.JsonParse jsonParse = new RegisterSubmit.JsonParse();
-                jsonParse.execute("http://" + IP_ADDRESS + "/register.php", cname, pnum, cnum, date);
+                jsonParse.execute("http://" + IP_ADDRESS + "/register.php", cname, pnum, cnum, startDate, endDate, regDate);
 
                 Toast.makeText(getApplicationContext(), "id : " + cname +" 님의 회원가입이 완료 되었습니다.", Toast.LENGTH_LONG).show();
 
@@ -109,11 +125,14 @@ public class RegisterSubmit extends AppCompatActivity {
             String name = (String)params[1];
             String pnum = (String)params[2];
             String carNum = (String)params[3];
-            String regDate = (String)params[4];
+            String startdate = (String)params[4];
+            String enddate = (String)params[5];
+            String regDate = (String)params[6];
 
             String serverURL = (String)params[0];
-            String postParameters = "name=" + name + "&pnum=" + pnum + "&carNum=" + carNum + "&regDate=" + regDate;
-
+            String postParameters = "name=" + name + "&pnum=" + pnum + "&carNum=" + carNum + "&startdate=" + startdate +  "&enddate=" + enddate + "&regDate=" + regDate;
+            Log.d("data: ", startdate);
+            Log.d("data: ", enddate);
             try {
                 URL url = new URL(serverURL);
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();

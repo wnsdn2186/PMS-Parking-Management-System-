@@ -27,6 +27,9 @@
         <activity
             android:name=".Register"
             android:windowSoftInputMode="adjustResize"/>
+        <activity
+            android:name=".RegisterTime"
+            android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".RegisterSubmit"/>
         <activity android:name=".CarSearch"/>
         <activity android:name=".Statistics">
