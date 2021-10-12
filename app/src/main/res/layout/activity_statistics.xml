@@ -27,7 +27,7 @@
                 android:layout_marginRight="20dp">
 
                 <TextView
-                    android:id="@+id/customerManage_title"
+                    android:id="@+id/statistics_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/bmhanna_11yrs_ttf"

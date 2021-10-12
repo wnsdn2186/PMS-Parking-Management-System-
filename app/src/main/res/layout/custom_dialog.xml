@@ -8,21 +8,37 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/color_sky_round"
+        android:background="@drawable/color_white_round"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="350dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/color_sky_round"
+            android:background="@drawable/color_white_round"
             android:gravity="center"
             android:orientation="vertical">
 
-            <Space
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="20dp"
-                android:background="@drawable/color_sky_round"></Space>
+                android:layout_height="40dp"
+                android:background="@drawable/color_sky_half_round">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="알림"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:textSize="25dp"
+                    android:fontFamily="@font/bmhanna_11yrs_ttf"
+                    android:textColor="@color/white">
+                </TextView>
+            </LinearLayout>
+
+<!--            <Space-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="20dp"-->
+<!--                android:background="@drawable/color_sky_round"></Space>-->
 
             <TextView
                 android:id="@+id/dialog_title"
@@ -32,21 +48,21 @@
                 android:layout_marginBottom="20dp"
                 android:fontFamily="@font/bmhanna_11yrs_ttf"
                 android:text="차단바가 열립니다"
-                android:textColor="@color/white"
-                android:textSize="30dp" />
+                android:textColor="@color/sky"
+                android:textSize="25dp" />
         </LinearLayout>
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="20dp"
-            android:background="@drawable/color_sky_round"></Space>
+<!--        <Space-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="20dp"-->
+<!--            android:background="@drawable/color_white_round"></Space>-->
 
         <LinearLayout
             android:layout_width="350dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/color_sky_round"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:background="@drawable/color_white_round">
 
             <Button
                 android:id="@+id/Cancel"
@@ -54,10 +70,10 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="#00ff0000"
-                android:backgroundTint="@color/sky"
+                android:backgroundTint="@color/white"
                 android:fontFamily="@font/bmhanna_11yrs_ttf"
                 android:text="취소"
-                android:textColor="@color/white"
+                android:textColor="@color/sky"
                 android:textSize="20dp" />
 
             <Button
@@ -66,10 +82,10 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="#00ff0000"
-                android:backgroundTint="@color/sky"
+                android:backgroundTint="@color/white"
                 android:fontFamily="@font/bmhanna_11yrs_ttf"
                 android:text="확인"
-                android:textColor="@color/white"
+                android:textColor="@color/sky"
                 android:textSize="20dp" />
         </LinearLayout>
 
