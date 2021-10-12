@@ -27,7 +27,7 @@
                 android:layout_marginRight="20dp">
 
                 <TextView
-                    android:id="@+id/customerManage_title"
+                    android:id="@+id/Statistics"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/bmhanna_11yrs_ttf"
@@ -37,10 +37,33 @@
                     android:textSize="23dp"
                     android:textStyle="bold" />
 
+                <com.github.mikephil.charting.charts.BarChart
+                    android:id="@+id/daybarchart"
+                    android:layout_below="@+id/Statistics"
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"
+                    android:layout_marginTop="50dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.495"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.471" />
+
+                <com.github.mikephil.charting.charts.BarChart
+                    android:id="@+id/timebarchart"
+                    android:layout_below="@+id/daybarchart"
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"
+                    android:layout_marginTop="50dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.495"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.471" />
+
             </RelativeLayout>
-
         </LinearLayout>
-
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
