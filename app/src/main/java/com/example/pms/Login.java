@@ -27,6 +27,7 @@ public class Login extends AppCompatActivity {
     private EditText id, password;
     private Button login, register;
     private String jsonString;
+    private static String IP_ADDRESS = "13.59.85.177";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +46,7 @@ public class Login extends AppCompatActivity {
                 String userPassword = password.getText().toString();
 
                 Login.JsonParse jsonParse = new Login.JsonParse();
-                jsonParse.execute("http://192.168.25.17:80/user_login.php", userID, userPassword);
+                jsonParse.execute("http://" + IP_ADDRESS + "/user_login.php", userID, userPassword);
             }
         });
 
@@ -118,7 +119,6 @@ public class Login extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) { // doInBackgroundString에서 return한 값을 받음
             super.onPostExecute(result);
-
 
             jsonString = result;
             checkLogin();

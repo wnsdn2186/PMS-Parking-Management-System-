@@ -31,7 +31,7 @@ public class UserRegister extends AppCompatActivity {
     private EditText id, password, name, birth, phone;
     private Button register;
     private String uid, upw, uname, ubirth, uphone;
-    private static String IP_ADDRESS = "127.0.0.1";
+    private static String IP_ADDRESS = "13.59.85.177";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -140,7 +140,7 @@ public class UserRegister extends AppCompatActivity {
 
 
                     UserRegister.JsonParse jsonParse =new UserRegister.JsonParse();
-                    jsonParse.execute("http://192.168.25.17:80/user_register.php", uid, upw, uname, ubirth, uphone);
+                    jsonParse.execute("http://" + IP_ADDRESS + "/user_register.php", uid, upw, uname, ubirth, uphone);
 
                     finish();
                 }
@@ -160,6 +160,11 @@ public class UserRegister extends AppCompatActivity {
             String uphone = (String)strings[5];
 
             String selectData = "uid=" + uid + "&upw=" + upw + "&uname=" + uname + "&ubirth=" + ubirth + "&uphone=" + uphone;
+            Log.d("udata1", uid);
+            Log.d("udata2", upw);
+            Log.d("udata3", uname);
+            Log.d("udata4", ubirth);
+            Log.d("udata5", uphone);
 
             try {
                 URL serverURL = new URL(url);
