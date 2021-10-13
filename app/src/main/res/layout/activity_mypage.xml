@@ -1,47 +1,382 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background5">
+    android:background="@color/lightgrey">
 
     <include
         android:id="@+id/toolbar"
         layout="@layout/toolbar_main" />
 
-
-    <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    <TextView
+        android:id="@+id/mypage_title"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:fontFamily="@font/bmhanna_11yrs_ttf"
+        android:text="마이페이지"
+        android:textAlignment="center"
+        android:textColor="#FFF"
+        android:textSize="23dp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/color_sky_half_bottom_round"
             android:orientation="vertical">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:src="@drawable/user"></de.hdodenhof.circleimageview.CircleImageView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/bmhanna_11yrs_ttf"
+                    android:gravity="center|right"
+                    android:text="관리자 "
+                    android:textColor="@color/white"
+                    android:textSize="20dp"></TextView>
+
+                <TextView
+                    android:id="@+id/mypage_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/bmhanna_11yrs_ttf"
+                    android:gravity="center|left"
+                    android:text=" OOO 님"
+                    android:textColor="@color/white"
+                    android:textSize="20dp"></TextView>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.2"
+            android:background="@color/lightgrey">
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="12dp"
-                android:layout_marginRight="20dp">
+                android:layout_margin="8dp">
 
-                <TextView
-                    android:id="@+id/mypage_title"
+                <ScrollView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/bmhanna_11yrs_ttf"
-                    android:text="마이페이지"
-                    android:textAlignment="center"
-                    android:textColor="#FFF"
-                    android:textSize="23dp"
-                    android:textStyle="bold" />
+                    android:layout_height="wrap_content">
 
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/BoxTitle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:fontFamily="@font/bmhanna_11yrs_ttf"
+                            android:text="계정 정보"
+                            android:textColor="@color/black"
+                            android:textSize="22dp"></TextView>
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rcView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/BoxTitle"
+                            android:background="@drawable/color_white_round"
+                            android:overScrollMode="never"
+                            android:scrollbars="vertical" />
+
+                        <TextView
+                            android:id="@+id/BoxTitle2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/rcView"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="13dp"
+                            android:layout_marginBottom="5dp"
+                            android:fontFamily="@font/bmhanna_11yrs_ttf"
+                            android:text="계정 관리"
+                            android:textColor="@color/black"
+                            android:textSize="22dp"></TextView>
+
+                        <RelativeLayout
+                            android:id="@+id/ManageAccount"
+                            android:layout_width="match_parent"
+                            android:layout_height="160dp"
+                            android:layout_below="@id/BoxTitle2"
+                            android:background="@drawable/color_white_round">
+
+                            <LinearLayout
+                                android:id="@+id/EditAccount"
+                                android:layout_width="match_parent"
+                                android:layout_height="80dp"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_weight="0.15"
+                                    android:fontFamily="@font/bmhanna_11yrs_ttf"
+                                    android:gravity="center|left"
+                                    android:text="개인 정보 수정"
+                                    android:textColor="@color/black"
+                                    android:textSize="20dp"></TextView>
+
+                                <ImageView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"
+                                    android:scaleType="center"
+                                    android:src="@drawable/ic_forward_36"></ImageView>
+                            </LinearLayout>
+
+                            <ImageView
+                                android:id="@+id/divline"
+                                android:layout_width="match_parent"
+                                android:layout_height="5dp"
+                                android:layout_below="@id/EditAccount"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginRight="10dp"
+                                android:src="@drawable/color_gray_round"></ImageView>
+
+                            <LinearLayout
+                                android:id="@+id/DeleteAccount"
+                                android:layout_width="match_parent"
+                                android:layout_height="80dp"
+                                android:layout_below="@id/divline">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_weight="0.15"
+                                    android:fontFamily="@font/bmhanna_11yrs_ttf"
+                                    android:gravity="center|left"
+                                    android:text="회원탈퇴"
+                                    android:textColor="@color/black"
+                                    android:textSize="20dp"></TextView>
+
+                                <ImageView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"
+                                    android:scaleType="center"
+                                    android:src="@drawable/ic_forward_36"></ImageView>
+                            </LinearLayout>
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="10dp"
+                                android:layout_below="@id/DeleteAccount"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginRight="10dp"
+                                android:src="@drawable/color_white_round"></ImageView>
+                        </RelativeLayout>
+
+                        <TextView
+                            android:id="@+id/BoxTitle3"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/ManageAccount"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="13dp"
+                            android:layout_marginBottom="5dp"
+                            android:fontFamily="@font/bmhanna_11yrs_ttf"
+                            android:text="이용 안내"
+                            android:textColor="@color/black"
+                            android:textSize="22dp"></TextView>
+
+                        <RelativeLayout
+                            android:id="@+id/Use"
+                            android:layout_width="match_parent"
+                            android:layout_height="160dp"
+                            android:layout_below="@id/BoxTitle3"
+                            android:background="@drawable/color_white_round">
+
+                            <LinearLayout
+                                android:id="@+id/Notice"
+                                android:layout_width="match_parent"
+                                android:layout_height="80dp"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_weight="0.15"
+                                    android:fontFamily="@font/bmhanna_11yrs_ttf"
+                                    android:gravity="center|left"
+                                    android:text="공지사항"
+                                    android:textColor="@color/black"
+                                    android:textSize="20dp"></TextView>
+
+                                <ImageView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"
+                                    android:scaleType="center"
+                                    android:src="@drawable/ic_forward_36"></ImageView>
+                            </LinearLayout>
+
+                            <ImageView
+                                android:id="@+id/divline2"
+                                android:layout_width="match_parent"
+                                android:layout_height="5dp"
+                                android:layout_below="@id/Notice"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginRight="10dp"
+                                android:src="@drawable/color_gray_round"></ImageView>
+
+                            <LinearLayout
+                                android:id="@+id/ServiceCenter"
+                                android:layout_width="match_parent"
+                                android:layout_height="80dp"
+                                android:layout_below="@id/divline2">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_weight="0.15"
+                                    android:fontFamily="@font/bmhanna_11yrs_ttf"
+                                    android:gravity="center|left"
+                                    android:text="고객센터"
+                                    android:textColor="@color/black"
+                                    android:textSize="20dp"></TextView>
+
+                                <ImageView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"
+                                    android:scaleType="center"
+                                    android:src="@drawable/ic_forward_36"></ImageView>
+                            </LinearLayout>
+
+                            <ImageView
+                                android:id="@+id/divline3"
+                                android:layout_width="match_parent"
+                                android:layout_height="10dp"
+                                android:layout_below="@id/ServiceCenter"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginRight="10dp"
+                                android:src="@drawable/color_white_round"></ImageView>
+                        </RelativeLayout>
+
+                        <TextView
+                            android:id="@+id/BoxTitle4"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/Use"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="13dp"
+                            android:layout_marginBottom="5dp"
+                            android:fontFamily="@font/bmhanna_11yrs_ttf"
+                            android:text="약관"
+                            android:textColor="@color/black"
+                            android:textSize="22dp"></TextView>
+
+                        <RelativeLayout
+                            android:id="@+id/Terms"
+                            android:layout_width="match_parent"
+                            android:layout_height="160dp"
+                            android:layout_below="@id/BoxTitle4"
+                            android:background="@drawable/color_white_round">
+
+                            <LinearLayout
+                                android:id="@+id/ServiceTerms"
+                                android:layout_width="match_parent"
+                                android:layout_height="80dp"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_weight="0.15"
+                                    android:fontFamily="@font/bmhanna_11yrs_ttf"
+                                    android:gravity="center|left"
+                                    android:text="서비스 이용약관"
+                                    android:textColor="@color/black"
+                                    android:textSize="20dp"></TextView>
+
+                                <ImageView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"
+                                    android:scaleType="center"
+                                    android:src="@drawable/ic_forward_36"></ImageView>
+                            </LinearLayout>
+
+                            <ImageView
+                                android:id="@+id/divline4"
+                                android:layout_width="match_parent"
+                                android:layout_height="5dp"
+                                android:layout_below="@id/ServiceTerms"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginRight="10dp"
+                                android:src="@drawable/color_gray_round"></ImageView>
+
+                            <LinearLayout
+                                android:id="@+id/PrivacyTerms"
+                                android:layout_width="match_parent"
+                                android:layout_height="80dp"
+                                android:layout_below="@id/divline4">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_weight="0.15"
+                                    android:fontFamily="@font/bmhanna_11yrs_ttf"
+                                    android:gravity="center|left"
+                                    android:text="개인정보 처리방침"
+                                    android:textColor="@color/black"
+                                    android:textSize="20dp"></TextView>
+
+                                <ImageView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"
+                                    android:scaleType="center"
+                                    android:src="@drawable/ic_forward_36"></ImageView>
+                            </LinearLayout>
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="10dp"
+                                android:layout_below="@id/PrivacyTerms"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginRight="10dp"
+                                android:src="@drawable/color_white_round"></ImageView>
+                        </RelativeLayout>
+                    </RelativeLayout>
+                </ScrollView>
             </RelativeLayout>
-
         </LinearLayout>
-
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+</RelativeLayout>
