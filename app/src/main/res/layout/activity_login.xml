@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background5">
+
+    <EditText
+        android:id="@+id/userID"
+        android:layout_width="225dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="48dp"
+        android:ems="10"
+        android:fontFamily="@font/bmhanna_11yrs_ttf"
+        android:hint="ID"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.377" />
+
+    <EditText
+        android:id="@+id/userPassword"
+        android:layout_width="225dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:fontFamily="@font/bmhanna_11yrs_ttf"
+        android:hint="PASSWORD"
+        android:inputType="textPassword"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/userID" />
+
+    <Button
+        android:id="@+id/btn_login"
+        android:layout_width="79dp"
+        android:layout_height="76dp"
+        android:layout_marginEnd="35dp"
+        android:background="#FFFFFF"
+        android:backgroundTint="#64AFE1"
+        android:fontFamily="@font/bmhanna_11yrs_ttf"
+        android:text="LOGIN"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.409" />
+
+    <CheckBox
+        android:id="@+id/checkBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="30dp"
+        android:fontFamily="@font/bmhanna_11yrs_ttf"
+        android:text="자동 로그인"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_login"
+        app:layout_constraintVertical_bias="0.021" />
+
+    <Button
+        android:id="@+id/btn_register"
+        android:layout_width="107dp"
+        android:layout_height="52dp"
+        android:layout_marginBottom="228dp"
+        android:backgroundTint="#64AFE1"
+        android:fontFamily="@font/bmhanna_11yrs_ttf"
+        android:text="회원가입"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

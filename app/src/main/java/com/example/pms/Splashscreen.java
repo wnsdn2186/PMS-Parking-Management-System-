@@ -47,7 +47,7 @@ public class Splashscreen extends Activity {
                         waited += 100;
                     }
                     Intent intent = new Intent(Splashscreen.this,
-                            MainActivity.class);
+                            Login.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     startActivity(intent);
                     overridePendingTransition(R.anim.horizon_enter, R.anim.none);
