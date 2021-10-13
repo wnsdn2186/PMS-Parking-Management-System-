@@ -30,7 +30,7 @@ import java.util.TimeZone;
 public class RegisterSubmit extends AppCompatActivity {
     private Button cancel, submit;
     private TextView tv1, tv2, tv3;
-    private String cname, pnum, cnum, sdate, stime1, stime2, edate, etime1, etime2;
+    private String cname, pnum, cnum, sdate, stime1, stime2, edate;
     private static String IP_ADDRESS = "13.59.85.177";
 
     @Override
@@ -53,8 +53,6 @@ public class RegisterSubmit extends AppCompatActivity {
         stime1 = getIntent().getStringExtra("stime1");
         stime2 = getIntent().getStringExtra("stime2");
         edate = getIntent().getStringExtra("edate");
-        etime1 = getIntent().getStringExtra("etime1");
-        etime2 = getIntent().getStringExtra("etime2");
 
         sdate = new StringBuilder(sdate).insert(4, "-").toString();
         sdate = new StringBuilder(sdate).insert(7, "-").toString();
@@ -63,11 +61,7 @@ public class RegisterSubmit extends AppCompatActivity {
 
         edate = new StringBuilder(edate).insert(4, "-").toString();
         edate = new StringBuilder(edate).insert(7, "-").toString();
-        String endDate = edate + " " + etime1 + ":" + etime2 + ":00";
-        Log.d("print", edate);
-
-
-        Log.d("HERE: ", cname + " " + pnum + " " + cnum);
+        String endDate = edate;
 
         tv1 = (TextView) findViewById(R.id.name);
         tv1.setText(cname);
