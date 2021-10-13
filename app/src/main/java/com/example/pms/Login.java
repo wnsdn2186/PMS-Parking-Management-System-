@@ -165,7 +165,9 @@ public class Login extends AppCompatActivity {
                     startActivity(intent);
                     finish();
                 } else {
-                    Toast.makeText(getApplicationContext(), "로그인에 실패", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "등록되지 않은 회원입니다. 아이디 또는 비밀번호를 확인해주세요", Toast.LENGTH_LONG).show();
+                    id.setText(null);
+                    password.setText(null);
                     return;
                 }
             } catch (JSONException e) {

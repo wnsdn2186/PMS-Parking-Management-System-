@@ -14,137 +14,142 @@
             android:id="@+id/toolbar"
             layout="@layout/toolbar_main" />
 
-        <RelativeLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginRight="20dp">
+            android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/tv2"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:fontFamily="@font/font"
-                android:text="회원 가입"
-                android:textColor="@color/black"
-                android:textSize="40dp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/idTv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/tv2"
-                android:layout_marginTop="50dp"
-                android:fontFamily="@font/font"
-                android:text="아이디"
-                android:textColor="@color/grey"
-                android:textSize="20dp" />
-
-            <EditText
-                android:id="@+id/idField"
-                android:layout_width="300dp"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/idTv"
+                android:layout_marginLeft="30dp"
                 android:layout_marginTop="12dp"
-                android:fontFamily="@font/font"
-                android:singleLine="true"
-                android:textSize="20dp" />
+                android:layout_marginRight="20dp">
 
-            <TextView
-                android:id="@+id/pwTv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/idField"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/font"
-                android:text="비밀번호"
-                android:textColor="@color/grey"
-                android:textSize="20dp" />
+                <TextView
+                    android:id="@+id/tv2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:fontFamily="@font/font"
+                    android:text="회원 가입"
+                    android:textColor="@color/black"
+                    android:textSize="40dp"
+                    android:textStyle="bold" />
 
-            <EditText
-                android:id="@+id/pwField"
-                android:layout_width="300dp"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/pwTv"
-                android:layout_marginTop="12dp"
-                android:ems="10"
-                android:fontFamily="@font/font"
-                android:inputType="textPassword"
-                android:singleLine="true"
-                android:textSize="20dp" />
+                <TextView
+                    android:id="@+id/idTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv2"
+                    android:layout_marginTop="50dp"
+                    android:fontFamily="@font/font"
+                    android:text="아이디"
+                    android:textColor="@color/grey"
+                    android:textSize="20dp" />
 
-            <TextView
-                android:id="@+id/nameTv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/pwField"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/font"
-                android:text="이름"
-                android:textColor="@color/grey"
-                android:textSize="20dp" />
+                <EditText
+                    android:id="@+id/idField"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/idTv"
+                    android:layout_marginTop="12dp"
+                    android:fontFamily="@font/font"
+                    android:singleLine="true"
+                    android:textSize="20dp" />
 
-            <EditText
-                android:id="@+id/nameField"
-                android:layout_width="300dp"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/nameTv"
-                android:layout_marginTop="12dp"
-                android:fontFamily="@font/font"
-                android:singleLine="true"
-                android:textSize="20dp" />
+                <TextView
+                    android:id="@+id/pwTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/idField"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/font"
+                    android:text="비밀번호"
+                    android:textColor="@color/grey"
+                    android:textSize="20dp" />
 
-            <TextView
-                android:id="@+id/birthTv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/nameField"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/font"
-                android:text="생일 (생년월일 6자리)"
-                android:textColor="@color/grey"
-                android:textSize="20dp" />
+                <EditText
+                    android:id="@+id/pwField"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/pwTv"
+                    android:layout_marginTop="12dp"
+                    android:ems="10"
+                    android:fontFamily="@font/font"
+                    android:inputType="textPassword"
+                    android:singleLine="true"
+                    android:textSize="20dp" />
 
-            <EditText
-                android:id="@+id/birthField"
-                android:layout_width="300dp"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/birthTv"
-                android:layout_marginTop="12dp"
-                android:ems="10"
-                android:fontFamily="@font/font"
-                android:inputType="date"
-                android:singleLine="true"
-                android:textSize="20dp" />
+                <TextView
+                    android:id="@+id/nameTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/pwField"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/font"
+                    android:text="이름"
+                    android:textColor="@color/grey"
+                    android:textSize="20dp" />
 
-            <TextView
-                android:id="@+id/phoneTv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/birthField"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/font"
-                android:text="휴대폰 번호 (-없이)"
-                android:textColor="@color/grey"
-                android:textSize="20dp" />
+                <EditText
+                    android:id="@+id/nameField"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/nameTv"
+                    android:layout_marginTop="12dp"
+                    android:fontFamily="@font/font"
+                    android:singleLine="true"
+                    android:textSize="20dp" />
 
-            <EditText
-                android:id="@+id/phoneField"
-                android:layout_width="300dp"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/phoneTv"
-                android:layout_marginTop="12dp"
-                android:digits="0123456789"
-                android:fontFamily="@font/font"
-                android:inputType="number"
-                android:maxLength="11"
-                android:singleLine="true"
-                android:textSize="20dp" />
+                <TextView
+                    android:id="@+id/birthTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/nameField"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/font"
+                    android:text="생일 (생년월일 6자리)"
+                    android:textColor="@color/grey"
+                    android:textSize="20dp" />
 
-        </RelativeLayout>
+                <EditText
+                    android:id="@+id/birthField"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/birthTv"
+                    android:layout_marginTop="12dp"
+                    android:ems="10"
+                    android:fontFamily="@font/font"
+                    android:inputType="date"
+                    android:singleLine="true"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:id="@+id/phoneTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/birthField"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/font"
+                    android:text="휴대폰 번호 (-없이)"
+                    android:textColor="@color/grey"
+                    android:textSize="20dp" />
+
+                <EditText
+                    android:id="@+id/phoneField"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/phoneTv"
+                    android:layout_marginTop="12dp"
+                    android:digits="0123456789"
+                    android:fontFamily="@font/font"
+                    android:inputType="number"
+                    android:maxLength="11"
+                    android:singleLine="true"
+                    android:textSize="20dp" />
+
+            </RelativeLayout>
+        </ScrollView>
 
     </LinearLayout>
 

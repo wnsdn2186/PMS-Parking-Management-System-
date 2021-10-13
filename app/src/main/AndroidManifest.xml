@@ -12,7 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PMS"
         android:usesCleartextTraffic="true">
-        <activity android:name=".UserRegister"></activity>
+        <activity
+            android:name=".UserRegister"
+            android:windowSoftInputMode="adjustPan"/>
+
         <activity android:name=".Login" />
         <activity
             android:name=".Splashscreen"

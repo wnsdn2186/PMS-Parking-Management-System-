@@ -7,10 +7,12 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -36,6 +38,7 @@ public class UserRegister extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_register);
 
+        //getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         ImageButton backbtn = (ImageButton) findViewById(R.id.BackBtn);
         backbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,17 +116,34 @@ public class UserRegister extends AppCompatActivity {
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                uid = id.getText().toString();
-                upw = password.getText().toString();
-                uname = name.getText().toString();
-                ubirth = birth.getText().toString();
-                uphone = phone.getText().toString();
+                if(id.length() == 0) {
+                    Toast.makeText(getApplicationContext(), "아이디를 입력하세요!", Toast.LENGTH_LONG).show();
+                    id.requestFocus();
+                } else if (password.length() == 0) {
+                    Toast.makeText(getApplicationContext(), "비밀번호를 입력하세요!", Toast.LENGTH_LONG).show();
+                    password.requestFocus();
+                } else if (name.length() == 0) {
+                    Toast.makeText(getApplicationContext(), "이름을 입력하세요!", Toast.LENGTH_LONG).show();
+                    name.requestFocus();
+                } else if (birth.length() == 0) {
+                    Toast.makeText(getApplicationContext(), "생일을 입력하세요!", Toast.LENGTH_LONG).show();
+                    birth.requestFocus();
+                } else if (phone.length() == 0) {
+                    Toast.makeText(getApplicationContext(), "휴대폰 번호을 입력하세요!", Toast.LENGTH_LONG).show();
+                    phone.requestFocus();
+                } else {
+                    uid = id.getText().toString();
+                    upw = password.getText().toString();
+                    uname = name.getText().toString();
+                    ubirth = birth.getText().toString();
+                    uphone = phone.getText().toString();
 
 
-                UserRegister.JsonParse jsonParse =new UserRegister.JsonParse();
-                jsonParse.execute("http://192.168.25.17:80/user_register.php", uid, upw, uname, ubirth, uphone);
+                    UserRegister.JsonParse jsonParse =new UserRegister.JsonParse();
+                    jsonParse.execute("http://192.168.25.17:80/user_register.php", uid, upw, uname, ubirth, uphone);
 
-                finish();
+                    finish();
+                }
             }
         });
     }
