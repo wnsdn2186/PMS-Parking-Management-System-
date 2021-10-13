@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/color_sky_round"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/color_sky_round"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:background="@drawable/color_sky_round"></Space>
+
+            <TextView
+                android:id="@+id/dialog_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="20dp"
+                android:fontFamily="@font/bmhanna_11yrs_ttf"
+                android:text="차단바가 열립니다"
+                android:textColor="@color/white"
+                android:textSize="30dp" />
+        </LinearLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:background="@drawable/color_sky_round"></Space>
+
+        <LinearLayout
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/color_sky_round"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/Cancel"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#00ff0000"
+                android:backgroundTint="@color/sky"
+                android:fontFamily="@font/bmhanna_11yrs_ttf"
+                android:text="취소"
+                android:textColor="@color/white"
+                android:textSize="20dp" />
+
+            <Button
+                android:id="@+id/Confirm"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#00ff0000"
+                android:backgroundTint="@color/sky"
+                android:fontFamily="@font/bmhanna_11yrs_ttf"
+                android:text="확인"
+                android:textColor="@color/white"
+                android:textSize="20dp" />
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>

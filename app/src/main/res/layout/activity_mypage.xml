@@ -10,6 +10,7 @@
         android:id="@+id/toolbar"
         layout="@layout/toolbar_main" />
 
+
     <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -27,11 +28,11 @@
                 android:layout_marginRight="20dp">
 
                 <TextView
-                    android:id="@+id/customerManage_title"
+                    android:id="@+id/mypage_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/bmhanna_11yrs_ttf"
-                    android:text="통계"
+                    android:text="마이페이지"
                     android:textAlignment="center"
                     android:textColor="#FFF"
                     android:textSize="23dp"

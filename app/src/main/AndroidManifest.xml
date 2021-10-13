@@ -21,19 +21,34 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"
-            android:windowSoftInputMode="stateAlwaysHidden" />
-        <activity android:name=".ManageCustomer"/>
+        <activity android:name=".MainActivity"/>
+
+        <activity android:name=".ManageCustomer"
+            android:parentActivityName=".MainActivity"/>
+
         <activity
             android:name=".Register"
+            android:parentActivityName=".ManageCustomer"
             android:windowSoftInputMode="adjustResize"/>
+      
         <activity
             android:name=".RegisterTime"
             android:windowSoftInputMode="adjustPan"/>
-        <activity android:name=".RegisterSubmit"/>
-        <activity android:name=".CarSearch"/>
-        <activity android:name=".Statistics">
+      
+        <activity android:name=".RegisterSubmit"
+            android:parentActivityName=".Register"/>
+
+        <activity android:name=".CarSearch"
+            android:parentActivityName=".MainActivity"/>
+
+        <activity android:name=".Statistics"
+            android:parentActivityName=".MainActivity"/>
+
+        <activity android:name=".Setting"
+            android:parentActivityName=".MainActivity"/>
+
+        <activity android:name=".MyPage"
+            android:parentActivityName=".MainActivity">
         </activity>
     </application>
-
 </manifest>
