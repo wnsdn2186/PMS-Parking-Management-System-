@@ -32,6 +32,7 @@ public class UserRegister extends AppCompatActivity {
     private Button register;
     private String uid, upw, uname, ubirth, uphone;
     private static String IP_ADDRESS = "13.59.85.177";
+    private static String temp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
