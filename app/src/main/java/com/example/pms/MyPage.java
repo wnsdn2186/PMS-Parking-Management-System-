@@ -48,11 +48,11 @@ public class MyPage extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
 
-        addItem(R.drawable.email, "이메일(아이디)", "pms@knu.ac.kr", R.drawable.color_gray_round);
-        addItem(R.drawable.padlock, "비밀번호", "12345678", R.drawable.color_gray_round);
-        addItem(R.drawable.calendar, "생년월일", "1997.11.11", R.drawable.color_gray_round);
-        addItem(R.drawable.phone, "번호", "010-1234-5678", R.drawable.color_gray_round);
-        addItem(R.drawable.registered, "가입일", "2021.10.11", R.drawable.color_white_round);
+        addItem(R.drawable.ic_email_24, "이메일(아이디)", "pms@knu.ac.kr", R.drawable.color_gray_round);
+        addItem(R.drawable.ic__key_24, "비밀번호", "12345678", R.drawable.color_gray_round);
+        addItem(R.drawable.ic_date_24, "생년월일", "1997.11.11", R.drawable.color_gray_round);
+        addItem(R.drawable.ic_phone_24, "번호", "010-1234-5678", R.drawable.color_gray_round);
+        addItem(R.drawable.ic_register_24, "가입일", "2021.10.11", R.drawable.color_white_round);
 
         recyclerView2 = findViewById(R.id.rcView2);
         mList2 = new ArrayList<>();
