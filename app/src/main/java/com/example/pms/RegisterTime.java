@@ -177,6 +177,7 @@ public class RegisterTime extends AppCompatActivity {
 
                                     startActivity(it);
                                     overridePendingTransition(R.anim.horizon_enter, R.anim.none);
+                                    finish();
                                 }
                             }
                         });
