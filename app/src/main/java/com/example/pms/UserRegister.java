@@ -2,6 +2,7 @@ package com.example.pms;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,10 +10,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -22,6 +25,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class UserRegister extends AppCompatActivity {
+    private TextView idT, passwordT, nameT, birthT, phoneT;
     private EditText id, password, name, birth, phone;
     private Button register;
     private String uid, upw, uname, ubirth, uphone;
@@ -38,11 +42,72 @@ public class UserRegister extends AppCompatActivity {
             public void onClick(View v) { finish(); }
         });
 
+        idT = (TextView)findViewById(R.id.idTv);
+        passwordT = (TextView)findViewById(R.id.pwTv);
+        nameT = (TextView)findViewById(R.id.nameTv);
+        birthT = (TextView)findViewById(R.id.birthTv);
+        phoneT = (TextView)findViewById(R.id.phoneTv);
+
         id = (EditText)findViewById(R.id.idField);
         password = (EditText)findViewById(R.id.pwField);
         name = (EditText)findViewById(R.id.nameField);
         birth = (EditText)findViewById(R.id.birthField);
         phone = (EditText)findViewById(R.id.phoneField);
+
+        id.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if (b) {
+                    idT.setTextColor(Color.parseColor("#64AFE1"));
+                } else {
+                    idT.setTextColor(Color.parseColor("#C0C0C0"));
+                }
+            }
+        });
+
+        password.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if (b) {
+                    passwordT.setTextColor(Color.parseColor("#64AFE1"));
+                } else {
+                    passwordT.setTextColor(Color.parseColor("#C0C0C0"));
+                }
+            }
+        });
+
+        name.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if (b) {
+                    nameT.setTextColor(Color.parseColor("#64AFE1"));
+                } else {
+                    nameT.setTextColor(Color.parseColor("#C0C0C0"));
+                }
+            }
+        });
+
+        birth.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if (b) {
+                    birthT.setTextColor(Color.parseColor("#64AFE1"));
+                } else {
+                    birthT.setTextColor(Color.parseColor("#C0C0C0"));
+                }
+            }
+        });
+
+        phone.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if (b) {
+                    phoneT.setTextColor(Color.parseColor("#64AFE1"));
+                } else {
+                    phoneT.setTextColor(Color.parseColor("#C0C0C0"));
+                }
+            }
+        });
 
         register = (Button) findViewById(R.id.user_register);
         register.setOnClickListener(new View.OnClickListener() {
@@ -55,7 +120,7 @@ public class UserRegister extends AppCompatActivity {
                 uphone = phone.getText().toString();
 
 
-                JsonParse jsonParse =new JsonParse();
+                UserRegister.JsonParse jsonParse =new UserRegister.JsonParse();
                 jsonParse.execute("http://192.168.25.17:80/user_register.php", uid, upw, uname, ubirth, uphone);
 
                 finish();
