@@ -28,7 +28,6 @@ public class MyPage extends AppCompatActivity {
     private MyPageAdapter2 adapter4 = null;
     ArrayList<MyPageItem2> mList4;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
