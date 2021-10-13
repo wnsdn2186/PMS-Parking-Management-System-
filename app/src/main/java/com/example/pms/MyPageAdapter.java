@@ -25,7 +25,7 @@ public class MyPageAdapter extends RecyclerView.Adapter<MyPageAdapter.MyViewHold
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(R.layout.mypge_item, parent, false);
+        View view = inflater.inflate(R.layout.mypage_item, parent, false);
         MyPageAdapter.MyViewHolder viewHolder = new MyPageAdapter.MyViewHolder(view);
 
         return viewHolder;

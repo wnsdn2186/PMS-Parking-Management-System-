@@ -33,10 +33,11 @@
       
         <activity
             android:name=".RegisterTime"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan"
+            android:parentActivityName=".Register"/>
       
         <activity android:name=".RegisterSubmit"
-            android:parentActivityName=".Register"/>
+            android:parentActivityName=".RegisterTime"/>
 
         <activity android:name=".CarSearch"
             android:parentActivityName=".MainActivity"/>

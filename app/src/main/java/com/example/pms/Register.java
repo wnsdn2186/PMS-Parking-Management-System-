@@ -142,7 +142,6 @@ public class Register extends AppCompatActivity {
                                     it.putExtra("car", cnum);
                                     startActivity(it);
                                     overridePendingTransition(R.anim.horizon_enter, R.anim.none);
-                                    finish();
                                 }
                             }
                         });
