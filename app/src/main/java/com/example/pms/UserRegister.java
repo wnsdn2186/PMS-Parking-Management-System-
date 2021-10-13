@@ -39,7 +39,6 @@ public class UserRegister extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_register);
 
-        //getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         ImageButton backbtn = (ImageButton) findViewById(R.id.BackBtn);
         backbtn.setOnClickListener(new View.OnClickListener() {
             @Override
