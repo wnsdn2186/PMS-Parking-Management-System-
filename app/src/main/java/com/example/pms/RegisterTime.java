@@ -90,38 +90,6 @@ public class RegisterTime extends AppCompatActivity {
             }
         });
 
-        etime1 = (EditText) findViewById(R.id.etimeField1);
-        etT = (TextView) findViewById(R.id.etimeTv);
-
-        etime1.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean b) {
-                if (b) {
-                    etT.setText("시간을 입력해 주세요(24H 형식)");
-                    etT.setTextColor(Color.parseColor("#64AFE1"));
-                } else {
-                    etT.setText("시간");
-                    etT.setTextColor(Color.parseColor("#C0C0C0"));
-                }
-            }
-        });
-
-        etime2 = (EditText) findViewById(R.id.etimeField2);
-        etT = (TextView) findViewById(R.id.etimeTv);
-
-        etime2.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean b) {
-                if (b) {
-                    etT.setText("시간을 입력해 주세요(24H 형식)");
-                    etT.setTextColor(Color.parseColor("#64AFE1"));
-                } else {
-                    etT.setText("시간");
-                    etT.setTextColor(Color.parseColor("#C0C0C0"));
-                }
-            }
-        });
-
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -161,29 +129,9 @@ public class RegisterTime extends AppCompatActivity {
                         edate.requestFocus();
                         return;
                     } else {
-                        etime1.requestFocus();
                         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
-                    }
-                } else if (etime1.hasFocus()) {
-                    if (etime1.length() == 0 ) {
-                        Toast.makeText(getApplicationContext(), "시간을 입력하세요!", Toast.LENGTH_LONG).show();
-                        etime1.requestFocus();
-                        return;
-                    } else {
-                        etime2.requestFocus();
-                        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
-                    }
-                } else if (etime2.hasFocus()) {
-                    if (etime2.length() == 0 ) {
-                        Toast.makeText(getApplicationContext(), "시간을 입력하세요!", Toast.LENGTH_LONG).show();
-                        etime2.requestFocus();
-                        return;
-                    } else {
-                        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                        imm.hideSoftInputFromWindow(etime2.getWindowToken(), 0);
-                        etime2.clearFocus();
+                        imm.hideSoftInputFromWindow(edate.getWindowToken(), 0);
+                        edate.clearFocus();
                         btn.setText("다음 단계");
                         btn.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -200,12 +148,6 @@ public class RegisterTime extends AppCompatActivity {
                                 } else if (edate.length() == 0 ) {
                                     Toast.makeText(getApplicationContext(), "날짜를 입력하세요!", Toast.LENGTH_LONG).show();
                                     edate.requestFocus();
-                                } else if (etime1.length() == 0 ) {
-                                    Toast.makeText(getApplicationContext(), "시간을 입력하세요!", Toast.LENGTH_LONG).show();
-                                    etime1.requestFocus();
-                                } else if (etime2.length() == 0 ) {
-                                    Toast.makeText(getApplicationContext(), "시간을 입력하세요!", Toast.LENGTH_LONG).show();
-                                    etime2.requestFocus();
                                 } else {
                                     String cname = getIntent().getStringExtra("name");
                                     String pnum = getIntent().getStringExtra("phone");
@@ -214,8 +156,6 @@ public class RegisterTime extends AppCompatActivity {
                                     String start_time1 = stime1.getText().toString();
                                     String start_time2 = stime2.getText().toString();
                                     String end_date = edate.getText().toString();
-                                    String end_time1 = etime1.getText().toString();
-                                    String end_time2 = etime2.getText().toString();
 
                                     Intent it = new Intent(RegisterTime.this, RegisterSubmit.class);
                                     it.putExtra("name", cname);
@@ -225,8 +165,6 @@ public class RegisterTime extends AppCompatActivity {
                                     it.putExtra("stime1", start_time1);
                                     it.putExtra("stime2", start_time2);
                                     it.putExtra("edate", end_date);
-                                    it.putExtra("etime1", end_time1);
-                                    it.putExtra("etime2", end_time2);
 
                                     startActivity(it);
                                     overridePendingTransition(R.anim.horizon_enter, R.anim.none);
@@ -234,7 +172,6 @@ public class RegisterTime extends AppCompatActivity {
                                 }
                             }
                         });
-
                     }
                 }
             }
