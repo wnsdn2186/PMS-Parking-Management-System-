@@ -160,11 +160,6 @@ public class UserRegister extends AppCompatActivity {
             String uphone = (String)strings[5];
 
             String selectData = "uid=" + uid + "&upw=" + upw + "&uname=" + uname + "&ubirth=" + ubirth + "&uphone=" + uphone;
-            Log.d("udata1", uid);
-            Log.d("udata2", upw);
-            Log.d("udata3", uname);
-            Log.d("udata4", ubirth);
-            Log.d("udata5", uphone);
 
             try {
                 URL serverURL = new URL(url);
