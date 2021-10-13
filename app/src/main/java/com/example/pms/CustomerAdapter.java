@@ -33,7 +33,7 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.Custom
             this.idx = (TextView) view.findViewById(R.id.cusIdx);
             this.name = (TextView) view.findViewById(R.id.cusName);
             this.cnum = (TextView) view.findViewById(R.id.cusCnum);
-            this.rdate = (TextView) view.findViewById(R.id.cusSdate);
+            //this.rdate = (TextView) view.findViewById(R.id.cusSdate);
         }
     }
 
@@ -49,7 +49,7 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.Custom
         viewholder.idx.setText(String.valueOf(position + 1));
         viewholder.name.setText(cList.get(position).getName());
         viewholder.cnum.setText(cList.get(position).getCnum());
-        viewholder.rdate.setText(cList.get(position).getRdate());
+//        viewholder.rdate.setText(cList.get(position).getRdate());
     }
 
     @Override
