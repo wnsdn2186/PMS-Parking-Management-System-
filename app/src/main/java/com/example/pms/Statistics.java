@@ -1,5 +1,6 @@
 package com.example.pms;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -13,9 +14,14 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.github.mikephil.charting.utils.ViewPortHandler;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Statistics  extends AppCompatActivity {
     private Toolbar toolbar;
@@ -53,12 +59,12 @@ public class Statistics  extends AppCompatActivity {
         timelabelList.add("18시");timelabelList.add("19시");timelabelList.add("20시");timelabelList.add("21시");timelabelList.add("22시");timelabelList.add("23시"); // 시간
 
         // 임시값
-        dayjsonList.add(10);
-        dayjsonList.add(50);
-        dayjsonList.add(30);
-        dayjsonList.add(20);
-        dayjsonList.add(40);
-        dayjsonList.add(40);
+        dayjsonList.add(110);
+        dayjsonList.add(550);
+        dayjsonList.add(260);
+        dayjsonList.add(340);
+        dayjsonList.add(420);
+        dayjsonList.add(480);
         dayjsonList.add(80);
 
         // 임시값
@@ -71,11 +77,15 @@ public class Statistics  extends AppCompatActivity {
         TimeBarChartGraph(timelabelList, timejsonList);
         daychart.setTouchEnabled(false); // 터치불가 --> 추후 변경
 
-        daychart.getAxisRight().setAxisMaxValue(100); // 최대값(add의 최대값 + 20정도로 하기)
-        daychart.getAxisLeft().setAxisMaxValue(100);
+        daychart.getAxisRight().setAxisMaxValue(700); // 최대값(add의 최대값 + 20정도로 하기)
+        daychart.getAxisLeft().setAxisMaxValue(700);
+        daychart.getAxisRight().setAxisMinValue(0); // 최대값(add의 최대값 + 20정도로 하기)
+        daychart.getAxisLeft().setAxisMinValue(0);
 
         timechart.getAxisRight().setAxisMaxValue(100); // 최대값(add의 최대값 + 20정도로 하기)
         timechart.getAxisLeft().setAxisMaxValue(100);
+        timechart.getAxisRight().setAxisMinValue(0); // 최대값(add의 최대값 + 20정도로 하기)
+        timechart.getAxisLeft().setAxisMinValue(0);
     }
 
     private void DayBarChartGraph(ArrayList<String> labelList, ArrayList<Integer> valList) {
@@ -95,13 +105,14 @@ public class Statistics  extends AppCompatActivity {
         }
 
         //그래프 디자인
-        depenses.setColors(ColorTemplate.LIBERTY_COLORS); // 컬러 팔레트
+        depenses.setColors(Collections.singletonList(Color.rgb(0, 102, 255))); // 컬러 팔레트
         daychart.setVisibleXRangeMaximum(7f); // 갯수표시
         xAxisday.setPosition(XAxis.XAxisPosition.BOTTOM); // 요일 표시 하단
         xAxisday.setDrawGridLines(false); // 세로선 삭제
         //barChart.getAxisLeft().setEnabled(false); // 왼쪽 수치 표시x
 
         BarData data = new BarData(labels, depenses);
+        data.setValueFormatter(new MyValueFormatter());
 
         daychart.setData(data);
         daychart.animateXY(1000, 1000);
@@ -125,19 +136,33 @@ public class Statistics  extends AppCompatActivity {
         }
 
         //그래프 디자인
-        depenses.setColors(ColorTemplate.LIBERTY_COLORS);
+        depenses.setColors(Collections.singletonList(Color.rgb(77, 148, 255)));
         timechart.setVisibleXRangeMaximum(24f);
         xAxistime.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxistime.setDrawGridLines(false);
         //timechart.getAxisLeft().setEnabled(false);
 
         BarData data = new BarData(labels, depenses);
+        data.setValueFormatter(new MyValueFormatter());
 
         timechart.setData(data);
         timechart.animateXY(1000, 1000);
         timechart.invalidate();
     }
 
+    public class MyValueFormatter implements ValueFormatter {
+
+        private DecimalFormat mFormat;
+
+        public MyValueFormatter() {
+            mFormat = new DecimalFormat("#"); // use one decimal
+        }
+
+        @Override
+        public String getFormattedValue(float value, Entry entry, int dataSetIndex, ViewPortHandler viewPortHandler) {
+            return mFormat.format(value);
+        }
+    }
     public boolean onCreateOptionsMenu(Menu menu) {
 
         MenuInflater menuInflater = getMenuInflater();
@@ -148,12 +173,11 @@ public class Statistics  extends AppCompatActivity {
 
 /*
 1. 일간, 시간 데이터 가져오기
-2. 컬러 변경
+2. 컬러 변경 - 단색에서 다색으로
 3. 일간, 시간 데이터 현재를 제일 우측 표시
 4. 현재 기준으로 필요 수 만큼 가져오기
 5. 소수점 제거
 6. 터치 기능 수정
-7. 10이하 표기 시 0아래 뜨는 현상 수정
  + 디자인
 */
 
