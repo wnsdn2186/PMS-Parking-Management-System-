@@ -65,10 +65,11 @@ public class ManageCustomer extends AppCompatActivity {
 
         cust = new ArrayList<>();
         cAdapter = new CustomerAdapter(this, cust);
+
+        cAdapter.notifyDataSetChanged();
         rc.setAdapter(cAdapter);
 
         cust.clear();
-        cAdapter.notifyDataSetChanged();
 
         GetData task = new GetData();
         task.execute("http://" + IP_ADDRESS + "/list.php", "");
