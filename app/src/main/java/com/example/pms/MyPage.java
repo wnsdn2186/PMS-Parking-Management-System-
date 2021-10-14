@@ -1,8 +1,11 @@
 package com.example.pms;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -28,6 +31,8 @@ public class MyPage extends AppCompatActivity {
     private MyPageAdapter2 adapter4 = null;
     ArrayList<MyPageItem2> mList4;
 
+    CustomDialog customDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,10 +53,10 @@ public class MyPage extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
 
-        addItem(R.drawable.ic_email_24, "이메일(아이디)", "pms@knu.ac.kr", R.drawable.color_gray_round);
-        addItem(R.drawable.ic__key_24, "비밀번호", "12345678", R.drawable.color_gray_round);
-        addItem(R.drawable.ic_date_24, "생년월일", "1997.11.11", R.drawable.color_gray_round);
-        addItem(R.drawable.ic_phone_24, "번호", "010-1234-5678", R.drawable.color_gray_round);
+        addItem(R.drawable.ic_email_24, "이메일(아이디)", "pms@knu.ac.kr", R.drawable.color_grey_round);
+        addItem(R.drawable.ic__key_24, "비밀번호", "12345678", R.drawable.color_grey_round);
+        addItem(R.drawable.ic_date_24, "생년월일", "1997.11.11", R.drawable.color_grey_round);
+        addItem(R.drawable.ic_phone_24, "번호", "010-1234-5678", R.drawable.color_grey_round);
         addItem(R.drawable.ic_register_24, "가입일", "2021.10.11", R.drawable.color_white_round);
 
         recyclerView2 = findViewById(R.id.rcView2);
@@ -61,7 +66,7 @@ public class MyPage extends AppCompatActivity {
         recyclerView2.setAdapter(adapter2);
         recyclerView2.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
 
-        addItem2(R.drawable.ic_forward_36, "회원정보 수정", R.drawable.color_gray_round, mList2);
+        addItem2(R.drawable.ic_forward_36, "회원정보 수정", R.drawable.color_grey_round, mList2);
         addItem2(R.drawable.ic_forward_36, "회원 탈퇴", R.drawable.color_white_round, mList2);
 
         recyclerView3 = findViewById(R.id.rcView3);
@@ -71,7 +76,7 @@ public class MyPage extends AppCompatActivity {
         recyclerView3.setAdapter(adapter3);
         recyclerView3.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
 
-        addItem2(R.drawable.ic_forward_36, "공지사항", R.drawable.color_gray_round, mList3);
+        addItem2(R.drawable.ic_forward_36, "공지사항", R.drawable.color_grey_round, mList3);
         addItem2(R.drawable.ic_forward_36, "고객센터", R.drawable.color_white_round, mList3);
 
         recyclerView4 = findViewById(R.id.rcView4);
@@ -81,14 +86,51 @@ public class MyPage extends AppCompatActivity {
         recyclerView4.setAdapter(adapter4);
         recyclerView4.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
 
-        addItem2(R.drawable.ic_forward_36, "서비스 이용약관", R.drawable.color_gray_round, mList4);
+        addItem2(R.drawable.ic_forward_36, "서비스 이용약관", R.drawable.color_grey_round, mList4);
         addItem2(R.drawable.ic_forward_36, "개인정보 처리방침", R.drawable.color_white_round, mList4);
 
 
         adapter.notifyDataSetChanged();
+
         adapter2.notifyDataSetChanged();
+        adapter2.setOnItemClickListener(new OnMyPageItemClickListener() {
+            @Override
+            public void onItemClick(MyPageAdapter2.MyViewHolder2 holder, View view, int position) {
+                switch (position){
+                    case 0:
+                        Intent intent = new Intent(MyPage.this, EditAccount.class);
+                        startActivity(intent);
+                        overridePendingTransition(R.anim.horizon_enter, R.anim.none);
+                        Log.d("위치", String.valueOf(position));
+                        break;
+
+                    case 1:
+                        customDialog = new CustomDialog(MyPage.this, Confirm, Cancel, "정말 탈퇴하시겠습니까?");
+                        customDialog.show();
+                        Log.d("위치", String.valueOf(position));
+                        break;
+
+                }
+            }
+        });
+
         adapter3.notifyDataSetChanged();
+        adapter3.setOnItemClickListener(new OnMyPageItemClickListener() {
+            @Override
+            public void onItemClick(MyPageAdapter2.MyViewHolder2 holder, View view, int position) {
+                MyPageItem2 myPageItem2 = adapter3.getItem(position);
+                Toast.makeText(getApplicationContext(), myPageItem2.getSubTitle(), Toast.LENGTH_LONG).show();
+            }
+        });
+
         adapter4.notifyDataSetChanged();
+        adapter4.setOnItemClickListener(new OnMyPageItemClickListener() {
+            @Override
+            public void onItemClick(MyPageAdapter2.MyViewHolder2 holder, View view, int position) {
+                MyPageItem2 myPageItem2 = adapter4.getItem(position);
+                Toast.makeText(getApplicationContext(), myPageItem2.getSubTitle(), Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     private void addItem(int imgResource, String info_title, String info, int divColor){
@@ -111,4 +153,18 @@ public class MyPage extends AppCompatActivity {
 
         list.add(item2);
     }
+
+    private View.OnClickListener Confirm = new View.OnClickListener() {
+        public void onClick(View v) {
+            Toast.makeText(getApplicationContext(), "확인", Toast.LENGTH_LONG).show();
+            customDialog.dismiss();
+        }
+    };
+
+    private View.OnClickListener Cancel = new View.OnClickListener() {
+        public void onClick(View v) {
+            Toast.makeText(getApplicationContext(), "취소", Toast.LENGTH_LONG).show();
+            customDialog.dismiss();
+        }
+    };
 }
