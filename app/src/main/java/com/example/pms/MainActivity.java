@@ -2,6 +2,7 @@ package com.example.pms;
 
 import android.app.Notification;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -75,11 +76,16 @@ public class MainActivity extends AppCompatActivity {
     private CardView register, search, barrier, analytics, mypage, setting;
     private Switch barrierSwitch;
     CustomDialog customDialog;
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        sharedPreferences = getSharedPreferences("SwitchStatus",MODE_PRIVATE);
+        Status = sharedPreferences.getInt("SwitchStatus", 0);
 
         register = (CardView) findViewById(R.id.register_card);
         search = (CardView) findViewById(R.id.search_card);
@@ -112,6 +118,12 @@ public class MainActivity extends AppCompatActivity {
                 overridePendingTransition(R.anim.horizon_enter, R.anim.none);
             }
         });
+
+        //스위치 상태저장
+        if(Status == 0)
+            barrierSwitch.setChecked(false);
+        else
+            barrierSwitch.setChecked(true);
 
         barrierSwitch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -186,6 +198,8 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void run() {
             try {
+                editor = sharedPreferences.edit();
+
                 Socket socket = new Socket(IP, PORT); // 소켓 열어주기
                 OutputStream outstream = socket.getOutputStream(); //소켓의 출력 스트림 참조
                 outstream.write(DATA); // 출력 스트림에 데이터 넣기
@@ -203,6 +217,8 @@ public class MainActivity extends AppCompatActivity {
                             if (java.util.Arrays.equals(SEND_MESSAGE, BAR_ON) == true) {
                                 if (java.util.Arrays.equals(RECV_MESSAGE, BAR_RESULT_ON) == true) {
                                     Status = 1;
+                                    editor.putInt("SwitchStatus", Status);
+                                    editor.apply();
                                     Toast.makeText(MainActivity.this, "차단기가 열렸습니다.", Toast.LENGTH_LONG).show();
                                 } else if (java.util.Arrays.equals(RECV_MESSAGE, BAR_RESULT_OFF) == true) {
                                     Toast.makeText(MainActivity.this, "차단기가 열리지 않습니다.", Toast.LENGTH_LONG).show();
@@ -214,6 +230,8 @@ public class MainActivity extends AppCompatActivity {
                             } else if (java.util.Arrays.equals(SEND_MESSAGE, BAR_OFF) == true) {
                                 if (java.util.Arrays.equals(RECV_MESSAGE, BAR_RESULT_ON) == true) {
                                     Status = 0;
+                                    editor.putInt("SwitchStatus", Status);
+                                    editor.apply();
                                     Toast.makeText(MainActivity.this, "차단기가 닫혔습니다.", Toast.LENGTH_LONG).show();
                                 } else if (java.util.Arrays.equals(RECV_MESSAGE, BAR_RESULT_OFF) == true) {
                                     Toast.makeText(MainActivity.this, "차단기가 닫히지 않습니다.", Toast.LENGTH_LONG).show();

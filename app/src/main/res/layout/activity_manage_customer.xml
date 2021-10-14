@@ -45,7 +45,7 @@
                     android:layout_marginTop="60dp"
                     android:layout_marginEnd="15dp"
                     android:layout_marginBottom="10dp"
-                    android:background="@drawable/rectangle"
+                    android:background="@drawable/color_lightgrey_round"
                     android:orientation="horizontal">
 
                     <EditText
@@ -54,7 +54,7 @@
                         android:layout_height="40dp"
                         android:layout_weight="1"
                         android:layout_below="@id/customerManage_title"
-                        android:background="@drawable/rectangle"
+                        android:background="@drawable/color_lightgrey_round"
                         android:hint="차량번호 4자리를 입력하세요."
                         android:imeOptions="actionSearch"
                         android:inputType="number"

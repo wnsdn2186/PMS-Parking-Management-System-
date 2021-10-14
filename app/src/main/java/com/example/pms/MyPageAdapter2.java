@@ -13,8 +13,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyPageAdapter2 extends RecyclerView.Adapter<MyPageAdapter2.MyViewHolder2> {
+public class MyPageAdapter2 extends RecyclerView.Adapter<MyPageAdapter2.MyViewHolder2> implements OnMyPageItemClickListener{
     private List<MyPageItem2> items = null;
+    OnMyPageItemClickListener listener;
 
     public MyPageAdapter2(ArrayList<MyPageItem2> item) {
         items = item;
@@ -26,7 +27,7 @@ public class MyPageAdapter2 extends RecyclerView.Adapter<MyPageAdapter2.MyViewHo
         Context context = parent.getContext();
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.mypage_item2, parent, false);
-        MyViewHolder2 viewHolder = new MyViewHolder2(view);
+        MyViewHolder2 viewHolder = new MyViewHolder2(view, this);
 
         return viewHolder;
     }
@@ -45,17 +46,43 @@ public class MyPageAdapter2 extends RecyclerView.Adapter<MyPageAdapter2.MyViewHo
         return items.size();
     }
 
+    public void setOnItemClickListener(OnMyPageItemClickListener listener) {
+        this.listener = listener;
+    }
+
+    @Override public void onItemClick(MyViewHolder2 holder, View view, int position) {
+        if(listener != null){
+            listener.onItemClick(holder,view,position);
+        }
+    }
+
+
+
     public static class MyViewHolder2 extends RecyclerView.ViewHolder {
         private ImageView SubIcon;
         private TextView SubTitle;
         private ImageView SubDivLine;
 
-        MyViewHolder2(@NonNull View itemView) {
+        public MyViewHolder2(@NonNull View itemView, final OnMyPageItemClickListener listener) {
             super(itemView);
 
             SubIcon = itemView.findViewById(R.id.mypage_sub_icon);
             SubTitle = itemView.findViewById(R.id.mypage_sub_title);
             SubDivLine = itemView.findViewById(R.id.sub_divline);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    if(listener != null){
+                        listener.onItemClick(MyViewHolder2.this, v, position);
+                    }
+                }
+            });
         }
+    }
+
+    public MyPageItem2 getItem(int position){
+        return items.get(position);
     }
 }

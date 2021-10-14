@@ -56,6 +56,11 @@
         <activity
             android:name=".MyPage"
             android:parentActivityName=".MainActivity" />
+
+        <activity
+            android:name=".EditAccount"
+            android:parentActivityName=".MyPage">
+        </activity>
     </application>
 
 </manifest>
