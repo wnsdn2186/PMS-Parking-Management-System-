@@ -40,7 +40,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/txtdashboard"
                 android:fontFamily="@font/bmhanna_11yrs_ttf"
-                android:text="OOO 님"
+                android:text="관리자 님"
                 android:textColor="#FFF"
                 android:textSize="20dp"></TextView>
 

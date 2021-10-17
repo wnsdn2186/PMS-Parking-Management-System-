@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -54,6 +55,7 @@ public class ManageCustomer extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
+                overridePendingTransition(R.anim.none, R.anim.horizon_exit);
             }
         });
 
@@ -61,6 +63,7 @@ public class ManageCustomer extends AppCompatActivity {
         et.setText("");
 
         rc = (RecyclerView) findViewById(R.id.listView_main_list);
+        rc.addItemDecoration(new DividerItemDecoration(getApplicationContext(), DividerItemDecoration.VERTICAL));
         rc.setLayoutManager(new LinearLayoutManager(this));
 
         cust = new ArrayList<>();

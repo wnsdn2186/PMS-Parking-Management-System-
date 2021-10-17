@@ -12,6 +12,7 @@
         android:layout_width="40dp"
         android:layout_height="match_parent"
         android:layout_marginLeft="10dp"
+        android:fontFamily="@font/font"
         android:padding="2dp" />
 
     <TextView
@@ -19,6 +20,7 @@
         android:layout_width="100dp"
         android:layout_height="match_parent"
         android:layout_marginLeft="10dp"
+        android:fontFamily="@font/font"
         android:padding="2dp" />
 
 
@@ -27,6 +29,7 @@
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
+        android:fontFamily="@font/font"
         android:padding="2dp" />
 
     <View

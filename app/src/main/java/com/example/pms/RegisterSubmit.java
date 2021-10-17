@@ -43,6 +43,7 @@ public class RegisterSubmit extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
+                overridePendingTransition(R.anim.none, R.anim.horizon_exit);
             }
         });
 
@@ -193,5 +194,6 @@ public class RegisterSubmit extends AppCompatActivity {
         startActivity(back);
         overridePendingTransition(R.anim.horizon_enter, R.anim.none);
         finish();
+        overridePendingTransition(R.anim.none, R.anim.horizon_exit);
     }
 }
