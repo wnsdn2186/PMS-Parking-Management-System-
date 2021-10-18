@@ -42,7 +42,9 @@ public class UserRegister extends AppCompatActivity {
         ImageButton backbtn = (ImageButton) findViewById(R.id.BackBtn);
         backbtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) { finish(); }
+            public void onClick(View v) {
+                finish();
+                overridePendingTransition(R.anim.none, R.anim.horizon_exit);}
         });
 
         idT = (TextView)findViewById(R.id.idTv);

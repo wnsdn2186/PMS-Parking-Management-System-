@@ -43,6 +43,7 @@ public class MyPage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
+                overridePendingTransition(R.anim.none, R.anim.horizon_exit);
             }
         });
 
@@ -53,11 +54,11 @@ public class MyPage extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
 
-        addItem(R.drawable.ic_email_24, "이메일(아이디)", "pms@knu.ac.kr", R.drawable.color_grey_round);
-        addItem(R.drawable.ic__key_24, "비밀번호", "12345678", R.drawable.color_grey_round);
+        addItem(R.drawable.ic_email_24, "이메일(아이디)", "admin@knu.ac.kr", R.drawable.color_grey_round);
+        addItem(R.drawable.ic__key_24, "비밀번호", "admin", R.drawable.color_grey_round);
         addItem(R.drawable.ic_date_24, "생년월일", "1997.11.11", R.drawable.color_grey_round);
         addItem(R.drawable.ic_phone_24, "번호", "010-1234-5678", R.drawable.color_grey_round);
-        addItem(R.drawable.ic_register_24, "가입일", "2021.10.11", R.drawable.color_white_round);
+        addItem(R.drawable.ic_register_24, "가입일", "2021.10.16", R.drawable.color_white_round);
 
         recyclerView2 = findViewById(R.id.rcView2);
         mList2 = new ArrayList<>();
@@ -66,6 +67,7 @@ public class MyPage extends AppCompatActivity {
         recyclerView2.setAdapter(adapter2);
         recyclerView2.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
 
+        addItem2(R.drawable.ic_forward_36, "로그아웃", R.drawable.color_grey_round, mList2);
         addItem2(R.drawable.ic_forward_36, "회원정보 수정", R.drawable.color_grey_round, mList2);
         addItem2(R.drawable.ic_forward_36, "회원 탈퇴", R.drawable.color_white_round, mList2);
 
@@ -98,16 +100,19 @@ public class MyPage extends AppCompatActivity {
             public void onItemClick(MyPageAdapter2.MyViewHolder2 holder, View view, int position) {
                 switch (position){
                     case 0:
-                        Intent intent = new Intent(MyPage.this, EditAccount.class);
-                        startActivity(intent);
-                        overridePendingTransition(R.anim.horizon_enter, R.anim.none);
-                        Log.d("위치", String.valueOf(position));
+                        customDialog = new CustomDialog(MyPage.this, Confirm, Cancel, "로그아웃 하시겠습니까?");
+                        customDialog.show();
                         break;
 
                     case 1:
+                        Intent intent = new Intent(MyPage.this, EditAccount.class);
+                        startActivity(intent);
+                        overridePendingTransition(R.anim.horizon_enter, R.anim.none);
+                        break;
+
+                    case 2:
                         customDialog = new CustomDialog(MyPage.this, Confirm, Cancel, "정말 탈퇴하시겠습니까?");
                         customDialog.show();
-                        Log.d("위치", String.valueOf(position));
                         break;
 
                 }

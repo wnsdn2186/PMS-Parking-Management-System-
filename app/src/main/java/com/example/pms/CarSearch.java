@@ -25,6 +25,7 @@ public class CarSearch extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
+                overridePendingTransition(R.anim.none, R.anim.horizon_exit);
             }
         });
     }

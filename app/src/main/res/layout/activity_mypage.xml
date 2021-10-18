@@ -64,7 +64,7 @@
                     android:layout_weight="1"
                     android:fontFamily="@font/bmhanna_11yrs_ttf"
                     android:gravity="center|left"
-                    android:text=" OOO 님"
+                    android:text=" 관리자 님"
                     android:textColor="@color/white"
                     android:textSize="20dp"></TextView>
             </LinearLayout>
