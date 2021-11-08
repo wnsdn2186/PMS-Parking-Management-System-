@@ -25,14 +25,19 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class UserRegister extends AppCompatActivity {
-    private TextView idT, passwordT, nameT, birthT, phoneT;
-    private EditText id, password, name, birth, phone;
+    private TextView idT, passwordT, nameT, birthT, phoneT, dateT;
+    private EditText id, password, name, birth, phone, date;
     private Button register;
     private String uid, upw, uname, ubirth, uphone;
     private static String IP_ADDRESS = "13.59.85.177";
     private static String temp;
+    long mNow;
+    Date mDate;
+    SimpleDateFormat mFormat = new SimpleDateFormat("yyyy-MM-dd");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,12 +57,14 @@ public class UserRegister extends AppCompatActivity {
         nameT = (TextView)findViewById(R.id.nameTv);
         birthT = (TextView)findViewById(R.id.birthTv);
         phoneT = (TextView)findViewById(R.id.phoneTv);
+        dateT = (TextView)findViewById(R.id.dateTv);
 
         id = (EditText)findViewById(R.id.idField);
         password = (EditText)findViewById(R.id.pwField);
         name = (EditText)findViewById(R.id.nameField);
         birth = (EditText)findViewById(R.id.birthField);
         phone = (EditText)findViewById(R.id.phoneField);
+        date = (EditText)findViewById(R.id.dateField);
 
         id.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -113,6 +120,11 @@ public class UserRegister extends AppCompatActivity {
                 }
             }
         });
+
+        //+가입일
+        mNow = System.currentTimeMillis();
+        mDate = new Date(mNow);
+        date.setText(mFormat.format(mDate));
 
         register = (Button) findViewById(R.id.user_register);
         register.setOnClickListener(new View.OnClickListener() {
@@ -221,6 +233,12 @@ public class UserRegister extends AppCompatActivity {
         @Override
         protected void onProgressUpdate(Void... values) {
             super.onProgressUpdate(values);
+        }
+
+        private String getTime(){
+            mNow = System.currentTimeMillis();
+            mDate = new Date(mNow);
+            return mFormat.format(mDate);
         }
     }
 }

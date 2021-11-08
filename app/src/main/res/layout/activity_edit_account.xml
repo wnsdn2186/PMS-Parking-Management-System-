@@ -36,11 +36,202 @@
                     android:textColor="#FFF"
                     android:textSize="23dp"
                     android:textStyle="bold" />
-
             </RelativeLayout>
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginRight="20dp">
+
+                    <TextView
+                        android:id="@+id/edit_tv2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="30dp"
+                        android:fontFamily="@font/font"
+                        android:text="회원정보 수정"
+                        android:textColor="@color/black"
+                        android:textSize="40dp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/edit_idTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/edit_tv2"
+                        android:layout_marginTop="50dp"
+                        android:fontFamily="@font/font"
+                        android:text="아이디"
+                        android:textColor="@color/grey"
+                        android:textSize="20dp" />
+
+                    <EditText
+                        android:id="@+id/edit_idField"
+                        android:layout_width="300dp"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/edit_idTv"
+                        android:layout_marginTop="12dp"
+                        android:backgroundTint="@color/grey"
+                        android:enabled="false"
+                        android:fontFamily="@font/font"
+                        android:singleLine="true"
+                        android:textSize="20dp" />
+
+                    <TextView
+                        android:id="@+id/edit_pwTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/edit_idField"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/font"
+                        android:text="비밀번호"
+                        android:textColor="@color/grey"
+                        android:textSize="20dp" />
+
+                    <EditText
+                        android:id="@+id/edit_pwField"
+                        android:layout_width="300dp"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/edit_pwTv"
+                        android:layout_marginTop="12dp"
+                        android:backgroundTint="@color/grey"
+                        android:ems="10"
+                        android:fontFamily="@font/font"
+                        android:inputType="textPassword"
+                        android:singleLine="true"
+                        android:textSize="20dp" />
+
+                    <TextView
+                        android:id="@+id/edit_nameTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/edit_pwField"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/font"
+                        android:text="이름"
+                        android:textColor="@color/grey"
+                        android:textSize="20dp" />
+
+                    <EditText
+                        android:id="@+id/edit_nameField"
+                        android:layout_width="300dp"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/edit_nameTv"
+                        android:layout_marginTop="12dp"
+                        android:backgroundTint="@color/grey"
+                        android:fontFamily="@font/font"
+                        android:singleLine="true"
+                        android:textSize="20dp" />
+
+                    <TextView
+                        android:id="@+id/edit_birthTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/edit_nameField"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/font"
+                        android:text="생일 (생년월일 6자리)"
+                        android:textColor="@color/grey"
+                        android:textSize="20dp" />
+
+                    <EditText
+                        android:id="@+id/edit_birthField"
+                        android:layout_width="300dp"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/edit_birthTv"
+                        android:layout_marginTop="12dp"
+                        android:backgroundTint="@color/grey"
+                        android:ems="10"
+                        android:enabled="false"
+                        android:fontFamily="@font/font"
+                        android:inputType="date"
+                        android:singleLine="true"
+                        android:textSize="20dp" />
+
+                    <TextView
+                        android:id="@+id/edit_phoneTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/edit_birthField"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/font"
+                        android:text="휴대폰 번호 (-없이)"
+                        android:textColor="@color/grey"
+                        android:textSize="20dp" />
+
+                    <EditText
+                        android:id="@+id/edit_phoneField"
+                        android:layout_width="300dp"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/edit_phoneTv"
+                        android:layout_marginTop="12dp"
+                        android:backgroundTint="@color/grey"
+                        android:digits="0123456789"
+                        android:fontFamily="@font/font"
+                        android:inputType="number"
+                        android:maxLength="11"
+                        android:singleLine="true"
+                        android:textSize="20dp" />
+
+                    <TextView
+                        android:id="@+id/edit_dateTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/edit_phoneField"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/font"
+                        android:text="가입일"
+                        android:textColor="@color/grey"
+                        android:textSize="20dp" />
+
+                    <EditText
+                        android:id="@+id/edit_dateField"
+                        android:layout_width="300dp"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/edit_dateTv"
+                        android:layout_marginTop="12dp"
+                        android:backgroundTint="@color/grey"
+                        android:enabled="false"
+                        android:fontFamily="@font/font"
+                        android:maxLength="11"
+                        android:singleLine="true"
+                        android:textSize="20dp" />
+                </RelativeLayout>
+            </ScrollView>
+
 
         </LinearLayout>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_weight="1">
+
+        <Button
+            android:id="@+id/edit_user_register"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="-5dip"
+            android:layout_marginRight="-5dip"
+            android:layout_marginBottom="-5dip"
+            android:backgroundTint="@color/sky"
+            android:fontFamily="@font/bmhanna_11yrs_ttf"
+            android:padding="0dp"
+            android:text="수정 완료"
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

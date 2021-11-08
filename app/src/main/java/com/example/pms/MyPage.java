@@ -161,7 +161,9 @@ public class MyPage extends AppCompatActivity {
 
     private View.OnClickListener Confirm = new View.OnClickListener() {
         public void onClick(View v) {
-            Toast.makeText(getApplicationContext(), "확인", Toast.LENGTH_LONG).show();
+            Intent logout_intent = new Intent(MyPage.this, Login.class);
+            logout_intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(logout_intent);
             customDialog.dismiss();
         }
     };
