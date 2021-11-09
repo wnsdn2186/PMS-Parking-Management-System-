@@ -20,7 +20,7 @@ This app is designed to easily manage parking lots.
 - MariaDB
 
 ## Application Version
-- minSdkVersion : 30
+- minSdkVersion : 26
 - targetSdkVersion : 30
 
 
