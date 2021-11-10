@@ -1,6 +1,7 @@
 package com.example.pms;
 
 public class Customer {
+    int id;
     String name;
     String cnum;
     String pnum;
@@ -8,6 +9,13 @@ public class Customer {
     String end_date;
     String rdate;
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;

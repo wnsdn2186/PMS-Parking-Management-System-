@@ -1,6 +1,9 @@
 package com.example.pms;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -91,6 +94,34 @@ public class ManageCustomer extends AppCompatActivity {
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), Register.class));
                 overridePendingTransition(R.anim.horizon_enter, R.anim.none);
+            }
+        });
+
+        cAdapter.setOnDeleteClickListener(new CustomerAdapter.OnDeleteClickListener() {
+            @Override
+            public void onDelete(int idx) {
+                final AlertDialog.Builder builder = new AlertDialog.Builder(ManageCustomer.this);
+                builder.setTitle("삭제");
+                builder.setMessage("해당 항목을 삭제하시겠습니까?");
+                builder.setPositiveButton("예",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            ManageCustomer.JsonParse jsonParse = new ManageCustomer.JsonParse();
+                            jsonParse.execute("http://" + IP_ADDRESS + "/delete.php", Integer.toString(idx));
+                            Log.i("Complete MSG: ", Integer.toString(idx));
+                            cAdapter.notifyDataSetChanged();
+                            Intent intent = getIntent();
+                            finish();
+                            startActivity(intent);
+                        }
+                    });
+                builder.setNegativeButton("아니오",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    });
+                builder.show();
             }
         });
     }
@@ -193,7 +224,7 @@ public class ManageCustomer extends AppCompatActivity {
 
                 JSONObject item = jsonArray.getJSONObject(i);
 
-                String id = item.getString(TAG_IDX);
+                int id = item.getInt(TAG_IDX);
                 String name = item.getString(TAG_NAME);
                 String pnum = item.getString(TAG_PNUM);
                 String cnum = item.getString(TAG_CNUM);
@@ -201,6 +232,7 @@ public class ManageCustomer extends AppCompatActivity {
 
                 Customer cus = new Customer();
 
+                cus.setId(id);
                 cus.setName(name);
                 cus.setPnum(pnum);
                 cus.setCnum(cnum);
@@ -221,5 +253,73 @@ public class ManageCustomer extends AppCompatActivity {
         tv = (TextView)findViewById(R.id.customerManage_title);
         tv.setText(title);
 
+    }
+
+    public class JsonParse extends AsyncTask<String,Void,String> {
+        ProgressDialog progressDialog;
+        String TAG = "JsonParseTest";
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            if(progressDialog != null) {
+                progressDialog.dismiss();
+            }
+            Log.d(TAG, "POST response  - " + result);
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            String id = (String)params[1];
+
+            String serverURL = (String)params[0];
+            String postParameters = "id=" + id;
+            try {
+                URL url = new URL(serverURL);
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+
+                httpURLConnection.setReadTimeout(5000);
+                httpURLConnection.setConnectTimeout(5000);
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.connect();
+
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+                outputStream.write(postParameters.getBytes("UTF-8"));
+                outputStream.flush();
+                outputStream.close();
+
+                int responseStatusCode = httpURLConnection.getResponseCode();
+                Log.d(TAG, "DELETE/ POST response code - " + responseStatusCode);
+
+                InputStream inputStream;
+                if(responseStatusCode == HttpURLConnection.HTTP_OK) {
+                    inputStream = httpURLConnection.getInputStream();
+                }
+                else{
+                    inputStream = httpURLConnection.getErrorStream();
+                }
+
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
+                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+
+                StringBuilder sb = new StringBuilder();
+                String line = null;
+
+                while((line = bufferedReader.readLine()) != null){
+                    sb.append(line);
+                }
+
+                bufferedReader.close();
+                return sb.toString();
+            } catch (Exception e) {
+                Log.d(TAG, "DeleteData: Error ", e);
+                return new String("Error: " + e.getMessage());
+            }
+
+        }
     }
 }
