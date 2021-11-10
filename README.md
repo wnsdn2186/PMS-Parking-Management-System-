@@ -16,7 +16,7 @@ This app is designed to easily manage parking lots.
 ## Development Environment
 - Android Studio(Java)
 - Apache2 Server
-- php
+- PHP
 - MariaDB
 
 ## Application Version
