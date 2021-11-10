@@ -7,6 +7,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -42,6 +44,7 @@ public class ManageCustomer extends AppCompatActivity {
     private TextView tv, rs;
     private static String IP_ADDRESS = "13.59.85.177";
     private ArrayList<Customer> cust;
+    private ArrayList<Customer> copiedList;
 
     private String mJsonString;
     private CustomerAdapter cAdapter;
@@ -63,15 +66,27 @@ public class ManageCustomer extends AppCompatActivity {
         });
 
         et = (EditText) findViewById(R.id.search_box);
-        et.setText("");
+        et.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                String text = et.getText().toString();
+                search(text);
+            }
+        });
 
         rc = (RecyclerView) findViewById(R.id.listView_main_list);
         rc.addItemDecoration(new DividerItemDecoration(getApplicationContext(), DividerItemDecoration.VERTICAL));
         rc.setLayoutManager(new LinearLayoutManager(this));
 
         cust = new ArrayList<>();
+        copiedList = new ArrayList<>();
         cAdapter = new CustomerAdapter(this, cust);
-
         cAdapter.notifyDataSetChanged();
         rc.setAdapter(cAdapter);
 
@@ -124,6 +139,21 @@ public class ManageCustomer extends AppCompatActivity {
                 builder.show();
             }
         });
+    }
+
+    private void search(String text) {
+        cust.clear();
+
+        if (text.length() == 0) {
+            cust.addAll(copiedList);
+        } else {
+            for(int i = 0; i < copiedList.size(); i++) {
+                if(copiedList.get(i).getCnum().contains(text)) {
+                    cust.add(copiedList.get(i));
+                }
+            }
+        }
+        cAdapter.notifyDataSetChanged();
     }
 
     private class GetData extends AsyncTask<String, Void, String>{
@@ -239,6 +269,7 @@ public class ManageCustomer extends AppCompatActivity {
                 cus.setRdate(rdate);
 
                 cust.add(cus);
+                copiedList.add(cus);
                 cAdapter.notifyDataSetChanged();
             }
         } catch (JSONException e) {

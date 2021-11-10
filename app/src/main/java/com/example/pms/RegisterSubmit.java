@@ -77,6 +77,7 @@ public class RegisterSubmit extends AppCompatActivity {
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                finish();
                 Toast.makeText(getApplicationContext(), "등록 취소", Toast.LENGTH_SHORT).show();
             }
         });
