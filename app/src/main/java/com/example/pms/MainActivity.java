@@ -208,7 +208,7 @@ public class MainActivity extends AppCompatActivity {
                 InputStream instream = socket.getInputStream(); // 소켓의 입력 스트림 참조
                 nReadSize = instream.read(RECV_MESSAGE);
 
-                //토스트로 서버측 응답 결과 띄워줄 러너블 객체 생성하여 메인스레드 핸들러로 전달
+                //서버측 응답 결과 띄워줄 러너블 객체 생성하여 메인스레드 핸들러로 전달
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
