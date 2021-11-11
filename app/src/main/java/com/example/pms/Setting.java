@@ -60,10 +60,11 @@ public class Setting extends AppCompatActivity {
         public void onCheckedChanged(int position, boolean isChecked) {
             switch (position) {
                 case 0:
-                    Toast.makeText(Setting.this, position + "앱 잠금", Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(Setting.this, ScreenLock.class);
-                    startActivity(intent);
-                    overridePendingTransition(R.anim.horizon_enter, R.anim.none);
+                    if(isChecked) {
+                        Intent intent = new Intent(Setting.this, ScreenLock.class);
+                        startActivity(intent);
+                        overridePendingTransition(R.anim.horizon_enter, R.anim.none);
+                    }
                     break;
 
                 case 1:
