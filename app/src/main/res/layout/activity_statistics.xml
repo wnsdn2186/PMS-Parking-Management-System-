@@ -38,11 +38,11 @@
                     android:textStyle="bold" />
 
                 <com.github.mikephil.charting.charts.BarChart
-                    android:id="@+id/daybarchart"
+                    android:id="@+id/barchart"
                     android:layout_below="@+id/Statistics"
                     android:layout_width="match_parent"
                     android:layout_height="250dp"
-                    android:layout_marginTop="50dp"
+                    android:layout_marginTop="100dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.495"
@@ -50,18 +50,60 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.471" />
 
-                <com.github.mikephil.charting.charts.BarChart
-                    android:id="@+id/timebarchart"
-                    android:layout_below="@+id/daybarchart"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="250dp"
-                    android:layout_marginTop="50dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.495"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.471" />
+                    android:layout_height="wrap_content"
+                    android:id="@+id/btn_set"
+                    android:layout_below="@+id/barchart"
+                    android:layout_marginTop="80dp"
+                    android:padding="5dp"
+                    android:orientation="horizontal">
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/btn_time"
+                        android:layout_weight="1"
+                        android:background="@drawable/select_btn"
+                        android:fontFamily="@font/bmhanna_11yrs_ttf"
+                        android:text="시간"
+                        android:textColor="@color/white"
+                        android:textSize="15dp"/>
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/btn_day"
+                        android:layout_weight="1"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginLeft="5dp"
+                        android:background="@drawable/select_btn"
+                        android:fontFamily="@font/bmhanna_11yrs_ttf"
+                        android:text="일간"
+                        android:textColor="@color/white"
+                        android:textSize="15dp"/>
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/btn_week"
+                        android:layout_weight="1"
+                        android:layout_marginRight="5dp"
+                        android:background="@drawable/select_btn"
+                        android:fontFamily="@font/bmhanna_11yrs_ttf"
+                        android:text="주간"
+                        android:textColor="@color/white"
+                        android:textSize="15dp"/>
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/btn_month"
+                        android:layout_weight="1"
+                        android:background="@drawable/select_btn"
+                        android:fontFamily="@font/bmhanna_11yrs_ttf"
+                        android:text="월간"
+                        android:textColor="@color/white"
+                        android:textSize="15dp"/>
+
+
+                </LinearLayout>
 
             </RelativeLayout>
         </LinearLayout>
