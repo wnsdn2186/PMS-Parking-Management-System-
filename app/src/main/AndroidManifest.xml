@@ -66,6 +66,9 @@
             android:parentActivityName=".ScreenLock"/>
 
         <activity
+            android:name=".ScreenLockMain"/>
+
+        <activity
             android:name=".EditAccount"
             android:parentActivityName=".MyPage">
         </activity>

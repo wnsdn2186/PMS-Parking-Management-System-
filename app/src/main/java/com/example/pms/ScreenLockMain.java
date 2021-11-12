@@ -9,21 +9,17 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class ScreenLockCheck extends AppCompatActivity {
+public class ScreenLockMain extends AppCompatActivity{
     private EditText first, second, third, fourth;
     private int count = 1;
-    private String pre_pin, cur_pin;
-    private Intent intent;
+    private String cur_pin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_screen_lock);
 
-        Toast.makeText(ScreenLockCheck.this, "한 번 더 입력해주세요", Toast.LENGTH_LONG).show();
-
-        intent = getIntent();
-        pre_pin = intent.getStringExtra("PIN");
+        PrefsHelper.init(getApplicationContext());
 
         first = findViewById(R.id.first);
         second = findViewById(R.id.second);
@@ -80,7 +76,7 @@ public class ScreenLockCheck extends AppCompatActivity {
 
             case R.id.deleteBtn:
                 DelPinNum();
-                if(count > 1)
+                if (count > 1)
                     count--;
                 break;
         }
@@ -106,14 +102,13 @@ public class ScreenLockCheck extends AppCompatActivity {
             case 4:
                 fourth.setText(String.valueOf(num));
                 cur_pin = first.getText().toString() + second.getText().toString() + third.getText().toString() + fourth.getText().toString();
-                Log.e("핀", pre_pin);
-                Log.e("핀", cur_pin);
-                if(pre_pin.equals(cur_pin)){
-                    Toast.makeText(ScreenLockCheck.this, "앱 잠금 완료", Toast.LENGTH_LONG).show();
+                if (cur_pin.equals(PrefsHelper.read("PIN", ""))) {
+                    Intent intent = new Intent(ScreenLockMain.this, MainActivity.class);
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.horizon_enter, R.anim.none);
                     finish();
-                    PrefsHelper.write("PIN", cur_pin);
-                }else{
-                    Toast.makeText(ScreenLockCheck.this, "다시 입력하세요", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(com.example.pms.ScreenLockMain.this, "다시 입력하세요", Toast.LENGTH_LONG).show();
                     first.setText(null);
                     second.setText(null);
                     third.setText(null);
@@ -128,8 +123,8 @@ public class ScreenLockCheck extends AppCompatActivity {
         }
     }
 
-    public void DelPinNum(){
-        switch(count){
+    public void DelPinNum() {
+        switch (count) {
             case 2:
                 first.setText(null);
                 break;
@@ -144,3 +139,4 @@ public class ScreenLockCheck extends AppCompatActivity {
         }
     }
 }
+
