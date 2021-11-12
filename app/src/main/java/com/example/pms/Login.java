@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -24,7 +25,8 @@ import java.net.URL;
 public class Login extends AppCompatActivity {
     private EditText id, password;
     private Button login, register;
-    private String jsonString;
+    private CheckBox checkBox;
+    private String jsonString, userID, userPassword;
     private static String IP_ADDRESS = "13.59.85.177";
 
     @Override
@@ -32,16 +34,19 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        PrefsHelper.init(getApplicationContext());
+
         id = (EditText)findViewById(R.id.userID);
         password = (EditText)findViewById(R.id.userPassword);
         login = (Button) findViewById(R.id.btn_login);
         register = (Button) findViewById(R.id.btn_register);
+        checkBox = findViewById(R.id.checkBox);
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String userID = id.getText().toString();
-                String userPassword = password.getText().toString();
+                userID = id.getText().toString();
+                userPassword = password.getText().toString();
 
                 Login.JsonParse jsonParse = new Login.JsonParse();
                 jsonParse.execute("http://" + IP_ADDRESS + "/user_login.php", userID, userPassword);
@@ -54,6 +59,25 @@ public class Login extends AppCompatActivity {
                 Intent intent = new Intent(Login.this, UserRegister.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.horizon_enter, R.anim.none);
+            }
+        });
+
+        if(checkBox.isChecked()){
+            PrefsHelper.write("userID", userID);
+            PrefsHelper.write("userPwd", userPassword);
+            PrefsHelper.write("AutoLogin", "on");
+        }else{
+            PrefsHelper.write("userID", "null");
+            PrefsHelper.write("userPwd", "null");
+            PrefsHelper.write("AutoLogin", "off");
+        }
+
+        checkBox.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                PrefsHelper.write("userID", userID);
+                PrefsHelper.write("userPwd", userPassword);
+                PrefsHelper.write("AutoLogin", "on");
             }
         });
 

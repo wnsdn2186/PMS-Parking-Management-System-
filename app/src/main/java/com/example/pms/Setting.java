@@ -24,11 +24,14 @@ public class Setting extends AppCompatActivity {
     private LinearLayoutManager layoutMgr = null;
     private List<SettingItem> mDataList = null;
     private SettingAdapter mAdapter = null;
+    private String On = "on";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
+
+        PrefsHelper.init(getApplicationContext());
 
         ImageButton backbtn = (ImageButton) findViewById(R.id.BackBtn);
         backbtn.setOnClickListener(new View.OnClickListener() {
@@ -40,9 +43,20 @@ public class Setting extends AppCompatActivity {
         });
 
         mDataList = new ArrayList<>();
-        mDataList.add(new SettingItem("앱 잠금", true));
-        mDataList.add(new SettingItem("PUSH 알림", true));
-        mDataList.add(new SettingItem("자동로그인", true));
+
+        if(On.equals(PrefsHelper.read("Lock", ""))){
+            mDataList.add(new SettingItem("앱 잠금", true));
+        }else{
+            mDataList.add(new SettingItem("앱 잠금", false));
+        }
+
+        mDataList.add(new SettingItem("PUSH 알림", false));
+
+        if(On.equals(PrefsHelper.read("AutoLogin", ""))){
+            mDataList.add(new SettingItem("자동로그인", true));
+        }else{
+            mDataList.add(new SettingItem("자동로그인", false));
+        }
 
         recyclerView = (RecyclerView) findViewById(R.id.setList);
         layoutMgr = new LinearLayoutManager(getApplicationContext());
@@ -52,27 +66,39 @@ public class Setting extends AppCompatActivity {
         recyclerView.setAdapter(mAdapter);
         mAdapter.setOnCheckedChangeListener(mOnCheckedChangeListener);
 
+
+
     }
 
     private SettingAdapter.OnCheckedChangeListener mOnCheckedChangeListener = new SettingAdapter.OnCheckedChangeListener() {
-
         @Override
         public void onCheckedChanged(int position, boolean isChecked) {
             switch (position) {
                 case 0:
-                    if(isChecked) {
-                        Intent intent = new Intent(Setting.this, ScreenLock.class);
-                        startActivity(intent);
-                        overridePendingTransition(R.anim.horizon_enter, R.anim.none);
+                    if (On.equals(PrefsHelper.read("AutoLogin", ""))) {
+                        if (isChecked) {
+                            PrefsHelper.write("Lock", "on");
+                            Intent intent = new Intent(Setting.this, ScreenLock.class);
+                            startActivity(intent);
+                            overridePendingTransition(R.anim.horizon_enter, R.anim.none);
+                        } else {
+                            PrefsHelper.write("Lock", "off");
+                        }
+                    }else{
+                        Toast.makeText(Setting.this, "자동로그인을 먼저 해주세요", Toast.LENGTH_LONG).show();
                     }
                     break;
 
                 case 1:
-                    Toast.makeText(Setting.this, position + "PUSH 알림", Toast.LENGTH_LONG).show();
+                    Toast.makeText(Setting.this, "PUSH 알림", Toast.LENGTH_LONG).show();
                     break;
 
                 case 2:
-                    Toast.makeText(Setting.this, position + "자동로그인", Toast.LENGTH_LONG).show();
+                    if (isChecked) {
+                        PrefsHelper.write("AutoLogin", "on");
+                    } else {
+                        PrefsHelper.write("AutoLogin", "off");
+                    }
                     break;
             }
         }

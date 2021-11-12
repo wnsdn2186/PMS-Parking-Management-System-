@@ -18,7 +18,6 @@ import java.util.List;
 public class SettingAdapter extends RecyclerView.Adapter<SettingAdapter.SettingViewHolder>{
     private List<SettingItem> mDataList = null;
     private Context mContext = null;
-
     private OnCheckedChangeListener onItemCheckedListener;
 
 
@@ -48,9 +47,9 @@ public class SettingAdapter extends RecyclerView.Adapter<SettingAdapter.SettingV
 
         holder.Setting_Title.setText(settingItem.getSettingTitle());
         if(settingItem.isStatus()){
-            holder.control_switch.setVisibility(View.VISIBLE);
+            holder.control_switch.setChecked(true);
         }else{
-            holder.control_switch.setVisibility(View.GONE);
+            holder.control_switch.setChecked(false);
         }
         holder.control_switch.setTag(position);
         holder.control_switch.setOnCheckedChangeListener(mOnCheckedChangeListener);

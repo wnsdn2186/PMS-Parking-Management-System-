@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 
 
 public class Splashscreen extends Activity {
+    private String On = "on";
     public void onAttachedToWindow() {
         super.onAttachedToWindow();
         Window window = getWindow();
@@ -27,6 +28,7 @@ public class Splashscreen extends Activity {
         setContentView(R.layout.activity_splashscreen);
         overridePendingTransition(R.anim.horizon_enter, R.anim.none);
         StartAnimations();
+        PrefsHelper.init(getApplicationContext());
     }
 
     private void StartAnimations() {
@@ -46,12 +48,27 @@ public class Splashscreen extends Activity {
                         sleep(100);
                         waited += 100;
                     }
-                    Intent intent = new Intent(Splashscreen.this,
-                            Login.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                    startActivity(intent);
-                    overridePendingTransition(R.anim.horizon_enter, R.anim.none);
-                    Splashscreen.this.finish();
+                    if(On.equals(PrefsHelper.read("AutoLogin", ""))){
+                        if(On.equals(PrefsHelper.read("Lock", ""))){
+                            Intent intent = new Intent(Splashscreen.this,
+                                    ScreenLockMain.class);
+                            startActivity(intent);
+                            overridePendingTransition(R.anim.horizon_enter, R.anim.none);
+                            Splashscreen.this.finish();
+                        }else{
+                            Intent intent = new Intent(Splashscreen.this, MainActivity.class);
+                            startActivity(intent);
+                            overridePendingTransition(R.anim.horizon_enter, R.anim.none);
+                            Splashscreen.this.finish();
+                        }
+                    }else {
+                        Intent intent = new Intent(Splashscreen.this,
+                                Login.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                        startActivity(intent);
+                        overridePendingTransition(R.anim.horizon_enter, R.anim.none);
+                        Splashscreen.this.finish();
+                    }
                 } catch (InterruptedException e) {
                     // do nothing
                 } finally {
