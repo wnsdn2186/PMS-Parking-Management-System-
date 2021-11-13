@@ -1,4 +1,4 @@
-# Smart Parking Control System
+# Smart Parking Management System
 
 ## Description
 - KNU Computer Science and Engineering term project for Capston Design2
