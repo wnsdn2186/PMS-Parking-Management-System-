@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
     int maxBufferSize = 11;//최대 버퍼 사이즈
     int nReadSize;//받은 Data Size
 
-    String ADDR = "220.94.27.129";//서버 IP
+    String ADDR = "220.81.104.188";//서버 IP
     int PORT = 5555;//서버 PORT
 
     byte[] STX = {0x10, 0x01};//시작코드

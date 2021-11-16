@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "125796732398",
+    "project_id": "smartparkingmanagementsy-ba204",
+    "storage_bucket": "smartparkingmanagementsy-ba204.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:125796732398:android:47c7c080c06887f76252ff",
+        "android_client_info": {
+          "package_name": "com.example.pms"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "125796732398-uolvi428ug604n3a0fepp8n6acap3l9p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyADezezSyiLLSmk8fKn-gwpSAL6BoHKckg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "125796732398-uolvi428ug604n3a0fepp8n6acap3l9p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
