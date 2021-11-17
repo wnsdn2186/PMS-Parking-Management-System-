@@ -2,7 +2,6 @@ package com.example.pms;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -55,7 +54,7 @@ public class MyPage extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
 
         addItem(R.drawable.ic_email_24, "이메일(아이디)", "admin@knu.ac.kr", R.drawable.color_grey_round);
-        addItem(R.drawable.ic__key_24, "비밀번호", "admin", R.drawable.color_grey_round);
+        addItem(R.drawable.ic_key_24, "비밀번호", "admin", R.drawable.color_grey_round);
         addItem(R.drawable.ic_date_24, "생년월일", "1997.11.11", R.drawable.color_grey_round);
         addItem(R.drawable.ic_phone_24, "번호", "010-1234-5678", R.drawable.color_grey_round);
         addItem(R.drawable.ic_register_24, "가입일", "2021.10.16", R.drawable.color_white_round);

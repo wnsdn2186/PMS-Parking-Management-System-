@@ -46,12 +46,10 @@ public class CarSearch extends AppCompatActivity {
         search_box.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
             }
 
             @Override
@@ -75,7 +73,7 @@ public class CarSearch extends AppCompatActivity {
         adapter.notifyDataSetChanged();
     }
 
-    private void addItem(Integer Cnt, String Date, String ImgURL, String CarNum, String InTime, String OutTime){
+    private void addItem(Integer Cnt, String Date, String ImgURL, String CarNum, String InTime, String OutTime) {
         CarSearchItem items = new CarSearchItem();
 
         items.setCnt(Cnt);
@@ -88,11 +86,11 @@ public class CarSearch extends AppCompatActivity {
         mList.add(items);
     }
 
-    private void searchFilter(String SearchText){
+    private void searchFilter(String SearchText) {
         FilteredList.clear();
 
-        for(int i = 0; i < mList.size(); i++){
-            if(mList.get(i).getCarNum().toLowerCase().contains(SearchText.toLowerCase())){
+        for (int i = 0; i < mList.size(); i++) {
+            if (mList.get(i).getCarNum().toLowerCase().contains(SearchText.toLowerCase())) {
                 FilteredList.add(mList.get(i));
             }
         }
