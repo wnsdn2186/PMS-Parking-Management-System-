@@ -60,15 +60,16 @@ public class CarSearch extends AppCompatActivity {
         });
 
         mList = new ArrayList<>();
-        adapter = new CarSearchAdapter(mList);
+        adapter = new CarSearchAdapter(mList, this);
         recyclerView = findViewById(R.id.car_search_list);
         recyclerView.setAdapter(adapter);
         recyclerView.addItemDecoration(new DividerItemDecoration(getApplicationContext(), DividerItemDecoration.VERTICAL));
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        addItem(cnt++, "2021-11-13", "https://sikigobucket.s3.ap-northeast-2.amazonaws.com/test1.jfif", "777모7777", "17:23", "19:20");
-        addItem(cnt++, "2021-11-13", "https://sikigobucket.s3.ap-northeast-2.amazonaws.com/test2.jfif", "38육4104", "14:23", "15:20");
-        addItem(cnt++, "2021-11-12", "https://sikigobucket.s3.ap-northeast-2.amazonaws.com/test3.jfif", "18하0274", "12:23", "15:20");
+        addItem(cnt++, "2021-11-13", "https://sikigobucket.s3.ap-northeast-2.amazonaws.com/test1.png", "123가4568", "17:23", "19:20");
+        addItem(cnt++, "2021-11-13", "https://sikigobucket.s3.ap-northeast-2.amazonaws.com/test2.jpg", "403주2975", "14:23", "15:20");
+        addItem(cnt++, "2021-11-12", "https://sikigobucket.s3.ap-northeast-2.amazonaws.com/test3.PNG", "381마8947", "12:23", "15:20");
+        addItem(cnt++, "2021-11-11", "https://sikigobucket.s3.ap-northeast-2.amazonaws.com/test4.PNG", "43고3171", "09:14", "15:16");
 
         adapter.notifyDataSetChanged();
     }
