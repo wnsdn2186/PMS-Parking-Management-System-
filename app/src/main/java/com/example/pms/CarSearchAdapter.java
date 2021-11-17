@@ -1,6 +1,8 @@
 package com.example.pms;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,25 +13,26 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.bitmap.CenterInside;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class CarSearchAdapter extends RecyclerView.Adapter<CarSearchAdapter.CarSearchHolder> {
-    private Context context;
+    private Activity context;
     private List<CarSearchItem> items = null;
+    private String URL;
 
-    public CarSearchAdapter(ArrayList<CarSearchItem> item) {
+    public CarSearchAdapter(ArrayList<CarSearchItem> item, Activity mContext) {
+        context = mContext;
         items = item;
     }
 
     @NonNull
     @Override
     public CarSearchHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        context = parent.getContext();
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater inflater = (LayoutInflater) (parent.getContext()).getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.carsearch_item, parent, false);
         CarSearchAdapter.CarSearchHolder viewHolder = new CarSearchAdapter.CarSearchHolder(view);
 
@@ -42,7 +45,7 @@ public class CarSearchAdapter extends RecyclerView.Adapter<CarSearchAdapter.CarS
 
         holder.Cnt.setText(String.valueOf(carSearchItem.getCnt()));
         holder.Date.setText(carSearchItem.getDate());
-        Glide.with(context).load(carSearchItem.getImgURL()).transform(new CenterInside(), new RoundedCorners(15)).into(holder.NumPlate);
+        Glide.with(context).load(carSearchItem.getImgURL()).apply(RequestOptions.bitmapTransform(new RoundedCorners(15))).into(holder.NumPlate);
         holder.CarNum.setText(carSearchItem.getCarNum());
         holder.InTime.setText(carSearchItem.getInTime());
         holder.OutTime.setText(carSearchItem.getOutTime());
@@ -54,7 +57,7 @@ public class CarSearchAdapter extends RecyclerView.Adapter<CarSearchAdapter.CarS
     }
 
 
-    public static class CarSearchHolder extends RecyclerView.ViewHolder {
+    public class CarSearchHolder extends RecyclerView.ViewHolder {
         private TextView Cnt;
         private TextView Date;
         private TextView CarNum;
@@ -90,6 +93,19 @@ public class CarSearchAdapter extends RecyclerView.Adapter<CarSearchAdapter.CarS
                             ShowPicBtn.setImageResource(R.drawable.ic_up_24);
                             NumPlate.setVisibility(View.VISIBLE);
                         }
+                    }
+                }
+            });
+
+            NumPlate.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int pos = getAdapterPosition();
+                    if(pos != RecyclerView.NO_POSITION) {
+                        CarSearchItem item = items.get(pos);
+                        Intent intent = new Intent(context, MagnifyingImage.class);
+                        intent.putExtra("URL", item.getImgURL());
+                        context.startActivity(intent);
                     }
                 }
             });

@@ -1,8 +1,10 @@
 package com.example.pms;
 
+import android.Manifest;
 import android.app.Notification;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -83,6 +85,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        checkVerify();
 
         sharedPreferences = getSharedPreferences("SwitchStatus",MODE_PRIVATE);
         Status = sharedPreferences.getInt("SwitchStatus", 0);
@@ -257,5 +261,13 @@ public class MainActivity extends AppCompatActivity {
             sb.append(String.format("%02x ", b & 0xff));
 
         return sb.toString();
+    }
+
+    public void checkVerify() {
+        if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED ||
+                checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            if (shouldShowRequestPermissionRationale(Manifest.permission.WRITE_EXTERNAL_STORAGE)) { }
+            requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
+        }
     }
 }
