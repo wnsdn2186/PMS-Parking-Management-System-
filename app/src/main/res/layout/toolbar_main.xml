@@ -30,7 +30,6 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.2"
                 android:backgroundTint="@color/sky"
-                android:onClick="BackBtn"
                 android:src="@drawable/ic_backspace_24"></ImageButton>
         </LinearLayout>
 

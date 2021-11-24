@@ -16,7 +16,7 @@ import java.util.List;
 public class MyPageAdapter extends RecyclerView.Adapter<MyPageAdapter.MyViewHolder> {
     private List<MyPageItem> items = null;
 
-    public MyPageAdapter(ArrayList<MyPageItem> item){
+    public MyPageAdapter(ArrayList<MyPageItem> item) {
         items = item;
     }
 
@@ -32,7 +32,7 @@ public class MyPageAdapter extends RecyclerView.Adapter<MyPageAdapter.MyViewHold
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position){
+    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         MyPageItem myPageItem = items.get(position);
 
         holder.Info_Icon.setImageResource(myPageItem.getImgResource());
@@ -42,17 +42,17 @@ public class MyPageAdapter extends RecyclerView.Adapter<MyPageAdapter.MyViewHold
     }
 
     @Override
-    public int getItemCount(){
+    public int getItemCount() {
         return items.size();
     }
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder{
-        private ImageView Info_Icon;
-        private TextView Info_Title;
-        private TextView Info;
-        private ImageView DivLine;
+    public static class MyViewHolder extends RecyclerView.ViewHolder {
+        private final ImageView Info_Icon;
+        private final TextView Info_Title;
+        private final TextView Info;
+        private final ImageView DivLine;
 
-        MyViewHolder(@NonNull View itemView){
+        MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
             Info_Icon = itemView.findViewById(R.id.mypage_info_icon);

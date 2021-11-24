@@ -34,7 +34,7 @@ public class Register extends AppCompatActivity {
             }
         });
 
-        btn = (Button)findViewById(R.id.nextBtn);
+        btn = (Button) findViewById(R.id.nextBtn);
 
         name = (EditText) findViewById(R.id.nameField);
         nT = (TextView) findViewById(R.id.nameTv);
@@ -88,7 +88,7 @@ public class Register extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (name.hasFocus()) {
-                    if (name.length() == 0 ) {
+                    if (name.length() == 0) {
                         Toast.makeText(getApplicationContext(), "이름을 입력하세요!", Toast.LENGTH_LONG).show();
                         name.requestFocus();
                         return;
@@ -100,7 +100,7 @@ public class Register extends AppCompatActivity {
                         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
                     }
                 } else if (phone.hasFocus()) {
-                    if (phone.length() == 0 ) {
+                    if (phone.length() == 0) {
                         Toast.makeText(getApplicationContext(), "휴대폰 번호를 입력하세요!", Toast.LENGTH_LONG).show();
                         phone.requestFocus();
                         return;
@@ -112,7 +112,7 @@ public class Register extends AppCompatActivity {
                         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
                     }
                 } else if (car.hasFocus()) {
-                    if (car.length() == 0 ) {
+                    if (car.length() == 0) {
                         Toast.makeText(getApplicationContext(), "차량 번호를 입력하세요!", Toast.LENGTH_LONG).show();
                         car.requestFocus();
                         return;
@@ -124,7 +124,7 @@ public class Register extends AppCompatActivity {
                         btn.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                if(name.length() == 0) {
+                                if (name.length() == 0) {
                                     Toast.makeText(getApplicationContext(), "이름을 입력하세요!", Toast.LENGTH_LONG).show();
                                     name.requestFocus();
                                 } else if (phone.length() == 0) {
@@ -135,7 +135,7 @@ public class Register extends AppCompatActivity {
                                     car.requestFocus();
                                 } else {
                                     String cnum = car.getText().toString();
-                                    cnum = cnum.replaceAll(" ","");
+                                    cnum = cnum.replaceAll(" ", "");
 
                                     Intent it = new Intent(Register.this, RegisterTime.class);
                                     it.putExtra("name", name.getText().toString());
@@ -158,18 +158,14 @@ public class Register extends AppCompatActivity {
         name.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
-                if (keyCode == keyEvent.KEYCODE_ENTER)
-                    return true;
-                return false;
+                return keyCode == KeyEvent.KEYCODE_ENTER;
             }
         });
 
         phone.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
-                if (keyCode == keyEvent.KEYCODE_ENTER)
-                    return true;
-                return false;
+                return keyCode == KeyEvent.KEYCODE_ENTER;
             }
         });
     }

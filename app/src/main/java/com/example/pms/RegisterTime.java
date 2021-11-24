@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -104,7 +103,7 @@ public class RegisterTime extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (sdate.hasFocus()) {
-                    if (sdate.length() == 0 ) {
+                    if (sdate.length() == 0) {
                         Toast.makeText(getApplicationContext(), "날짜를 입력하세요!", Toast.LENGTH_LONG).show();
                         sdate.requestFocus();
                         return;
@@ -114,7 +113,7 @@ public class RegisterTime extends AppCompatActivity {
                         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
                     }
                 } else if (stime1.hasFocus()) {
-                    if (stime1.length() == 0 ) {
+                    if (stime1.length() == 0) {
                         Toast.makeText(getApplicationContext(), "시간을 입력하세요!", Toast.LENGTH_LONG).show();
                         stime1.requestFocus();
                         return;
@@ -124,7 +123,7 @@ public class RegisterTime extends AppCompatActivity {
                         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
                     }
                 } else if (stime2.hasFocus()) {
-                    if (stime2.length() == 0 ) {
+                    if (stime2.length() == 0) {
                         Toast.makeText(getApplicationContext(), "시간을 입력하세요!", Toast.LENGTH_LONG).show();
                         stime2.requestFocus();
                         return;
@@ -134,7 +133,7 @@ public class RegisterTime extends AppCompatActivity {
                         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
                     }
                 } else if (edate.hasFocus()) {
-                    if (edate.length() == 0 ) {
+                    if (edate.length() == 0) {
                         Toast.makeText(getApplicationContext(), "날짜를 입력하세요!", Toast.LENGTH_LONG).show();
                         edate.requestFocus();
                         return;
@@ -146,16 +145,16 @@ public class RegisterTime extends AppCompatActivity {
                         btn.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                if (sdate.length() == 0 ) {
+                                if (sdate.length() == 0) {
                                     Toast.makeText(getApplicationContext(), "날짜를 입력하세요!", Toast.LENGTH_LONG).show();
                                     sdate.requestFocus();
-                                } else if (stime1.length() == 0 ) {
+                                } else if (stime1.length() == 0) {
                                     Toast.makeText(getApplicationContext(), "시간을 입력하세요!", Toast.LENGTH_LONG).show();
                                     stime1.requestFocus();
-                                } else if (stime2.length() == 0 ) {
+                                } else if (stime2.length() == 0) {
                                     Toast.makeText(getApplicationContext(), "시간을 입력하세요!", Toast.LENGTH_LONG).show();
                                     stime2.requestFocus();
-                                } else if (edate.length() == 0 ) {
+                                } else if (edate.length() == 0) {
                                     Toast.makeText(getApplicationContext(), "날짜를 입력하세요!", Toast.LENGTH_LONG).show();
                                     edate.requestFocus();
                                 } else {
@@ -185,8 +184,6 @@ public class RegisterTime extends AppCompatActivity {
                 }
             }
         });
-
-
 
 
     }

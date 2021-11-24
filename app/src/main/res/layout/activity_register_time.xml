@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/constraintLayout"
@@ -32,7 +31,7 @@
                 android:textColor="@color/black"
                 android:textStyle="bold"
                 android:text="입차 일정"
-                android:fontFamily="@font/font"/>
+                android:fontFamily="@font/font" />
 
             <TextView
                 android:id="@+id/sdateTv"
@@ -43,7 +42,7 @@
                 android:textColor="@color/grey"
                 android:text="날짜"
                 android:layout_below="@+id/tv1"
-                android:fontFamily="@font/font"/>
+                android:fontFamily="@font/font" />
 
             <EditText
                 android:inputType="number"
@@ -54,7 +53,7 @@
                 android:textSize="20dp"
                 android:layout_below="@+id/sdateTv"
                 android:layout_marginTop="12dp"
-                android:fontFamily="@font/font"/>
+                android:fontFamily="@font/font" />
 
             <TextView
                 android:id="@+id/stimeTv"
@@ -65,7 +64,7 @@
                 android:textColor="@color/grey"
                 android:text="시간"
                 android:layout_below="@+id/sdateField"
-                android:fontFamily="@font/font"/>
+                android:fontFamily="@font/font" />
 
             <LinearLayout
                 android:id="@+id/stimeField"
@@ -85,7 +84,7 @@
                     android:textAlignment="center"
                     android:hint="00 ~ 24"
                     android:layout_marginTop="12dp"
-                    android:fontFamily="@font/font"/>
+                    android:fontFamily="@font/font" />
 
                 <EditText
                     android:inputType="number"
@@ -99,7 +98,7 @@
                     android:layout_marginTop="12dp"
                     android:textSize="20dp"
                     android:textAlignment="center"
-                    android:hint="00 ~ 60"/>
+                    android:hint="00 ~ 60" />
 
             </LinearLayout>
 
@@ -113,7 +112,7 @@
                 android:textColor="@color/black"
                 android:textStyle="bold"
                 android:text="출차 일정"
-                android:fontFamily="@font/font"/>
+                android:fontFamily="@font/font" />
 
             <TextView
                 android:id="@+id/edateTv"
@@ -124,7 +123,7 @@
                 android:textColor="@color/grey"
                 android:text="날짜"
                 android:layout_below="@+id/tv2"
-                android:fontFamily="@font/font"/>
+                android:fontFamily="@font/font" />
 
             <EditText
                 android:inputType="number"
@@ -135,7 +134,7 @@
                 android:textSize="20dp"
                 android:layout_below="@+id/edateTv"
                 android:layout_marginTop="12dp"
-                android:fontFamily="@font/font"/>
+                android:fontFamily="@font/font" />
 
         </RelativeLayout>
 
@@ -161,7 +160,7 @@
             android:textStyle="bold"
             android:textColor="@color/white"
             android:backgroundTint="@color/sky"
-            android:fontFamily="@font/font"/>
+            android:fontFamily="@font/font" />
 
     </LinearLayout>
 

@@ -1,24 +1,16 @@
 package com.example.pms;
 
 import android.Manifest;
-import android.app.Notification;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.Toast;
 
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
@@ -27,7 +19,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
 import java.net.Socket;
-import java.util.function.ToLongBiFunction;
 
 public class MainActivity extends AppCompatActivity {
     int maxBufferSize = 11;//최대 버퍼 사이즈
@@ -88,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
 
         checkVerify();
 
-        sharedPreferences = getSharedPreferences("SwitchStatus",MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences("SwitchStatus", MODE_PRIVATE);
         Status = sharedPreferences.getInt("SwitchStatus", 0);
 
         register = (CardView) findViewById(R.id.register_card);
@@ -96,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
         barrier = (CardView) findViewById(R.id.barrier_card);
         analytics = (CardView) findViewById(R.id.analytics_card);
         mypage = (CardView) findViewById(R.id.mypage_card);
-        setting = (CardView)findViewById(R.id.setting_card);
+        setting = (CardView) findViewById(R.id.setting_card);
         barrierSwitch = (Switch) findViewById(R.id.barrier_switch);
 
         ImageButton backbtn = (ImageButton) findViewById(R.id.BackBtn);
@@ -124,10 +115,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //스위치 상태저장
-        if(Status == 0)
-            barrierSwitch.setChecked(false);
-        else
-            barrierSwitch.setChecked(true);
+        barrierSwitch.setChecked(Status != 0);
 
         barrierSwitch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -156,7 +144,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        setting.setOnClickListener(new View.OnClickListener(){
+        setting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), Setting.class));
@@ -165,7 +153,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private View.OnClickListener Confirm = new View.OnClickListener() {
+    private final View.OnClickListener Confirm = new View.OnClickListener() {
         public void onClick(View v) {
             if (Status == 0) {
                 SEND_MESSAGE = BAR_ON;
@@ -180,12 +168,9 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    private View.OnClickListener Cancel = new View.OnClickListener() {
+    private final View.OnClickListener Cancel = new View.OnClickListener() {
         public void onClick(View v) {
-            if (barrierSwitch.isChecked())
-                barrierSwitch.setChecked(false);
-            else
-                barrierSwitch.setChecked(true);
+            barrierSwitch.setChecked(!barrierSwitch.isChecked());
             customDialog.dismiss();
         }
     };
@@ -266,7 +251,8 @@ public class MainActivity extends AppCompatActivity {
     public void checkVerify() {
         if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED ||
                 checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            if (shouldShowRequestPermissionRationale(Manifest.permission.WRITE_EXTERNAL_STORAGE)) { }
+            if (shouldShowRequestPermissionRationale(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+            }
             requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
         }
     }

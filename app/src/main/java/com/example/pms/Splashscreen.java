@@ -3,17 +3,16 @@ package com.example.pms;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.PixelFormat;
-import android.media.Image;
 import android.os.Bundle;
 import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 
 public class Splashscreen extends Activity {
-    private String On = "on";
+    private final String On = "on";
+
     public void onAttachedToWindow() {
         super.onAttachedToWindow();
         Window window = getWindow();
@@ -48,20 +47,20 @@ public class Splashscreen extends Activity {
                         sleep(100);
                         waited += 100;
                     }
-                    if(On.equals(PrefsHelper.read("AutoLogin", ""))){
-                        if(On.equals(PrefsHelper.read("Lock", ""))){
+                    if (On.equals(PrefsHelper.read("AutoLogin", ""))) {
+                        if (On.equals(PrefsHelper.read("Lock", ""))) {
                             Intent intent = new Intent(Splashscreen.this,
                                     ScreenLockMain.class);
                             startActivity(intent);
                             overridePendingTransition(R.anim.horizon_enter, R.anim.none);
                             Splashscreen.this.finish();
-                        }else{
+                        } else {
                             Intent intent = new Intent(Splashscreen.this, MainActivity.class);
                             startActivity(intent);
                             overridePendingTransition(R.anim.horizon_enter, R.anim.none);
                             Splashscreen.this.finish();
                         }
-                    }else {
+                    } else {
                         Intent intent = new Intent(Splashscreen.this,
                                 Login.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);

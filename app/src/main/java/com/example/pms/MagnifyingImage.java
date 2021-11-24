@@ -20,17 +20,16 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.github.chrisbanes.photoview.PhotoView;
 
 import java.io.File;
-import java.util.List;
 
 public class MagnifyingImage extends AppCompatActivity {
-    private String TAG = "확인";
+    private final String TAG = "확인";
     private Intent intent;
     private String URL;
     private PhotoView photoView;
     private ImageButton CancelBtn, DownBtn;
 
     private String outputFilePath;
-    private String savePath = "스마트 주차관리";
+    private final String savePath = "스마트 주차관리";
     private String FileName = null;
 
     private Context mContext;
@@ -105,7 +104,7 @@ public class MagnifyingImage extends AppCompatActivity {
         mDownloadQueueId = mDownloadManager.enqueue(request);
     }
 
-    private BroadcastReceiver downloadCompleteReceiver = new BroadcastReceiver() {
+    private final BroadcastReceiver downloadCompleteReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
 

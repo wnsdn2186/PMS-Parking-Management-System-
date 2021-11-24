@@ -1,9 +1,6 @@
 package com.example.pms;
 
-import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -34,6 +31,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 
@@ -42,7 +40,7 @@ public class ManageCustomer extends AppCompatActivity {
     private FloatingActionButton add_btn;
     private EditText et;
     private TextView tv, rs;
-    private static String IP_ADDRESS = "13.59.85.177";
+    private static final String IP_ADDRESS = "13.59.85.177";
     private ArrayList<Customer> cust;
     private ArrayList<Customer> copiedList;
 
@@ -127,7 +125,7 @@ public class ManageCustomer extends AppCompatActivity {
         });
     }
 
-    private View.OnClickListener Confirm = new View.OnClickListener() {
+    private final View.OnClickListener Confirm = new View.OnClickListener() {
         public void onClick(View v) {
             ManageCustomer.JsonParse jsonParse = new ManageCustomer.JsonParse();
             jsonParse.execute("http://" + IP_ADDRESS + "/delete.php", Integer.toString(Ridx));
@@ -140,7 +138,7 @@ public class ManageCustomer extends AppCompatActivity {
         }
     };
 
-    private View.OnClickListener Cancel = new View.OnClickListener() {
+    private final View.OnClickListener Cancel = new View.OnClickListener() {
         public void onClick(View v) {
             Toast.makeText(ManageCustomer.this, "취소", Toast.LENGTH_LONG).show();
             customDialog.dismiss();
@@ -207,7 +205,7 @@ public class ManageCustomer extends AppCompatActivity {
                 httpURLConnection.connect();
 
                 OutputStream outputStream = httpURLConnection.getOutputStream();
-                outputStream.write(postParameters.getBytes("UTF-8"));
+                outputStream.write(postParameters.getBytes(StandardCharsets.UTF_8));
                 outputStream.flush();
                 outputStream.close();
 
@@ -221,7 +219,7 @@ public class ManageCustomer extends AppCompatActivity {
                     inputStream = httpURLConnection.getErrorStream();
                 }
 
-                InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
                 BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 
                 StringBuilder sb = new StringBuilder();
@@ -283,7 +281,7 @@ public class ManageCustomer extends AppCompatActivity {
         String title = "고객 관리 (";
         customerCount = cAdapter.getItemCount();
         Log.d("count", String.valueOf(customerCount));
-        title += String.valueOf(customerCount) + ")";
+        title += customerCount + ")";
 
         tv = (TextView) findViewById(R.id.customerManage_title);
         tv.setText(title);
@@ -324,7 +322,7 @@ public class ManageCustomer extends AppCompatActivity {
                 httpURLConnection.connect();
 
                 OutputStream outputStream = httpURLConnection.getOutputStream();
-                outputStream.write(postParameters.getBytes("UTF-8"));
+                outputStream.write(postParameters.getBytes(StandardCharsets.UTF_8));
                 outputStream.flush();
                 outputStream.close();
 
@@ -338,7 +336,7 @@ public class ManageCustomer extends AppCompatActivity {
                     inputStream = httpURLConnection.getErrorStream();
                 }
 
-                InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
                 BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 
                 StringBuilder sb = new StringBuilder();
@@ -352,7 +350,7 @@ public class ManageCustomer extends AppCompatActivity {
                 return sb.toString();
             } catch (Exception e) {
                 Log.d(TAG, "DeleteData: Error ", e);
-                return new String("Error: " + e.getMessage());
+                return "Error: " + e.getMessage();
             }
 
         }

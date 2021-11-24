@@ -1,7 +1,5 @@
 package com.example.pms;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -12,6 +10,8 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -21,13 +21,14 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 
 public class Login extends AppCompatActivity {
     private EditText id, password;
     private Button login, register;
     private CheckBox checkBox;
     private String jsonString, userID, userPassword;
-    private static String IP_ADDRESS = "13.59.85.177";
+    private static final String IP_ADDRESS = "13.59.85.177";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,8 +37,8 @@ public class Login extends AppCompatActivity {
 
         PrefsHelper.init(getApplicationContext());
 
-        id = (EditText)findViewById(R.id.userID);
-        password = (EditText)findViewById(R.id.userPassword);
+        id = (EditText) findViewById(R.id.userID);
+        password = (EditText) findViewById(R.id.userPassword);
         login = (Button) findViewById(R.id.btn_login);
         register = (Button) findViewById(R.id.btn_register);
         checkBox = findViewById(R.id.checkBox);
@@ -62,19 +63,19 @@ public class Login extends AppCompatActivity {
             }
         });
 
-        if(checkBox.isChecked()){
+        if (checkBox.isChecked()) {
             PrefsHelper.write("userID", userID);
             PrefsHelper.write("userPwd", userPassword);
             PrefsHelper.write("AutoLogin", "on");
-        }else{
+        } else {
             PrefsHelper.write("userID", "null");
             PrefsHelper.write("userPwd", "null");
             PrefsHelper.write("AutoLogin", "off");
         }
 
-        checkBox.setOnClickListener(new View.OnClickListener(){
+        checkBox.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view){
+            public void onClick(View view) {
                 PrefsHelper.write("userID", userID);
                 PrefsHelper.write("userPwd", userPassword);
                 PrefsHelper.write("AutoLogin", "on");
@@ -85,6 +86,7 @@ public class Login extends AppCompatActivity {
 
     public class JsonParse extends AsyncTask<String, Void, String> {
         String TAG = "JsonParseTest";
+
         @Override
         protected String doInBackground(String... strings) {    // execute의 매개변수를 받아와서 사용
             String url = strings[0];
@@ -103,27 +105,26 @@ public class Login extends AppCompatActivity {
                 httpURLConnection.connect();
 
                 OutputStream outputStream = httpURLConnection.getOutputStream();
-                outputStream.write(selectData.getBytes("UTF-8"));
+                outputStream.write(selectData.getBytes(StandardCharsets.UTF_8));
                 outputStream.flush();
                 outputStream.close();
 
                 int responseStatusCode = httpURLConnection.getResponseCode();
 
                 InputStream inputStream;
-                if(responseStatusCode == HttpURLConnection.HTTP_OK) {
+                if (responseStatusCode == HttpURLConnection.HTTP_OK) {
                     inputStream = httpURLConnection.getInputStream();
-                }
-                else{
+                } else {
                     inputStream = httpURLConnection.getErrorStream();
                 }
 
-                InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
                 BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 
                 StringBuilder sb = new StringBuilder();
                 String line;
 
-                while((line = bufferedReader.readLine()) != null){
+                while ((line = bufferedReader.readLine()) != null) {
                     sb.append(line);
                 }
 
@@ -163,7 +164,7 @@ public class Login extends AppCompatActivity {
                 boolean success = jsonObject.getBoolean("success");
                 Log.d("success", String.valueOf(success));
 
-                if(success) {
+                if (success) {
                     /*Admin admin = new Admin();
                     String userID = jsonObject.getString("userID");
                     String userPassword = jsonObject.getString("userPassword");
