@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background4">
+    android:background="@drawable/background5">
 
     <include
         android:id="@+id/toolbar"
@@ -38,6 +38,23 @@
                     android:textStyle="bold" />
 
             </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/setList"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/BoxTitle"
+                    android:background="@drawable/color_white_round"
+                    android:overScrollMode="never"
+                    android:scrollbars="vertical"
+                    android:nestedScrollingEnabled="false"
+                    android:layout_marginTop="10dp"/>
+
+            </LinearLayout>
 
         </LinearLayout>
 

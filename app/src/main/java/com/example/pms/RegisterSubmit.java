@@ -43,6 +43,7 @@ public class RegisterSubmit extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
+                overridePendingTransition(R.anim.none, R.anim.horizon_exit);
             }
         });
 
@@ -76,6 +77,7 @@ public class RegisterSubmit extends AppCompatActivity {
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                finish();
                 Toast.makeText(getApplicationContext(), "등록 취소", Toast.LENGTH_SHORT).show();
             }
         });
@@ -101,6 +103,10 @@ public class RegisterSubmit extends AppCompatActivity {
 
                 Toast.makeText(getApplicationContext(), "id : " + cname +" 님의 회원가입이 완료 되었습니다.", Toast.LENGTH_LONG).show();
 
+                Intent intent = new Intent(RegisterSubmit.this, ManageCustomer.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);//액티비티 스택제거
+                startActivity(intent);
+                overridePendingTransition(R.anim.horizon_enter, R.anim.none);
                 finish();
             }
         });
@@ -189,5 +195,6 @@ public class RegisterSubmit extends AppCompatActivity {
         startActivity(back);
         overridePendingTransition(R.anim.horizon_enter, R.anim.none);
         finish();
+        overridePendingTransition(R.anim.none, R.anim.horizon_exit);
     }
 }
