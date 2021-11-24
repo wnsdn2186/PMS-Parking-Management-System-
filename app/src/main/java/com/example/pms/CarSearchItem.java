@@ -1,7 +1,5 @@
 package com.example.pms;
 
-import java.net.URL;
-
 public class CarSearchItem {
     private int cnt;
     private String date;

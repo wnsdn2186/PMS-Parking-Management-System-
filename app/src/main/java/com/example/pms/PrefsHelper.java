@@ -5,7 +5,7 @@ import android.content.SharedPreferences;
 
 public class PrefsHelper {
     public static final String PREFERENCE_NAME = "pref";
-    private Context mContext;
+    private final Context mContext;
     private static SharedPreferences prefs;
     private static SharedPreferences.Editor prefsEditor;
     private static PrefsHelper instance;

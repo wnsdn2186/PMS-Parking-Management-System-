@@ -9,7 +9,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -22,7 +21,6 @@ import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.formatter.ValueFormatter;
-import com.github.mikephil.charting.utils.ColorTemplate;
 import com.github.mikephil.charting.utils.ViewPortHandler;
 
 import org.json.JSONArray;
@@ -35,13 +33,14 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class Statistics  extends AppCompatActivity {
+public class Statistics extends AppCompatActivity {
     private Toolbar toolbar;
-    private static String IP_ADDRESS = "13.59.85.177";
+    private static final String IP_ADDRESS = "13.59.85.177";
     private String mJsonString;
     ArrayList<Integer> dayjsonList = new ArrayList<>(); // 출입차량 수
     ArrayList<String> daylabelList = new ArrayList<>(); // 시간
@@ -67,8 +66,8 @@ public class Statistics  extends AppCompatActivity {
         GetData task = new GetData();
         task.execute("http://" + IP_ADDRESS + "/stat.php", "");
 
-        daychart = (BarChart)findViewById(R.id.daybarchart);
-        timechart = (BarChart)findViewById(R.id.timebarchart);
+        daychart = (BarChart) findViewById(R.id.daybarchart);
+        timechart = (BarChart) findViewById(R.id.timebarchart);
 
         xAxisday = daychart.getXAxis();
         xAxistime = timechart.getXAxis();
@@ -79,14 +78,40 @@ public class Statistics  extends AppCompatActivity {
         TimeBarChartGraph(timelabelList, timejsonList);
     }
 
-    public void GraphInitSetting(){
+    public void GraphInitSetting() {
 
-        daylabelList.add("일");daylabelList.add("월");daylabelList.add("화");daylabelList.add("수");daylabelList.add("목");daylabelList.add("금");daylabelList.add("토"); // 요일
+        daylabelList.add("일");
+        daylabelList.add("월");
+        daylabelList.add("화");
+        daylabelList.add("수");
+        daylabelList.add("목");
+        daylabelList.add("금");
+        daylabelList.add("토"); // 요일
 
-        timelabelList.add("00시");timelabelList.add("01시");timelabelList.add("02시");timelabelList.add("03시");timelabelList.add("04시");timelabelList.add("05시");
-        timelabelList.add("06시");timelabelList.add("07시");timelabelList.add("08시");timelabelList.add("09시");timelabelList.add("10시");timelabelList.add("11시");
-        timelabelList.add("12시");timelabelList.add("13시");timelabelList.add("14시");timelabelList.add("15시");timelabelList.add("16시");timelabelList.add("17시");
-        timelabelList.add("18시");timelabelList.add("19시");timelabelList.add("20시");timelabelList.add("21시");timelabelList.add("22시");timelabelList.add("23시"); // 시간
+        timelabelList.add("00시");
+        timelabelList.add("01시");
+        timelabelList.add("02시");
+        timelabelList.add("03시");
+        timelabelList.add("04시");
+        timelabelList.add("05시");
+        timelabelList.add("06시");
+        timelabelList.add("07시");
+        timelabelList.add("08시");
+        timelabelList.add("09시");
+        timelabelList.add("10시");
+        timelabelList.add("11시");
+        timelabelList.add("12시");
+        timelabelList.add("13시");
+        timelabelList.add("14시");
+        timelabelList.add("15시");
+        timelabelList.add("16시");
+        timelabelList.add("17시");
+        timelabelList.add("18시");
+        timelabelList.add("19시");
+        timelabelList.add("20시");
+        timelabelList.add("21시");
+        timelabelList.add("22시");
+        timelabelList.add("23시"); // 시간
 
         // 임시값
         dayjsonList.add(110);
@@ -98,10 +123,30 @@ public class Statistics  extends AppCompatActivity {
         dayjsonList.add(80);
 
         // 임시값
-        timejsonList.add(10);timejsonList.add(10);timejsonList.add(50);timejsonList.add(30);timejsonList.add(20);timejsonList.add(44);
-        timejsonList.add(94);timejsonList.add(77);timejsonList.add(75);timejsonList.add(38);timejsonList.add(25);timejsonList.add(40);
-        timejsonList.add(2);timejsonList.add(63);timejsonList.add(59);timejsonList.add(32);timejsonList.add(63);timejsonList.add(80);
-        timejsonList.add(88);timejsonList.add(6);timejsonList.add(10);timejsonList.add(12);timejsonList.add(17);timejsonList.add(22);
+        timejsonList.add(10);
+        timejsonList.add(10);
+        timejsonList.add(50);
+        timejsonList.add(30);
+        timejsonList.add(20);
+        timejsonList.add(44);
+        timejsonList.add(94);
+        timejsonList.add(77);
+        timejsonList.add(75);
+        timejsonList.add(38);
+        timejsonList.add(25);
+        timejsonList.add(40);
+        timejsonList.add(2);
+        timejsonList.add(63);
+        timejsonList.add(59);
+        timejsonList.add(32);
+        timejsonList.add(63);
+        timejsonList.add(80);
+        timejsonList.add(88);
+        timejsonList.add(6);
+        timejsonList.add(10);
+        timejsonList.add(12);
+        timejsonList.add(17);
+        timejsonList.add(22);
 
         DayBarChartGraph(daylabelList, dayjsonList);
         TimeBarChartGraph(timelabelList, timejsonList);
@@ -182,7 +227,7 @@ public class Statistics  extends AppCompatActivity {
 
     public class MyValueFormatter implements ValueFormatter {
 
-        private DecimalFormat mFormat;
+        private final DecimalFormat mFormat;
 
         public MyValueFormatter() {
             mFormat = new DecimalFormat("#"); // use one decimal
@@ -193,6 +238,7 @@ public class Statistics  extends AppCompatActivity {
             return mFormat.format(value);
         }
     }
+
     public boolean onCreateOptionsMenu(Menu menu) {
 
         MenuInflater menuInflater = getMenuInflater();
@@ -220,10 +266,9 @@ public class Statistics  extends AppCompatActivity {
 
             Log.d("response", "response - " + result);
 
-            if (result == null){
+            if (result == null) {
                 //rs.setText(errorString);
-            }
-            else {
+            } else {
                 mJsonString = result;
                 showResult();
             }
@@ -246,7 +291,7 @@ public class Statistics  extends AppCompatActivity {
                 httpURLConnection.connect();
 
                 OutputStream outputStream = httpURLConnection.getOutputStream();
-                outputStream.write(postParameters.getBytes("UTF-8"));
+                outputStream.write(postParameters.getBytes(StandardCharsets.UTF_8));
                 outputStream.flush();
                 outputStream.close();
 
@@ -254,20 +299,19 @@ public class Statistics  extends AppCompatActivity {
                 Log.d("response", "response code - " + responseStatusCode);
 
                 InputStream inputStream;
-                if(responseStatusCode == HttpURLConnection.HTTP_OK) {
+                if (responseStatusCode == HttpURLConnection.HTTP_OK) {
                     inputStream = httpURLConnection.getInputStream();
-                }
-                else{
+                } else {
                     inputStream = httpURLConnection.getErrorStream();
                 }
 
-                InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
                 BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 
                 StringBuilder sb = new StringBuilder();
                 String line;
 
-                while((line = bufferedReader.readLine()) != null){
+                while ((line = bufferedReader.readLine()) != null) {
                     sb.append(line);
                 }
                 bufferedReader.close();
@@ -281,14 +325,14 @@ public class Statistics  extends AppCompatActivity {
         }
     }
 
-    private void showResult(){
-        String TAG_JSON="statData";
+    private void showResult() {
+        String TAG_JSON = "statData";
         String TAG_PASSTIME = "passtime";
 
         try {
             JSONObject jsonObject = new JSONObject(mJsonString);
             JSONArray jsonArray = jsonObject.getJSONArray(TAG_JSON);
-            for(int i=0;i<jsonArray.length();i++){
+            for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject item = jsonArray.getJSONObject(i);
                 int pt = item.getInt(TAG_PASSTIME);
                 Log.i("passtime: ", String.valueOf(pt));

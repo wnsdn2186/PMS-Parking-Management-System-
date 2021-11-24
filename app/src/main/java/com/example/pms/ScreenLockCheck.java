@@ -80,7 +80,7 @@ public class ScreenLockCheck extends AppCompatActivity {
 
             case R.id.deleteBtn:
                 DelPinNum();
-                if(count > 1)
+                if (count > 1)
                     count--;
                 break;
         }
@@ -108,11 +108,11 @@ public class ScreenLockCheck extends AppCompatActivity {
                 cur_pin = first.getText().toString() + second.getText().toString() + third.getText().toString() + fourth.getText().toString();
                 Log.e("핀", pre_pin);
                 Log.e("핀", cur_pin);
-                if(pre_pin.equals(cur_pin)){
+                if (pre_pin.equals(cur_pin)) {
                     Toast.makeText(ScreenLockCheck.this, "앱 잠금 완료", Toast.LENGTH_LONG).show();
                     finish();
                     PrefsHelper.write("PIN", cur_pin);
-                }else{
+                } else {
                     Toast.makeText(ScreenLockCheck.this, "다시 입력하세요", Toast.LENGTH_LONG).show();
                     first.setText(null);
                     second.setText(null);
@@ -128,8 +128,8 @@ public class ScreenLockCheck extends AppCompatActivity {
         }
     }
 
-    public void DelPinNum(){
-        switch(count){
+    public void DelPinNum() {
+        switch (count) {
             case 2:
                 first.setText(null);
                 break;

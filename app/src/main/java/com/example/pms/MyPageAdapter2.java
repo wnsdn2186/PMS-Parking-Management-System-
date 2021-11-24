@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyPageAdapter2 extends RecyclerView.Adapter<MyPageAdapter2.MyViewHolder2> implements OnMyPageItemClickListener{
+public class MyPageAdapter2 extends RecyclerView.Adapter<MyPageAdapter2.MyViewHolder2> implements OnMyPageItemClickListener {
     private List<MyPageItem2> items = null;
     OnMyPageItemClickListener listener;
 
@@ -50,18 +50,18 @@ public class MyPageAdapter2 extends RecyclerView.Adapter<MyPageAdapter2.MyViewHo
         this.listener = listener;
     }
 
-    @Override public void onItemClick(MyViewHolder2 holder, View view, int position) {
-        if(listener != null){
-            listener.onItemClick(holder,view,position);
+    @Override
+    public void onItemClick(MyViewHolder2 holder, View view, int position) {
+        if (listener != null) {
+            listener.onItemClick(holder, view, position);
         }
     }
 
 
-
     public static class MyViewHolder2 extends RecyclerView.ViewHolder {
-        private ImageView SubIcon;
-        private TextView SubTitle;
-        private ImageView SubDivLine;
+        private final ImageView SubIcon;
+        private final TextView SubTitle;
+        private final ImageView SubDivLine;
 
         public MyViewHolder2(@NonNull View itemView, final OnMyPageItemClickListener listener) {
             super(itemView);
@@ -74,7 +74,7 @@ public class MyPageAdapter2 extends RecyclerView.Adapter<MyPageAdapter2.MyViewHo
                 @Override
                 public void onClick(View v) {
                     int position = getAdapterPosition();
-                    if(listener != null){
+                    if (listener != null) {
                         listener.onItemClick(MyViewHolder2.this, v, position);
                     }
                 }
@@ -82,7 +82,7 @@ public class MyPageAdapter2 extends RecyclerView.Adapter<MyPageAdapter2.MyViewHo
         }
     }
 
-    public MyPageItem2 getItem(int position){
+    public MyPageItem2 getItem(int position) {
         return items.get(position);
     }
 }

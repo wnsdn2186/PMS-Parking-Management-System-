@@ -1,9 +1,7 @@
 package com.example.pms;
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -12,18 +10,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 
 public class MyPage extends AppCompatActivity {
@@ -172,7 +158,7 @@ public class MyPage extends AppCompatActivity {
         list.add(item2);
     }
 
-    private View.OnClickListener Confirm = new View.OnClickListener() {
+    private final View.OnClickListener Confirm = new View.OnClickListener() {
         public void onClick(View v) {
             Intent logout_intent = new Intent(MyPage.this, Login.class);
             logout_intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -181,7 +167,7 @@ public class MyPage extends AppCompatActivity {
         }
     };
 
-    private View.OnClickListener Cancel = new View.OnClickListener() {
+    private final View.OnClickListener Cancel = new View.OnClickListener() {
         public void onClick(View v) {
             Toast.makeText(getApplicationContext(), "취소", Toast.LENGTH_LONG).show();
             customDialog.dismiss();
