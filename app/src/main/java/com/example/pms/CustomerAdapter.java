@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.media.Image;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -13,6 +14,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,6 +37,8 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.Custom
     private ImageButton imgbtn;
     private static String IP_ADDRESS = "13.59.85.177";
     private OnDeleteClickListener mListener = null;
+    private CustomDialog customDialog;
+    private int pos;
 
     public interface OnDeleteClickListener {
         void onDelete(int idx);
@@ -55,6 +60,8 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.Custom
         protected TextView cnum;
         protected TextView rdate;
         protected ImageButton deletebtn;
+        protected LinearLayout Period;
+        protected ImageView ShowPeriodBtn;
 
         public CustomViewHolder(View view) {
             super(view);
@@ -62,6 +69,9 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.Custom
             this.name = (TextView) view.findViewById(R.id.cusName);
             this.cnum = (TextView) view.findViewById(R.id.cusCnum);
             this.deletebtn = (ImageButton) view.findViewById(R.id.deleteButton);
+            this.Period = (LinearLayout) view.findViewById(R.id.linear);
+            this.ShowPeriodBtn = (ImageView) view.findViewById(R.id.ShowPeriodBtn);
+
             deletebtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -69,6 +79,22 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.Custom
                     if(pos != RecyclerView.NO_POSITION) {
                         if(mListener != null) {
                             mListener.onDelete(cList.get(pos).getId());
+                        }
+                    }
+                }
+            });
+
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    pos = getAdapterPosition();
+                    if(pos != RecyclerView.NO_POSITION){
+                        if(Period.getVisibility() == View.VISIBLE){
+                            ShowPeriodBtn.setImageResource(R.drawable.ic_down_24);
+                            Period.setVisibility(View.GONE);
+                        }else{
+                            ShowPeriodBtn.setImageResource(R.drawable.ic_up_24);
+                            Period.setVisibility(View.VISIBLE);
                         }
                     }
                 }

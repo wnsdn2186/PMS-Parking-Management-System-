@@ -50,6 +50,9 @@ public class ManageCustomer extends AppCompatActivity {
     private CustomerAdapter cAdapter;
     private RecyclerView rc;
     private int customerCount;
+    private int Ridx;
+
+    private CustomDialog customDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,10 +71,12 @@ public class ManageCustomer extends AppCompatActivity {
         et = (EditText) findViewById(R.id.search_box);
         et.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
 
             @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
 
             @Override
             public void afterTextChanged(Editable editable) {
@@ -115,31 +120,32 @@ public class ManageCustomer extends AppCompatActivity {
         cAdapter.setOnDeleteClickListener(new CustomerAdapter.OnDeleteClickListener() {
             @Override
             public void onDelete(int idx) {
-                final AlertDialog.Builder builder = new AlertDialog.Builder(ManageCustomer.this);
-                builder.setTitle("삭제");
-                builder.setMessage("해당 항목을 삭제하시겠습니까?");
-                builder.setPositiveButton("예",
-                    new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            ManageCustomer.JsonParse jsonParse = new ManageCustomer.JsonParse();
-                            jsonParse.execute("http://" + IP_ADDRESS + "/delete.php", Integer.toString(idx));
-                            Log.i("Complete MSG: ", Integer.toString(idx));
-                            cAdapter.notifyDataSetChanged();
-                            Intent intent = getIntent();
-                            finish();
-                            startActivity(intent);
-                        }
-                    });
-                builder.setNegativeButton("아니오",
-                    new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.cancel();
-                        }
-                    });
-                builder.show();
+                Ridx = idx;
+                customDialog = new CustomDialog(ManageCustomer.this, Confirm, Cancel, "삭제하시겠습니까?");
+                customDialog.show();
             }
         });
     }
+
+    private View.OnClickListener Confirm = new View.OnClickListener() {
+        public void onClick(View v) {
+            ManageCustomer.JsonParse jsonParse = new ManageCustomer.JsonParse();
+            jsonParse.execute("http://" + IP_ADDRESS + "/delete.php", Integer.toString(Ridx));
+            Log.i("Complete MSG: ", Integer.toString(Ridx));
+            cAdapter.notifyDataSetChanged();
+            Intent intent = getIntent();
+            finish();
+            startActivity(intent);
+            customDialog.dismiss();
+        }
+    };
+
+    private View.OnClickListener Cancel = new View.OnClickListener() {
+        public void onClick(View v) {
+            Toast.makeText(ManageCustomer.this, "취소", Toast.LENGTH_LONG).show();
+            customDialog.dismiss();
+        }
+    };
 
     private void search(String text) {
         cust.clear();
@@ -147,8 +153,8 @@ public class ManageCustomer extends AppCompatActivity {
         if (text.length() == 0) {
             cust.addAll(copiedList);
         } else {
-            for(int i = 0; i < copiedList.size(); i++) {
-                if(copiedList.get(i).getCnum().contains(text)) {
+            for (int i = 0; i < copiedList.size(); i++) {
+                if (copiedList.get(i).getCnum().contains(text)) {
                     cust.add(copiedList.get(i));
                 }
             }
@@ -156,7 +162,7 @@ public class ManageCustomer extends AppCompatActivity {
         cAdapter.notifyDataSetChanged();
     }
 
-    private class GetData extends AsyncTask<String, Void, String>{
+    private class GetData extends AsyncTask<String, Void, String> {
         ProgressDialog progressDialog;
         String errorString = null;
 
@@ -176,10 +182,9 @@ public class ManageCustomer extends AppCompatActivity {
 
             Log.d("response", "response - " + result);
 
-            if (result == null){
+            if (result == null) {
                 rs.setText(errorString);
-            }
-            else {
+            } else {
                 mJsonString = result;
                 showResult();
             }
@@ -210,10 +215,9 @@ public class ManageCustomer extends AppCompatActivity {
                 Log.d("response", "response code - " + responseStatusCode);
 
                 InputStream inputStream;
-                if(responseStatusCode == HttpURLConnection.HTTP_OK) {
+                if (responseStatusCode == HttpURLConnection.HTTP_OK) {
                     inputStream = httpURLConnection.getInputStream();
-                }
-                else{
+                } else {
                     inputStream = httpURLConnection.getErrorStream();
                 }
 
@@ -223,7 +227,7 @@ public class ManageCustomer extends AppCompatActivity {
                 StringBuilder sb = new StringBuilder();
                 String line;
 
-                while((line = bufferedReader.readLine()) != null){
+                while ((line = bufferedReader.readLine()) != null) {
                     sb.append(line);
                 }
                 bufferedReader.close();
@@ -237,9 +241,9 @@ public class ManageCustomer extends AppCompatActivity {
         }
     }
 
-    private void showResult(){
+    private void showResult() {
 
-        String TAG_JSON="cusList";
+        String TAG_JSON = "cusList";
         String TAG_IDX = "idx";
         String TAG_NAME = "stcustname1";
         String TAG_PNUM = "sttelno1";
@@ -250,7 +254,7 @@ public class ManageCustomer extends AppCompatActivity {
             JSONObject jsonObject = new JSONObject(mJsonString);
             JSONArray jsonArray = jsonObject.getJSONArray(TAG_JSON);
 
-            for(int i=0;i<jsonArray.length();i++){
+            for (int i = 0; i < jsonArray.length(); i++) {
 
                 JSONObject item = jsonArray.getJSONObject(i);
 
@@ -281,14 +285,15 @@ public class ManageCustomer extends AppCompatActivity {
         Log.d("count", String.valueOf(customerCount));
         title += String.valueOf(customerCount) + ")";
 
-        tv = (TextView)findViewById(R.id.customerManage_title);
+        tv = (TextView) findViewById(R.id.customerManage_title);
         tv.setText(title);
 
     }
 
-    public class JsonParse extends AsyncTask<String,Void,String> {
+    public class JsonParse extends AsyncTask<String, Void, String> {
         ProgressDialog progressDialog;
         String TAG = "JsonParseTest";
+
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -297,7 +302,7 @@ public class ManageCustomer extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-            if(progressDialog != null) {
+            if (progressDialog != null) {
                 progressDialog.dismiss();
             }
             Log.d(TAG, "POST response  - " + result);
@@ -305,9 +310,9 @@ public class ManageCustomer extends AppCompatActivity {
 
         @Override
         protected String doInBackground(String... params) {
-            String id = (String)params[1];
+            String id = (String) params[1];
 
-            String serverURL = (String)params[0];
+            String serverURL = (String) params[0];
             String postParameters = "id=" + id;
             try {
                 URL url = new URL(serverURL);
@@ -327,10 +332,9 @@ public class ManageCustomer extends AppCompatActivity {
                 Log.d(TAG, "DELETE/ POST response code - " + responseStatusCode);
 
                 InputStream inputStream;
-                if(responseStatusCode == HttpURLConnection.HTTP_OK) {
+                if (responseStatusCode == HttpURLConnection.HTTP_OK) {
                     inputStream = httpURLConnection.getInputStream();
-                }
-                else{
+                } else {
                     inputStream = httpURLConnection.getErrorStream();
                 }
 
@@ -340,7 +344,7 @@ public class ManageCustomer extends AppCompatActivity {
                 StringBuilder sb = new StringBuilder();
                 String line = null;
 
-                while((line = bufferedReader.readLine()) != null){
+                while ((line = bufferedReader.readLine()) != null) {
                     sb.append(line);
                 }
 
