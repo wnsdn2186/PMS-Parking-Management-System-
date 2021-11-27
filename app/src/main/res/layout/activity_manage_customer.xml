@@ -52,7 +52,6 @@
                         android:id="@+id/search_box"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
-                        android:layout_below="@id/customerManage_title"
                         android:layout_weight="1"
                         android:background="@drawable/color_lightgrey_round"
                         android:digits="0123456789"
