@@ -45,7 +45,6 @@
                     android:id="@+id/setList"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/BoxTitle"
                     android:background="@drawable/color_white_round"
                     android:overScrollMode="never"
                     android:scrollbars="vertical"

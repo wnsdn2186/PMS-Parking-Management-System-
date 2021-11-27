@@ -20,7 +20,6 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.Custom
     private ImageButton imgbtn;
     private static final String IP_ADDRESS = "13.59.85.177";
     private OnDeleteClickListener mListener = null;
-    private CustomDialog customDialog;
     private int pos;
 
     public interface OnDeleteClickListener {
