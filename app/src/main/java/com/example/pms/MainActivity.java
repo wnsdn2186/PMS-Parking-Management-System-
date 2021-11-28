@@ -30,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
     int maxBufferSize = 11;//최대 버퍼 사이즈
     int nReadSize;//받은 Data Size
     int NotifyCnt = 0;
+    private String On = "on";
+    private String Off = "off";
 
     String ADDR = "220.81.104.188";//서버 IP
     int PORT = 5555;//서버 PORT
@@ -223,11 +225,19 @@ public class MainActivity extends AppCompatActivity {
                                     Status = 1;
                                     editor.putInt("SwitchStatus", Status);
                                     editor.apply();
-                                    createNotificationChannel("DEFAULT", "default", NotificationManager.IMPORTANCE_HIGH);
-                                    createNotification("DEFAULT", NotifyCnt++, "스마트 주차관리", "차단기가 열렸습니다", intent);
+                                    if (Off.equals(PrefsHelper.read("Push", ""))) {
+                                        Toast.makeText(MainActivity.this, "차단기가 열렸습니다", Toast.LENGTH_LONG).show();
+                                    }else{
+                                        createNotificationChannel("DEFAULT", "default", NotificationManager.IMPORTANCE_HIGH);
+                                        createNotification("DEFAULT", NotifyCnt++, "스마트 주차관리", "차단기가 열렸습니다", intent);
+                                    }
                                 } else if (java.util.Arrays.equals(RECV_MESSAGE, BAR_RESULT_OFF) == true) {
-                                    createNotificationChannel("DEFAULT", "default", NotificationManager.IMPORTANCE_HIGH);
-                                    createNotification("DEFAULT", NotifyCnt++, "스마트 주차관리", "차단기가 열리지 않습니다", intent);
+                                    if (Off.equals(PrefsHelper.read("Push", ""))) {
+                                        Toast.makeText(MainActivity.this, "차단기가 열리지 않습니다", Toast.LENGTH_LONG).show();
+                                    }else{
+                                        createNotificationChannel("DEFAULT", "default", NotificationManager.IMPORTANCE_HIGH);
+                                        createNotification("DEFAULT", NotifyCnt++, "스마트 주차관리", "차단기가 열리지 않습니다", intent);
+                                    }
                                 } else {
                                     Toast.makeText(MainActivity.this, "다시 시도하세요.", Toast.LENGTH_LONG).show();
                                 }
@@ -238,11 +248,19 @@ public class MainActivity extends AppCompatActivity {
                                     Status = 0;
                                     editor.putInt("SwitchStatus", Status);
                                     editor.apply();
-                                    createNotificationChannel("DEFAULT", "default", NotificationManager.IMPORTANCE_HIGH);
-                                    createNotification("DEFAULT", NotifyCnt++, "스마트 주차관리", "차단기가 닫혔습니다", intent);
+                                    if (Off.equals(PrefsHelper.read("Push", ""))) {
+                                        Toast.makeText(MainActivity.this, "차단기가 닫혔습니다", Toast.LENGTH_LONG).show();
+                                    }else{
+                                        createNotificationChannel("DEFAULT", "default", NotificationManager.IMPORTANCE_HIGH);
+                                        createNotification("DEFAULT", NotifyCnt++, "스마트 주차관리", "차단기가 닫혔습니다", intent);
+                                    }
                                 } else if (java.util.Arrays.equals(RECV_MESSAGE, BAR_RESULT_OFF) == true) {
-                                    createNotificationChannel("DEFAULT", "default", NotificationManager.IMPORTANCE_HIGH);
-                                    createNotification("DEFAULT", NotifyCnt++, "스마트 주차관리", "차단기가 닫히지 않습니다", intent);
+                                    if (Off.equals(PrefsHelper.read("Push", ""))) {
+                                        Toast.makeText(MainActivity.this, "차단기가 닫히지 않습니다", Toast.LENGTH_LONG).show();
+                                    }else{
+                                        createNotificationChannel("DEFAULT", "default", NotificationManager.IMPORTANCE_HIGH);
+                                        createNotification("DEFAULT", NotifyCnt++, "스마트 주차관리", "차단기가 닫히지 않습니다", intent);
+                                    }
                                 } else {
                                     Toast.makeText(MainActivity.this, "다시 시도하세요.", Toast.LENGTH_LONG).show();
                                 }

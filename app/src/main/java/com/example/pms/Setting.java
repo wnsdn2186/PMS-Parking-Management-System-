@@ -21,6 +21,7 @@ public class Setting extends AppCompatActivity {
     private List<SettingItem> mDataList = null;
     private SettingAdapter mAdapter = null;
     private final String On = "on";
+    private final String Off = "off";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +47,11 @@ public class Setting extends AppCompatActivity {
             mDataList.add(new SettingItem("앱 잠금", false));
         }
 
-        mDataList.add(new SettingItem("PUSH 알림", false));
+        if (Off.equals(PrefsHelper.read("Push", ""))) {
+            mDataList.add(new SettingItem("차단기 PUSH 알림", false));
+        } else {
+            mDataList.add(new SettingItem("차단기 PUSH 알림", true));
+        }
 
         if (On.equals(PrefsHelper.read("AutoLogin", ""))) {
             mDataList.add(new SettingItem("자동로그인", true));
@@ -85,7 +90,11 @@ public class Setting extends AppCompatActivity {
                     break;
 
                 case 1:
-                    Toast.makeText(Setting.this, "PUSH 알림", Toast.LENGTH_LONG).show();
+                    if (isChecked) {
+                        PrefsHelper.write("Push", "on");
+                    } else {
+                        PrefsHelper.write("Push", "off");
+                    }
                     break;
 
                 case 2:
