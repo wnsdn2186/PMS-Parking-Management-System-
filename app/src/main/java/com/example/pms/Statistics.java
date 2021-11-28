@@ -523,8 +523,8 @@ public class Statistics extends AppCompatActivity {
                     time13 + time14 + time15 + time16 + time17 + time18 + time19 + time20 + time21 + time22 + time23) / 24.0;
             DayAvg = (OneDayCnt + TwoDayCnt + ThreeDayCnt + FourDayCnt + FiveDayCnt + SixDayCnt + TodayCnt) / 7.0;
 
-            TimeAvgTxt.setText(String.format("%.1f", TimeAvg) + "/시");
-            DayAvgTxt.setText(String.format("%.1f", DayAvg) + "/일");
+            TimeAvgTxt.setText(String.format("%.1f", TimeAvg) + "대" + "/시");
+            DayAvgTxt.setText(String.format("%.1f", DayAvg) + "대" + "/일");
 
             GraphInitSetting(); // 그래프 세팅
 
