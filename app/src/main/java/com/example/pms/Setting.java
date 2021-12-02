@@ -2,10 +2,6 @@ package com.example.pms;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -24,7 +20,8 @@ public class Setting extends AppCompatActivity {
     private LinearLayoutManager layoutMgr = null;
     private List<SettingItem> mDataList = null;
     private SettingAdapter mAdapter = null;
-    private String On = "on";
+    private final String On = "on";
+    private final String Off = "off";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,17 +41,21 @@ public class Setting extends AppCompatActivity {
 
         mDataList = new ArrayList<>();
 
-        if(On.equals(PrefsHelper.read("Lock", ""))){
+        if (On.equals(PrefsHelper.read("Lock", ""))) {
             mDataList.add(new SettingItem("앱 잠금", true));
-        }else{
+        } else {
             mDataList.add(new SettingItem("앱 잠금", false));
         }
 
-        mDataList.add(new SettingItem("PUSH 알림", false));
+        if (Off.equals(PrefsHelper.read("Push", ""))) {
+            mDataList.add(new SettingItem("차단기 PUSH 알림", false));
+        } else {
+            mDataList.add(new SettingItem("차단기 PUSH 알림", true));
+        }
 
-        if(On.equals(PrefsHelper.read("AutoLogin", ""))){
+        if (On.equals(PrefsHelper.read("AutoLogin", ""))) {
             mDataList.add(new SettingItem("자동로그인", true));
-        }else{
+        } else {
             mDataList.add(new SettingItem("자동로그인", false));
         }
 
@@ -67,10 +68,9 @@ public class Setting extends AppCompatActivity {
         mAdapter.setOnCheckedChangeListener(mOnCheckedChangeListener);
 
 
-
     }
 
-    private SettingAdapter.OnCheckedChangeListener mOnCheckedChangeListener = new SettingAdapter.OnCheckedChangeListener() {
+    private final SettingAdapter.OnCheckedChangeListener mOnCheckedChangeListener = new SettingAdapter.OnCheckedChangeListener() {
         @Override
         public void onCheckedChanged(int position, boolean isChecked) {
             switch (position) {
@@ -84,13 +84,17 @@ public class Setting extends AppCompatActivity {
                         } else {
                             PrefsHelper.write("Lock", "off");
                         }
-                    }else{
+                    } else {
                         Toast.makeText(Setting.this, "자동로그인을 먼저 해주세요", Toast.LENGTH_LONG).show();
                     }
                     break;
 
                 case 1:
-                    Toast.makeText(Setting.this, "PUSH 알림", Toast.LENGTH_LONG).show();
+                    if (isChecked) {
+                        PrefsHelper.write("Push", "on");
+                    } else {
+                        PrefsHelper.write("Push", "off");
+                    }
                     break;
 
                 case 2:

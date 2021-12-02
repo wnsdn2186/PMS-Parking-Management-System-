@@ -7,14 +7,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -22,6 +19,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -31,7 +29,7 @@ public class RegisterSubmit extends AppCompatActivity {
     private Button cancel, submit;
     private TextView tv1, tv2, tv3;
     private String cname, pnum, cnum, sdate, stime1, stime2, edate;
-    private static String IP_ADDRESS = "13.59.85.177";
+    private static final String IP_ADDRESS = "13.59.85.177";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +71,7 @@ public class RegisterSubmit extends AppCompatActivity {
         tv3 = (TextView) findViewById(R.id.car);
         tv3.setText(cnum);
 
-        cancel = (Button)findViewById(R.id.btn_cancel);
+        cancel = (Button) findViewById(R.id.btn_cancel);
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,7 +80,7 @@ public class RegisterSubmit extends AppCompatActivity {
             }
         });
 
-        submit = (Button)findViewById(R.id.btn_submit);
+        submit = (Button) findViewById(R.id.btn_submit);
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -101,7 +99,7 @@ public class RegisterSubmit extends AppCompatActivity {
                 RegisterSubmit.JsonParse jsonParse = new RegisterSubmit.JsonParse();
                 jsonParse.execute("http://" + IP_ADDRESS + "/register.php", cname, pnum, cnum, startDate, endDate, regDate);
 
-                Toast.makeText(getApplicationContext(), "id : " + cname +" 님의 회원가입이 완료 되었습니다.", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "id : " + cname + " 님의 회원가입이 완료 되었습니다.", Toast.LENGTH_LONG).show();
 
                 Intent intent = new Intent(RegisterSubmit.this, ManageCustomer.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);//액티비티 스택제거
@@ -112,9 +110,10 @@ public class RegisterSubmit extends AppCompatActivity {
         });
     }
 
-    public class JsonParse extends AsyncTask<String,Void,String> {
+    public class JsonParse extends AsyncTask<String, Void, String> {
         ProgressDialog progressDialog;
         String TAG = "JsonParseTest";
+
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -123,7 +122,7 @@ public class RegisterSubmit extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-            if(progressDialog != null) {
+            if (progressDialog != null) {
                 progressDialog.dismiss();
             }
             Log.d(TAG, "POST response  - " + result);
@@ -131,15 +130,15 @@ public class RegisterSubmit extends AppCompatActivity {
 
         @Override
         protected String doInBackground(String... params) {
-            String name = (String)params[1];
-            String pnum = (String)params[2];
-            String carNum = (String)params[3];
-            String startdate = (String)params[4];
-            String enddate = (String)params[5];
-            String regDate = (String)params[6];
+            String name = (String) params[1];
+            String pnum = (String) params[2];
+            String carNum = (String) params[3];
+            String startdate = (String) params[4];
+            String enddate = (String) params[5];
+            String regDate = (String) params[6];
 
-            String serverURL = (String)params[0];
-            String postParameters = "name=" + name + "&pnum=" + pnum + "&carNum=" + carNum + "&startdate=" + startdate +  "&enddate=" + enddate + "&regDate=" + regDate;
+            String serverURL = (String) params[0];
+            String postParameters = "name=" + name + "&pnum=" + pnum + "&carNum=" + carNum + "&startdate=" + startdate + "&enddate=" + enddate + "&regDate=" + regDate;
             Log.d("data: ", startdate);
             Log.d("data: ", enddate);
             try {
@@ -152,7 +151,7 @@ public class RegisterSubmit extends AppCompatActivity {
                 httpURLConnection.connect();
 
                 OutputStream outputStream = httpURLConnection.getOutputStream();
-                outputStream.write(postParameters.getBytes("UTF-8"));
+                outputStream.write(postParameters.getBytes(StandardCharsets.UTF_8));
                 outputStream.flush();
                 outputStream.close();
 
@@ -160,20 +159,19 @@ public class RegisterSubmit extends AppCompatActivity {
                 Log.d(TAG, "POST response code - " + responseStatusCode);
 
                 InputStream inputStream;
-                if(responseStatusCode == HttpURLConnection.HTTP_OK) {
+                if (responseStatusCode == HttpURLConnection.HTTP_OK) {
                     inputStream = httpURLConnection.getInputStream();
-                }
-                else{
+                } else {
                     inputStream = httpURLConnection.getErrorStream();
                 }
 
-                InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
                 BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 
                 StringBuilder sb = new StringBuilder();
                 String line = null;
 
-                while((line = bufferedReader.readLine()) != null){
+                while ((line = bufferedReader.readLine()) != null) {
                     sb.append(line);
                 }
 
@@ -181,7 +179,7 @@ public class RegisterSubmit extends AppCompatActivity {
                 return sb.toString();
             } catch (Exception e) {
                 Log.d(TAG, "InsertData: Error ", e);
-                return new String("Error: " + e.getMessage());
+                return "Error: " + e.getMessage();
             }
 
         }

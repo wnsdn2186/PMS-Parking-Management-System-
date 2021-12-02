@@ -53,11 +53,11 @@ public class MyPage extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
 
-        addItem(R.drawable.ic_email_24, "이메일(아이디)", "admin@knu.ac.kr", R.drawable.color_grey_round);
-        addItem(R.drawable.ic_key_24, "비밀번호", "admin", R.drawable.color_grey_round);
-        addItem(R.drawable.ic_date_24, "생년월일", "1997.11.11", R.drawable.color_grey_round);
-        addItem(R.drawable.ic_phone_24, "번호", "010-1234-5678", R.drawable.color_grey_round);
-        addItem(R.drawable.ic_register_24, "가입일", "2021.10.16", R.drawable.color_white_round);
+        addItem(R.drawable.ic_email_24, "이메일(아이디)", "wnsdn2186@naver.com", R.drawable.color_grey_round);
+        addItem(R.drawable.ic_key_24, "비밀번호", "abcdsja", R.drawable.color_grey_round);
+        addItem(R.drawable.ic_date_24, "생년월일", "1997.11.10", R.drawable.color_grey_round);
+        addItem(R.drawable.ic_phone_24, "번호", "010-4506-2186", R.drawable.color_grey_round);
+        addItem(R.drawable.ic_register_24, "가입일", "2021.11.10", R.drawable.color_white_round);
 
         recyclerView2 = findViewById(R.id.rcView2);
         mList2 = new ArrayList<>();
@@ -97,7 +97,7 @@ public class MyPage extends AppCompatActivity {
         adapter2.setOnItemClickListener(new OnMyPageItemClickListener() {
             @Override
             public void onItemClick(MyPageAdapter2.MyViewHolder2 holder, View view, int position) {
-                switch (position){
+                switch (position) {
                     case 0:
                         customDialog = new CustomDialog(MyPage.this, Confirm, Cancel, "로그아웃 하시겠습니까?");
                         customDialog.show();
@@ -137,7 +137,7 @@ public class MyPage extends AppCompatActivity {
         });
     }
 
-    private void addItem(int imgResource, String info_title, String info, int divColor){
+    private void addItem(int imgResource, String info_title, String info, int divColor) {
         MyPageItem item = new MyPageItem();
 
         item.setImgResource(imgResource);
@@ -148,7 +148,7 @@ public class MyPage extends AppCompatActivity {
         mList.add(item);
     }
 
-    private void addItem2(int imgResource, String sub_title, int divColor, ArrayList<MyPageItem2> list){
+    private void addItem2(int imgResource, String sub_title, int divColor, ArrayList<MyPageItem2> list) {
         MyPageItem2 item2 = new MyPageItem2();
 
         item2.setImgResource(imgResource);
@@ -158,7 +158,7 @@ public class MyPage extends AppCompatActivity {
         list.add(item2);
     }
 
-    private View.OnClickListener Confirm = new View.OnClickListener() {
+    private final View.OnClickListener Confirm = new View.OnClickListener() {
         public void onClick(View v) {
             Intent logout_intent = new Intent(MyPage.this, Login.class);
             logout_intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -167,7 +167,7 @@ public class MyPage extends AppCompatActivity {
         }
     };
 
-    private View.OnClickListener Cancel = new View.OnClickListener() {
+    private final View.OnClickListener Cancel = new View.OnClickListener() {
         public void onClick(View v) {
             Toast.makeText(getApplicationContext(), "취소", Toast.LENGTH_LONG).show();
             customDialog.dismiss();

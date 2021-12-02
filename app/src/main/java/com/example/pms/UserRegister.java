@@ -1,23 +1,17 @@
 package com.example.pms;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.w3c.dom.Text;
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -25,6 +19,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -33,7 +28,7 @@ public class UserRegister extends AppCompatActivity {
     private EditText id, password, name, birth, phone, date;
     private Button register;
     private String uid, upw, uname, ubirth, uphone;
-    private static String IP_ADDRESS = "13.59.85.177";
+    private static final String IP_ADDRESS = "13.59.85.177";
     private static String temp;
     long mNow;
     Date mDate;
@@ -49,22 +44,23 @@ public class UserRegister extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
-                overridePendingTransition(R.anim.none, R.anim.horizon_exit);}
+                overridePendingTransition(R.anim.none, R.anim.horizon_exit);
+            }
         });
 
-        idT = (TextView)findViewById(R.id.idTv);
-        passwordT = (TextView)findViewById(R.id.pwTv);
-        nameT = (TextView)findViewById(R.id.nameTv);
-        birthT = (TextView)findViewById(R.id.birthTv);
-        phoneT = (TextView)findViewById(R.id.phoneTv);
-        dateT = (TextView)findViewById(R.id.dateTv);
+        idT = (TextView) findViewById(R.id.idTv);
+        passwordT = (TextView) findViewById(R.id.pwTv);
+        nameT = (TextView) findViewById(R.id.nameTv);
+        birthT = (TextView) findViewById(R.id.birthTv);
+        phoneT = (TextView) findViewById(R.id.phoneTv);
+        dateT = (TextView) findViewById(R.id.dateTv);
 
-        id = (EditText)findViewById(R.id.idField);
-        password = (EditText)findViewById(R.id.pwField);
-        name = (EditText)findViewById(R.id.nameField);
-        birth = (EditText)findViewById(R.id.birthField);
-        phone = (EditText)findViewById(R.id.phoneField);
-        date = (EditText)findViewById(R.id.dateField);
+        id = (EditText) findViewById(R.id.idField);
+        password = (EditText) findViewById(R.id.pwField);
+        name = (EditText) findViewById(R.id.nameField);
+        birth = (EditText) findViewById(R.id.birthField);
+        phone = (EditText) findViewById(R.id.phoneField);
+        date = (EditText) findViewById(R.id.dateField);
 
         id.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -130,7 +126,7 @@ public class UserRegister extends AppCompatActivity {
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(id.length() == 0) {
+                if (id.length() == 0) {
                     Toast.makeText(getApplicationContext(), "아이디를 입력하세요!", Toast.LENGTH_LONG).show();
                     id.requestFocus();
                 } else if (password.length() == 0) {
@@ -153,7 +149,7 @@ public class UserRegister extends AppCompatActivity {
                     uphone = phone.getText().toString();
 
 
-                    UserRegister.JsonParse jsonParse =new UserRegister.JsonParse();
+                    UserRegister.JsonParse jsonParse = new UserRegister.JsonParse();
                     jsonParse.execute("http://" + IP_ADDRESS + "/user_register.php", uid, upw, uname, ubirth, uphone);
 
                     finish();
@@ -164,14 +160,15 @@ public class UserRegister extends AppCompatActivity {
 
     public class JsonParse extends AsyncTask<String, Void, String> {
         String TAG = "JsonParseTest";
+
         @Override
         protected String doInBackground(String... strings) {
-            String url = (String)strings[0];
-            String uid = (String)strings[1];
-            String upw = (String)strings[2];
-            String uname = (String)strings[3];
-            String ubirth = (String)strings[4];
-            String uphone = (String)strings[5];
+            String url = (String) strings[0];
+            String uid = (String) strings[1];
+            String upw = (String) strings[2];
+            String uname = (String) strings[3];
+            String ubirth = (String) strings[4];
+            String uphone = (String) strings[5];
 
             String selectData = "uid=" + uid + "&upw=" + upw + "&uname=" + uname + "&ubirth=" + ubirth + "&uphone=" + uphone;
 
@@ -185,27 +182,26 @@ public class UserRegister extends AppCompatActivity {
                 httpURLConnection.connect();
 
                 OutputStream outputStream = httpURLConnection.getOutputStream();
-                outputStream.write(selectData.getBytes("UTF-8"));
+                outputStream.write(selectData.getBytes(StandardCharsets.UTF_8));
                 outputStream.flush();
                 outputStream.close();
 
                 int responseStatusCode = httpURLConnection.getResponseCode();
 
                 InputStream inputStream;
-                if(responseStatusCode == HttpURLConnection.HTTP_OK) {
+                if (responseStatusCode == HttpURLConnection.HTTP_OK) {
                     inputStream = httpURLConnection.getInputStream();
-                }
-                else{
+                } else {
                     inputStream = httpURLConnection.getErrorStream();
                 }
 
-                InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
                 BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 
                 StringBuilder sb = new StringBuilder();
                 String line;
 
-                while((line = bufferedReader.readLine()) != null){
+                while ((line = bufferedReader.readLine()) != null) {
                     sb.append(line);
                 }
 
@@ -235,7 +231,7 @@ public class UserRegister extends AppCompatActivity {
             super.onProgressUpdate(values);
         }
 
-        private String getTime(){
+        private String getTime() {
             mNow = System.currentTimeMillis();
             mDate = new Date(mNow);
             return mFormat.format(mDate);

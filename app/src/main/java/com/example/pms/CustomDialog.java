@@ -6,7 +6,6 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -17,8 +16,8 @@ import java.util.Objects;
 public class CustomDialog extends Dialog {
     private Button Confirm;
     private Button Cancel;
-    private View.OnClickListener ConfirmBtn;
-    private View.OnClickListener CancelBtn;
+    private final View.OnClickListener ConfirmBtn;
+    private final View.OnClickListener CancelBtn;
     public TextView Title;
     public String title;
 

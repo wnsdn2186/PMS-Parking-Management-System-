@@ -20,23 +20,23 @@
             android:layout_height="match_parent"
             android:layout_weight="1"></Space>
 
-       \
+        \
 
-            <ImageView
-                android:id="@+id/splash"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="bottom"
-                android:layout_weight="1"
-                android:src="@drawable/parking_logo"></ImageView>
+        <ImageView
+            android:id="@+id/splash"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:src="@drawable/parking_logo"></ImageView>
 
-            <ImageView
-                android:id="@+id/splash2"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="bottom"
-                android:layout_weight="1"
-                android:src="@drawable/parking_text"></ImageView>
+        <ImageView
+            android:id="@+id/splash2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:src="@drawable/parking_text"></ImageView>
 
 
         <Space

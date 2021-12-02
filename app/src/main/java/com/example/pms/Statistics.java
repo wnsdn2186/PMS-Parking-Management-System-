@@ -4,6 +4,10 @@ import android.app.ProgressDialog;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.RelativeSizeSpan;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -22,7 +26,6 @@ import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.formatter.ValueFormatter;
-import com.github.mikephil.charting.utils.ColorTemplate;
 import com.github.mikephil.charting.utils.ViewPortHandler;
 
 import org.json.JSONArray;
@@ -35,11 +38,13 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.sql.Time;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 
-public class Statistics  extends AppCompatActivity {
+public class Statistics extends AppCompatActivity {
     private Toolbar toolbar;
     private static String IP_ADDRESS = "13.59.85.177";
     private String mJsonString;
@@ -49,6 +54,21 @@ public class Statistics  extends AppCompatActivity {
     ArrayList<String> timelabelList = new ArrayList<>(); // 시간
     BarChart daychart, timechart;
     XAxis xAxisday, xAxistime;
+    int today = 0;
+    int OneDayCnt = 0, TwoDayCnt = 0, ThreeDayCnt = 0, FourDayCnt = 0, FiveDayCnt = 0, SixDayCnt = 0, TodayCnt = 0, MaxCntDay = 20;
+
+    int midnightCnt = 0, time1 = 0, time2 = 0, time3 = 0, time4 = 0, time5 = 0, time6 = 0, time7 = 0, time8 = 0, time9 = 0, time10 = 0, time11 = 0;
+    int noonCnt = 0, time13 = 0, time14 = 0, time15 = 0, time16 = 0, time17 = 0, time18 = 0, time19 = 0, time20 = 0, time21 = 0, time22 = 0, time23 = 0, MaxCntTime = 5;
+
+    private TextView TimeAvgTitle, TimeAvgTxt, DayAvgTitle, DayAvgTxt;
+    private TextView ChartTimeTitle, ChartDayTitle;
+    String TimeTitle, DayTitle;
+    String cTimeTitle, cDayTitle;
+    String TimeWord = "시간";
+    String DayWord = "일";
+    int start, end;
+    private double TimeAvg = 0;
+    private double DayAvg = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,54 +87,188 @@ public class Statistics  extends AppCompatActivity {
         GetData task = new GetData();
         task.execute("http://" + IP_ADDRESS + "/stat.php", "");
 
-        daychart = (BarChart)findViewById(R.id.daybarchart);
-        timechart = (BarChart)findViewById(R.id.timebarchart);
+        daychart = (BarChart) findViewById(R.id.daybarchart);
+        timechart = (BarChart) findViewById(R.id.timebarchart);
 
         xAxisday = daychart.getXAxis();
         xAxistime = timechart.getXAxis();
 
-        GraphInitSetting(); // 그래프 세팅
+        TimeAvgTitle = findViewById(R.id.TimeAvgTitle);
+        TimeAvgTxt = findViewById(R.id.TimeAvg);
+        DayAvgTitle = findViewById(R.id.DayAvgTitle);
+        DayAvgTxt = findViewById(R.id.DayAvg);
 
-        DayBarChartGraph(daylabelList, dayjsonList);
-        TimeBarChartGraph(timelabelList, timejsonList);
+        ChartTimeTitle = findViewById(R.id.timetitle);
+        ChartDayTitle = findViewById(R.id.daytitle);
+
+        TimeTitle = TimeAvgTitle.getText().toString();
+        DayTitle = DayAvgTitle.getText().toString();
+        cTimeTitle = ChartTimeTitle.getText().toString();
+        cDayTitle = ChartDayTitle.getText().toString();
+
+        SpannableString TimespannableString = new SpannableString(TimeTitle);
+        SpannableString DayspannableString = new SpannableString(DayTitle);
+        SpannableString cTimespannableString = new SpannableString(cTimeTitle);
+        SpannableString cDayspannableString = new SpannableString(cDayTitle);
+
+        TimespannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#64AFE1")), 0, 3, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        TimespannableString.setSpan(new RelativeSizeSpan(1.3f), 0, 3, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
+        DayspannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#64AFE1")), 0, 2, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        DayspannableString.setSpan(new RelativeSizeSpan(1.3f), 0, 2, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
+        cTimespannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#64AFE1")), 0, 3, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        cTimespannableString.setSpan(new RelativeSizeSpan(1.3f), 0, 3, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
+        cDayspannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#64AFE1")), 0, 3, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        cDayspannableString.setSpan(new RelativeSizeSpan(1.3f), 0, 3, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        TimeAvgTitle.setText(TimespannableString);
+        DayAvgTitle.setText(DayspannableString);
+        ChartTimeTitle.setText(cTimespannableString);
+        ChartDayTitle.setText(cDayspannableString);
+        // GraphInitSetting(); // 그래프 세팅
     }
 
-    public void GraphInitSetting(){
+    public void GraphInitSetting() {
+        switch (today) {
+            case 0:
+                daylabelList.add("월");
+                daylabelList.add("화");
+                daylabelList.add("수");
+                daylabelList.add("목");
+                daylabelList.add("금");
+                daylabelList.add("토");
+                daylabelList.add("일");
+                break;
+            case 1:
+                daylabelList.add("화");
+                daylabelList.add("수");
+                daylabelList.add("목");
+                daylabelList.add("금");
+                daylabelList.add("토");
+                daylabelList.add("일");
+                daylabelList.add("월");
+                break;
+            case 2:
+                daylabelList.add("수");
+                daylabelList.add("목");
+                daylabelList.add("금");
+                daylabelList.add("토");
+                daylabelList.add("일");
+                daylabelList.add("월");
+                daylabelList.add("화");
+                break;
+            case 3:
+                daylabelList.add("목");
+                daylabelList.add("금");
+                daylabelList.add("토");
+                daylabelList.add("일");
+                daylabelList.add("월");
+                daylabelList.add("화");
+                daylabelList.add("수");
+                break;
+            case 4:
+                daylabelList.add("금");
+                daylabelList.add("토");
+                daylabelList.add("일");
+                daylabelList.add("월");
+                daylabelList.add("화");
+                daylabelList.add("수");
+                daylabelList.add("목");
+                break;
+            case 5:
+                daylabelList.add("토");
+                daylabelList.add("일");
+                daylabelList.add("월");
+                daylabelList.add("화");
+                daylabelList.add("수");
+                daylabelList.add("목");
+                daylabelList.add("금");
+                break;
+            case 6:
+                daylabelList.add("일");
+                daylabelList.add("월");
+                daylabelList.add("화");
+                daylabelList.add("수");
+                daylabelList.add("목");
+                daylabelList.add("금");
+                daylabelList.add("토");
+                break;
+        }
 
-        daylabelList.add("일");daylabelList.add("월");daylabelList.add("화");daylabelList.add("수");daylabelList.add("목");daylabelList.add("금");daylabelList.add("토"); // 요일
+        timelabelList.add("00시");
+        timelabelList.add("01시");
+        timelabelList.add("02시");
+        timelabelList.add("03시");
+        timelabelList.add("04시");
+        timelabelList.add("05시");
+        timelabelList.add("06시");
+        timelabelList.add("07시");
+        timelabelList.add("08시");
+        timelabelList.add("09시");
+        timelabelList.add("10시");
+        timelabelList.add("11시");
+        timelabelList.add("12시");
+        timelabelList.add("13시");
+        timelabelList.add("14시");
+        timelabelList.add("15시");
+        timelabelList.add("16시");
+        timelabelList.add("17시");
+        timelabelList.add("18시");
+        timelabelList.add("19시");
+        timelabelList.add("20시");
+        timelabelList.add("21시");
+        timelabelList.add("22시");
+        timelabelList.add("23시");
 
-        timelabelList.add("00시");timelabelList.add("01시");timelabelList.add("02시");timelabelList.add("03시");timelabelList.add("04시");timelabelList.add("05시");
-        timelabelList.add("06시");timelabelList.add("07시");timelabelList.add("08시");timelabelList.add("09시");timelabelList.add("10시");timelabelList.add("11시");
-        timelabelList.add("12시");timelabelList.add("13시");timelabelList.add("14시");timelabelList.add("15시");timelabelList.add("16시");timelabelList.add("17시");
-        timelabelList.add("18시");timelabelList.add("19시");timelabelList.add("20시");timelabelList.add("21시");timelabelList.add("22시");timelabelList.add("23시"); // 시간
 
-        // 임시값
-        dayjsonList.add(110);
-        dayjsonList.add(550);
-        dayjsonList.add(260);
-        dayjsonList.add(340);
-        dayjsonList.add(420);
-        dayjsonList.add(480);
-        dayjsonList.add(80);
+        dayjsonList.add(OneDayCnt);
+        dayjsonList.add(TwoDayCnt);
+        dayjsonList.add(ThreeDayCnt);
+        dayjsonList.add(FourDayCnt);
+        dayjsonList.add(FiveDayCnt);
+        dayjsonList.add(SixDayCnt);
+        dayjsonList.add(TodayCnt);
 
-        // 임시값
-        timejsonList.add(10);timejsonList.add(10);timejsonList.add(50);timejsonList.add(30);timejsonList.add(20);timejsonList.add(44);
-        timejsonList.add(94);timejsonList.add(77);timejsonList.add(75);timejsonList.add(38);timejsonList.add(25);timejsonList.add(40);
-        timejsonList.add(2);timejsonList.add(63);timejsonList.add(59);timejsonList.add(32);timejsonList.add(63);timejsonList.add(80);
-        timejsonList.add(88);timejsonList.add(6);timejsonList.add(10);timejsonList.add(12);timejsonList.add(17);timejsonList.add(22);
+        findMaxCntDay(OneDayCnt, TwoDayCnt, ThreeDayCnt, FourDayCnt, FiveDayCnt, SixDayCnt, TodayCnt);
+
+        timejsonList.add(midnightCnt);
+        timejsonList.add(time1);
+        timejsonList.add(time2);
+        timejsonList.add(time3);
+        timejsonList.add(time4);
+        timejsonList.add(time5);
+        timejsonList.add(time6);
+        timejsonList.add(time7);
+        timejsonList.add(time8);
+        timejsonList.add(time9);
+        timejsonList.add(time10);
+        timejsonList.add(time11);
+        timejsonList.add(noonCnt);
+        timejsonList.add(time13);
+        timejsonList.add(time14);
+        timejsonList.add(time15);
+        timejsonList.add(time16);
+        timejsonList.add(time17);
+        timejsonList.add(time18);
+        timejsonList.add(time19);
+        timejsonList.add(time20);
+        timejsonList.add(time21);
+        timejsonList.add(time22);
+        timejsonList.add(time23);
+
+        findMaxCntTime(midnightCnt, time1, time2, time3, time4, time5, time6, time7, time8, time9, time10, time11);
+        findMaxCntTime(noonCnt, time13, time14, time15, time16, time17, time18, time19, time20, time21, time22, time23);
 
         DayBarChartGraph(daylabelList, dayjsonList);
         TimeBarChartGraph(timelabelList, timejsonList);
-        daychart.setTouchEnabled(false); // 터치불가 --> 추후 변경
 
-        daychart.getAxisRight().setAxisMaxValue(700); // 최대값(add의 최대값 + 20정도로 하기)
-        daychart.getAxisLeft().setAxisMaxValue(700);
-        daychart.getAxisRight().setAxisMinValue(0); // 최대값(add의 최대값 + 20정도로 하기)
+        daychart.getAxisRight().setAxisMaxValue(MaxCntDay);
+        daychart.getAxisLeft().setAxisMaxValue(MaxCntDay);
+        daychart.getAxisRight().setAxisMinValue(0);
         daychart.getAxisLeft().setAxisMinValue(0);
 
-        timechart.getAxisRight().setAxisMaxValue(100); // 최대값(add의 최대값 + 20정도로 하기)
-        timechart.getAxisLeft().setAxisMaxValue(100);
-        timechart.getAxisRight().setAxisMinValue(0); // 최대값(add의 최대값 + 20정도로 하기)
+        timechart.getAxisRight().setAxisMaxValue(MaxCntTime);
+        timechart.getAxisLeft().setAxisMaxValue(MaxCntTime);
+        timechart.getAxisRight().setAxisMinValue(0);
         timechart.getAxisLeft().setAxisMinValue(0);
     }
 
@@ -135,7 +289,7 @@ public class Statistics  extends AppCompatActivity {
         }
 
         //그래프 디자인
-        depenses.setColors(Collections.singletonList(Color.rgb(0, 102, 255))); // 컬러 팔레트
+        depenses.setColors(Collections.singletonList(Color.rgb(100, 175, 255))); // 컬러 팔레트
         daychart.setVisibleXRangeMaximum(7f); // 갯수표시
         xAxisday.setPosition(XAxis.XAxisPosition.BOTTOM); // 요일 표시 하단
         xAxisday.setDrawGridLines(false); // 세로선 삭제
@@ -156,7 +310,7 @@ public class Statistics  extends AppCompatActivity {
             entries.add(new BarEntry((Integer) valList.get(i), i));
         }
 
-        BarDataSet depenses = new BarDataSet(entries, "시간별 출입차량");
+        BarDataSet depenses = new BarDataSet(entries, "시간 출입차량");
         depenses.setAxisDependency(YAxis.AxisDependency.LEFT);
         timechart.setDescription(" ");
 
@@ -166,7 +320,7 @@ public class Statistics  extends AppCompatActivity {
         }
 
         //그래프 디자인
-        depenses.setColors(Collections.singletonList(Color.rgb(77, 148, 255)));
+        depenses.setColors(Collections.singletonList(Color.rgb(100, 175, 255)));
         timechart.setVisibleXRangeMaximum(24f);
         xAxistime.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxistime.setDrawGridLines(false);
@@ -193,6 +347,7 @@ public class Statistics  extends AppCompatActivity {
             return mFormat.format(value);
         }
     }
+
     public boolean onCreateOptionsMenu(Menu menu) {
 
         MenuInflater menuInflater = getMenuInflater();
@@ -200,7 +355,7 @@ public class Statistics  extends AppCompatActivity {
         return true;
     }
 
-    private class GetData extends AsyncTask<String, Void, String> {
+    public class GetData extends AsyncTask<String, Void, String> {
         ProgressDialog progressDialog;
         String errorString = null;
 
@@ -220,10 +375,9 @@ public class Statistics  extends AppCompatActivity {
 
             Log.d("response", "response - " + result);
 
-            if (result == null){
+            if (result == null) {
                 //rs.setText(errorString);
-            }
-            else {
+            } else {
                 mJsonString = result;
                 showResult();
             }
@@ -254,10 +408,9 @@ public class Statistics  extends AppCompatActivity {
                 Log.d("response", "response code - " + responseStatusCode);
 
                 InputStream inputStream;
-                if(responseStatusCode == HttpURLConnection.HTTP_OK) {
+                if (responseStatusCode == HttpURLConnection.HTTP_OK) {
                     inputStream = httpURLConnection.getInputStream();
-                }
-                else{
+                } else {
                     inputStream = httpURLConnection.getErrorStream();
                 }
 
@@ -267,7 +420,7 @@ public class Statistics  extends AppCompatActivity {
                 StringBuilder sb = new StringBuilder();
                 String line;
 
-                while((line = bufferedReader.readLine()) != null){
+                while ((line = bufferedReader.readLine()) != null) {
                     sb.append(line);
                 }
                 bufferedReader.close();
@@ -281,32 +434,125 @@ public class Statistics  extends AppCompatActivity {
         }
     }
 
-    private void showResult(){
-        String TAG_JSON="statData";
+    public void showResult() {
+        String TAG_JSON = "statData";
         String TAG_PASSTIME = "passtime";
+        Long pt = 0L, range = 0L, time = 0L;
 
         try {
             JSONObject jsonObject = new JSONObject(mJsonString);
             JSONArray jsonArray = jsonObject.getJSONArray(TAG_JSON);
-            for(int i=0;i<jsonArray.length();i++){
+            for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject item = jsonArray.getJSONObject(i);
-                int pt = item.getInt(TAG_PASSTIME);
+                pt = item.getLong(TAG_PASSTIME);
                 Log.i("passtime: ", String.valueOf(pt));
+
+                range = jsonArray.getJSONObject(jsonArray.length() - 1).getLong(TAG_PASSTIME) * 1000L;
+                Date RangeDate = new Date(range);
+                today = RangeDate.getDay();
+
+                time = pt * 1000L;
+                Date ItDate = new Date(time);
+
+                if ((7 + today - ItDate.getDay()) % 7 == 6) {
+                    OneDayCnt += 1;
+                } else if ((7 + today - ItDate.getDay()) % 7 == 5) {
+                    TwoDayCnt += 1;
+                } else if ((7 + today - ItDate.getDay()) % 7 == 4) {
+                    ThreeDayCnt += 1;
+                } else if ((7 + today - ItDate.getDay()) % 7 == 3) {
+                    FourDayCnt += 1;
+                } else if ((7 + today - ItDate.getDay()) % 7 == 2) {
+                    FiveDayCnt += 1;
+                } else if ((7 + today - ItDate.getDay()) % 7 == 1) {
+                    SixDayCnt += 1;
+                } else if ((7 + today - ItDate.getDay()) % 7 == 0) {
+                    TodayCnt += 1;
+                    if (ItDate.getHours() == 0) {
+                        midnightCnt += 1;
+                    } else if (ItDate.getHours() == 1) {
+                        time1 += 1;
+                    } else if (ItDate.getHours() == 2) {
+                        time2 += 1;
+                    } else if (ItDate.getHours() == 3) {
+                        time3 += 1;
+                    } else if (ItDate.getHours() == 4) {
+                        time4 += 1;
+                    } else if (ItDate.getHours() == 5) {
+                        time5 += 1;
+                    } else if (ItDate.getHours() == 6) {
+                        time6 += 1;
+                    } else if (ItDate.getHours() == 7) {
+                        time7 += 1;
+                    } else if (ItDate.getHours() == 8) {
+                        time8 += 1;
+                    } else if (ItDate.getHours() == 9) {
+                        time9 += 1;
+                    } else if (ItDate.getHours() == 10) {
+                        time10 += 1;
+                    } else if (ItDate.getHours() == 11) {
+                        time11 += 1;
+                    } else if (ItDate.getHours() == 12) {
+                        noonCnt += 1;
+                    } else if (ItDate.getHours() == 13) {
+                        time13 += 1;
+                    } else if (ItDate.getHours() == 14) {
+                        time14 += 1;
+                    } else if (ItDate.getHours() == 15) {
+                        time15 += 1;
+                    } else if (ItDate.getHours() == 16) {
+                        time16 += 1;
+                    } else if (ItDate.getHours() == 17) {
+                        time17 += 1;
+                    } else if (ItDate.getHours() == 18) {
+                        time18 += 1;
+                    } else if (ItDate.getHours() == 19) {
+                        time19 += 1;
+                    } else if (ItDate.getHours() == 20) {
+                        time20 += 1;
+                    } else if (ItDate.getHours() == 21) {
+                        time21 += 1;
+                    } else if (ItDate.getHours() == 22) {
+                        time22 += 1;
+                    } else if (ItDate.getHours() == 23) {
+                        time23 += 1;
+                    }
+                }
             }
+            TimeAvg = (midnightCnt + time1 + time2 + time3 + time4 + time5 + time6 + time7 + time8 + time9 + time10 + time11 + noonCnt +
+                    time13 + time14 + time15 + time16 + time17 + time18 + time19 + time20 + time21 + time22 + time23) / 24.0;
+            DayAvg = (OneDayCnt + TwoDayCnt + ThreeDayCnt + FourDayCnt + FiveDayCnt + SixDayCnt + TodayCnt) / 7.0;
+
+            TimeAvgTxt.setText(String.format("%.1f", TimeAvg) + "대" + "/시");
+            DayAvgTxt.setText(String.format("%.1f", DayAvg) + "대" + "/일");
+
+            GraphInitSetting(); // 그래프 세팅
+
         } catch (JSONException e) {
             Log.d("result", "showResult : ", e);
         }
     }
 
-}
+    public int findMaxCntDay(int oneDayCnt, int twoDayCnt, int threeDayCnt, int fourDayCnt, int fiveDayCnt, int sixDayCnt, int todayCnt) {
+        int CntArr[] = {oneDayCnt, twoDayCnt, threeDayCnt, fourDayCnt, fiveDayCnt, sixDayCnt, todayCnt};
+        for (int i = 0; i < CntArr.length; i++) {
+            if (MaxCntDay < CntArr[i]) {
+                MaxCntDay = CntArr[i];
+            }
+        }
+        MaxCntDay = (int) (MaxCntDay * 1.1);
+        return MaxCntDay;
+    }
 
-/*
-1. 일간, 시간 데이터 가져오기
-2. 컬러 변경 - 단색에서 다색으로
-3. 일간, 시간 데이터 현재를 제일 우측 표시
-4. 현재 기준으로 필요 수 만큼 가져오기
-5. 소수점 제거
-6. 터치 기능 수정
- + 디자인
-*/
+    public int findMaxCntTime(int time1, int time2, int time3, int time4, int time5, int time6, int time7, int time8, int time9, int time10, int time11, int time12) {
+        int CntArr[] = {time1, time2, time3, time4, time5, time6, time7, time8, time9, time10, time11, time12};
+        for (int i = 0; i < CntArr.length; i++) {
+            if (MaxCntTime < CntArr[i]) {
+                MaxCntTime = CntArr[i];
+            }
+        }
+        MaxCntTime = (int) (MaxCntTime * 1.1);
+        return MaxCntTime;
+    }
+}
 

@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CarSearchAdapter extends RecyclerView.Adapter<CarSearchAdapter.CarSearchHolder> {
-    private Activity context;
+    private final Activity context;
     private List<CarSearchItem> items = null;
     private String URL;
 
@@ -58,13 +58,13 @@ public class CarSearchAdapter extends RecyclerView.Adapter<CarSearchAdapter.CarS
 
 
     public class CarSearchHolder extends RecyclerView.ViewHolder {
-        private TextView Cnt;
-        private TextView Date;
-        private TextView CarNum;
-        private TextView InTime;
-        private TextView OutTime;
-        private ImageView NumPlate;
-        private ImageView ShowPicBtn;
+        private final TextView Cnt;
+        private final TextView Date;
+        private final TextView CarNum;
+        private final TextView InTime;
+        private final TextView OutTime;
+        private final ImageView NumPlate;
+        private final ImageView ShowPicBtn;
 
         CarSearchHolder(@NonNull View itemView) {
             super(itemView);
@@ -101,7 +101,7 @@ public class CarSearchAdapter extends RecyclerView.Adapter<CarSearchAdapter.CarS
                 @Override
                 public void onClick(View v) {
                     int pos = getAdapterPosition();
-                    if(pos != RecyclerView.NO_POSITION) {
+                    if (pos != RecyclerView.NO_POSITION) {
                         CarSearchItem item = items.get(pos);
                         Intent intent = new Intent(context, MagnifyingImage.class);
                         intent.putExtra("URL", item.getImgURL());
@@ -112,7 +112,7 @@ public class CarSearchAdapter extends RecyclerView.Adapter<CarSearchAdapter.CarS
         }
     }
 
-    public void FilterList(ArrayList<CarSearchItem> FilteredList){
+    public void FilterList(ArrayList<CarSearchItem> FilteredList) {
         items = FilteredList;
         notifyDataSetChanged();
     }

@@ -2,36 +2,36 @@ package com.example.pms;
 
 import android.Manifest;
 import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.Toast;
 
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
+import androidx.core.app.NotificationCompat;
 
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
 import java.net.Socket;
-import java.util.function.ToLongBiFunction;
 
 public class MainActivity extends AppCompatActivity {
     int maxBufferSize = 11;//최대 버퍼 사이즈
     int nReadSize;//받은 Data Size
+    int NotifyCnt = 0;
+    private String On = "on";
+    private String Off = "off";
 
     String ADDR = "220.81.104.188";//서버 IP
     int PORT = 5555;//서버 PORT
@@ -81,6 +81,11 @@ public class MainActivity extends AppCompatActivity {
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
 
+    private Intent intent;
+
+    public MainActivity() {
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,7 +93,10 @@ public class MainActivity extends AppCompatActivity {
 
         checkVerify();
 
-        sharedPreferences = getSharedPreferences("SwitchStatus",MODE_PRIVATE);
+        intent = new Intent(this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+        sharedPreferences = getSharedPreferences("SwitchStatus", MODE_PRIVATE);
         Status = sharedPreferences.getInt("SwitchStatus", 0);
 
         register = (CardView) findViewById(R.id.register_card);
@@ -96,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
         barrier = (CardView) findViewById(R.id.barrier_card);
         analytics = (CardView) findViewById(R.id.analytics_card);
         mypage = (CardView) findViewById(R.id.mypage_card);
-        setting = (CardView)findViewById(R.id.setting_card);
+        setting = (CardView) findViewById(R.id.setting_card);
         barrierSwitch = (Switch) findViewById(R.id.barrier_switch);
 
         ImageButton backbtn = (ImageButton) findViewById(R.id.BackBtn);
@@ -124,10 +132,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //스위치 상태저장
-        if(Status == 0)
-            barrierSwitch.setChecked(false);
-        else
-            barrierSwitch.setChecked(true);
+        barrierSwitch.setChecked(Status != 0);
 
         barrierSwitch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -156,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        setting.setOnClickListener(new View.OnClickListener(){
+        setting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), Setting.class));
@@ -165,7 +170,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private View.OnClickListener Confirm = new View.OnClickListener() {
+    private final View.OnClickListener Confirm = new View.OnClickListener() {
         public void onClick(View v) {
             if (Status == 0) {
                 SEND_MESSAGE = BAR_ON;
@@ -180,12 +185,9 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    private View.OnClickListener Cancel = new View.OnClickListener() {
+    private final View.OnClickListener Cancel = new View.OnClickListener() {
         public void onClick(View v) {
-            if (barrierSwitch.isChecked())
-                barrierSwitch.setChecked(false);
-            else
-                barrierSwitch.setChecked(true);
+            barrierSwitch.setChecked(!barrierSwitch.isChecked());
             customDialog.dismiss();
         }
     };
@@ -223,9 +225,19 @@ public class MainActivity extends AppCompatActivity {
                                     Status = 1;
                                     editor.putInt("SwitchStatus", Status);
                                     editor.apply();
-                                    Toast.makeText(MainActivity.this, "차단기가 열렸습니다.", Toast.LENGTH_LONG).show();
+                                    if (Off.equals(PrefsHelper.read("Push", ""))) {
+                                        Toast.makeText(MainActivity.this, "차단기가 열렸습니다", Toast.LENGTH_LONG).show();
+                                    }else{
+                                        createNotificationChannel("DEFAULT", "default", NotificationManager.IMPORTANCE_HIGH);
+                                        createNotification("DEFAULT", NotifyCnt++, "스마트 주차관리", "차단기가 열렸습니다", intent);
+                                    }
                                 } else if (java.util.Arrays.equals(RECV_MESSAGE, BAR_RESULT_OFF) == true) {
-                                    Toast.makeText(MainActivity.this, "차단기가 열리지 않습니다.", Toast.LENGTH_LONG).show();
+                                    if (Off.equals(PrefsHelper.read("Push", ""))) {
+                                        Toast.makeText(MainActivity.this, "차단기가 열리지 않습니다", Toast.LENGTH_LONG).show();
+                                    }else{
+                                        createNotificationChannel("DEFAULT", "default", NotificationManager.IMPORTANCE_HIGH);
+                                        createNotification("DEFAULT", NotifyCnt++, "스마트 주차관리", "차단기가 열리지 않습니다", intent);
+                                    }
                                 } else {
                                     Toast.makeText(MainActivity.this, "다시 시도하세요.", Toast.LENGTH_LONG).show();
                                 }
@@ -236,9 +248,19 @@ public class MainActivity extends AppCompatActivity {
                                     Status = 0;
                                     editor.putInt("SwitchStatus", Status);
                                     editor.apply();
-                                    Toast.makeText(MainActivity.this, "차단기가 닫혔습니다.", Toast.LENGTH_LONG).show();
+                                    if (Off.equals(PrefsHelper.read("Push", ""))) {
+                                        Toast.makeText(MainActivity.this, "차단기가 닫혔습니다", Toast.LENGTH_LONG).show();
+                                    }else{
+                                        createNotificationChannel("DEFAULT", "default", NotificationManager.IMPORTANCE_HIGH);
+                                        createNotification("DEFAULT", NotifyCnt++, "스마트 주차관리", "차단기가 닫혔습니다", intent);
+                                    }
                                 } else if (java.util.Arrays.equals(RECV_MESSAGE, BAR_RESULT_OFF) == true) {
-                                    Toast.makeText(MainActivity.this, "차단기가 닫히지 않습니다.", Toast.LENGTH_LONG).show();
+                                    if (Off.equals(PrefsHelper.read("Push", ""))) {
+                                        Toast.makeText(MainActivity.this, "차단기가 닫히지 않습니다", Toast.LENGTH_LONG).show();
+                                    }else{
+                                        createNotificationChannel("DEFAULT", "default", NotificationManager.IMPORTANCE_HIGH);
+                                        createNotification("DEFAULT", NotifyCnt++, "스마트 주차관리", "차단기가 닫히지 않습니다", intent);
+                                    }
                                 } else {
                                     Toast.makeText(MainActivity.this, "다시 시도하세요.", Toast.LENGTH_LONG).show();
                                 }
@@ -266,8 +288,37 @@ public class MainActivity extends AppCompatActivity {
     public void checkVerify() {
         if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED ||
                 checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            if (shouldShowRequestPermissionRationale(Manifest.permission.WRITE_EXTERNAL_STORAGE)) { }
+            if (shouldShowRequestPermissionRationale(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+            }
             requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
         }
+    }
+
+    private void createNotificationChannel(String ChannelId, String ChannelName, int importance) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+            notificationManager.createNotificationChannel(new NotificationChannel(ChannelId, ChannelName, importance));
+        }
+    }
+
+    private void createNotification(String ChannelId, int id, String title, String text, Intent intent) {
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, ChannelId)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setSmallIcon(R.drawable.parking_logo)
+                .setContentTitle(title)
+                .setContentText(text)
+                .setContentIntent(pendingIntent)
+                .setAutoCancel(true)
+                .setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE);
+
+        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        notificationManager.notify(id, builder.build());
+    }
+
+    private void destroyNotification(int id) {
+        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        notificationManager.cancel(id);
     }
 }

@@ -4,8 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -13,7 +11,7 @@ public class ScreenLock extends AppCompatActivity {
     private EditText first, second, third, fourth;
     private int count = 1;
     private String pin;
-    private int REQ_EXIT = -1;
+    private final int REQ_EXIT = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +73,7 @@ public class ScreenLock extends AppCompatActivity {
 
             case R.id.deleteBtn:
                 DelPinNum();
-                if(count > 1)
+                if (count > 1)
                     count--;
                 break;
         }
@@ -112,8 +110,8 @@ public class ScreenLock extends AppCompatActivity {
         }
     }
 
-    public void DelPinNum(){
-        switch(count){
+    public void DelPinNum() {
+        switch (count) {
             case 2:
                 first.setText(null);
                 break;
@@ -129,18 +127,18 @@ public class ScreenLock extends AppCompatActivity {
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode == REQ_EXIT){
-            if(resultCode == RESULT_OK){
+        if (requestCode == REQ_EXIT) {
+            if (resultCode == RESULT_OK) {
                 this.finish();
             }
         }
     }
 
     @Override
-    protected void onRestart(){
+    protected void onRestart() {
         super.onRestart();
         finish();
     }

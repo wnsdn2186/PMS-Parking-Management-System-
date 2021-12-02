@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background5">
@@ -37,12 +36,98 @@
                     android:textSize="23dp"
                     android:textStyle="bold" />
 
+                <LinearLayout
+                    android:id="@+id/LinearEvg"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/Statistics"
+                    android:layout_marginTop="50dp"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/DayAvgTitle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/bmhanna_11yrs_ttf"
+                            android:gravity="center"
+                            android:text="일 평균"
+                            android:textSize="30dp"></TextView>
+
+                        <Space
+                            android:layout_width="match_parent"
+                            android:layout_height="30dp"></Space>
+
+                        <TextView
+                            android:id="@+id/DayAvg"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/elicedigitalbaeum_bold"
+                            android:gravity="center"
+                            android:text="24/Day"
+                            android:textColor="@color/black"
+                            android:textSize="30dp"></TextView>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/TimeAvgTitle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/bmhanna_11yrs_ttf"
+                            android:gravity="center"
+                            android:text="시간 평균"
+                            android:textSize="30dp"></TextView>
+
+                        <Space
+                            android:layout_width="match_parent"
+                            android:layout_height="30dp"></Space>
+
+                        <TextView
+                            android:id="@+id/TimeAvg"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/elicedigitalbaeum_bold"
+                            android:gravity="center"
+                            android:text="24/Hour"
+                            android:textColor="@color/black"
+                            android:textSize="30dp"></TextView>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/daytitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/LinearEvg"
+                    android:layout_marginTop="30dp"
+                    android:fontFamily="@font/elicedigitalbaeum_bold"
+                    android:text="일별 출입차량"
+                    android:textAlignment="center"
+                    android:textSize="25dp"
+                    android:textStyle="bold" />
+
                 <com.github.mikephil.charting.charts.BarChart
                     android:id="@+id/daybarchart"
-                    android:layout_below="@+id/Statistics"
                     android:layout_width="match_parent"
-                    android:layout_height="250dp"
-                    android:layout_marginTop="50dp"
+                    android:layout_height="200dp"
+                    android:layout_below="@+id/daytitle"
+                    android:layout_marginTop="20dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.495"
@@ -50,12 +135,24 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.471" />
 
+                <TextView
+                    android:id="@+id/timetitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/daybarchart"
+                    android:layout_marginTop="30dp"
+                    android:fontFamily="@font/elicedigitalbaeum_bold"
+                    android:text="시간별 출입차량"
+                    android:textAlignment="center"
+                    android:textSize="25dp"
+                    android:textStyle="bold" />
+
                 <com.github.mikephil.charting.charts.BarChart
                     android:id="@+id/timebarchart"
-                    android:layout_below="@+id/daybarchart"
                     android:layout_width="match_parent"
-                    android:layout_height="250dp"
-                    android:layout_marginTop="50dp"
+                    android:layout_height="200dp"
+                    android:layout_below="@+id/timetitle"
+                    android:layout_marginTop="20dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.495"
