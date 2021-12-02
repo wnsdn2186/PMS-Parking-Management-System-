@@ -46,7 +46,7 @@ import java.util.Date;
 
 public class Statistics extends AppCompatActivity {
     private Toolbar toolbar;
-    private static String IP_ADDRESS = "13.59.85.177";
+    private static String IP_ADDRESS = "58.151.43.91";
     private String mJsonString;
     ArrayList<Integer> dayjsonList = new ArrayList<>(); // 출입차량 수
     ArrayList<String> daylabelList = new ArrayList<>(); // 시간
