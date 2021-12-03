@@ -40,7 +40,7 @@ public class ManageCustomer extends AppCompatActivity {
     private FloatingActionButton add_btn;
     private EditText et;
     private TextView tv, rs;
-    private static final String IP_ADDRESS = "13.59.85.177";
+    private static String IP_ADDRESS = "58.151.43.91";
     private ArrayList<Customer> cust;
     private ArrayList<Customer> copiedList;
 
@@ -240,7 +240,6 @@ public class ManageCustomer extends AppCompatActivity {
     }
 
     private void showResult() {
-
         String TAG_JSON = "cusList";
         String TAG_IDX = "idx";
         String TAG_NAME = "stcustname1";

@@ -28,7 +28,7 @@ public class Login extends AppCompatActivity {
     private Button login, register;
     private CheckBox checkBox;
     private String jsonString, userID, userPassword;
-    private static final String IP_ADDRESS = "13.59.85.177";
+    private static String IP_ADDRESS = "58.151.43.91";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
