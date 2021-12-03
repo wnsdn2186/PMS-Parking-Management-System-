@@ -30,8 +30,11 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 public class CarSearch extends AppCompatActivity {
     private TextView search_box;
@@ -41,6 +44,8 @@ public class CarSearch extends AppCompatActivity {
     private int cnt = 1;
     private static final String IP_ADDRESS = "58.151.43.91";
     private String mJsonImg;
+    private SimpleDateFormat simpleDateFormat;
+    private Date date;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -167,8 +172,10 @@ public class CarSearch extends AppCompatActivity {
                 pimgPath = pimgPath.replaceAll("\\\\", "/");
                 String path = "http://58.151.43.91/" + pimgPath;
                 Log.i("Path: ", path);
-                addItem(i, passTime, path, plateNum, "17:23", "19:20");
-
+                Log.d("PassTime", passTime);
+                simpleDateFormat = new SimpleDateFormat("YYYY-MM-dd HH:mm", Locale.KOREA);
+                date = new Date(Long.valueOf(passTime) * 1000);
+                addItem(i + 1, simpleDateFormat.format(date), path, plateNum, "17:23", "19:20");
             }
         } catch (JSONException e) {
             Log.d("result", "showResult : ", e);
