@@ -240,7 +240,6 @@ public class ManageCustomer extends AppCompatActivity {
     }
 
     private void showResult() {
-
         String TAG_JSON = "cusList";
         String TAG_IDX = "idx";
         String TAG_NAME = "stcustname1";
