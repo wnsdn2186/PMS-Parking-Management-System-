@@ -37,7 +37,7 @@ public class CarSearch extends AppCompatActivity {
     private TextView search_box;
     private RecyclerView recyclerView = null;
     private CarSearchAdapter adapter = null;
-    private ArrayList<CarSearchItem> mList, FilteredList;
+    private ArrayList<CarSearchItem> mList, copiedList;
     private int cnt = 1;
     private static final String IP_ADDRESS = "58.151.43.91";
     private String mJsonImg;
@@ -62,6 +62,18 @@ public class CarSearch extends AppCompatActivity {
         //jsonParse.execute("http://" + IP_ADDRESS + "/getImage.php", plateNum, table);
         jsonParse.execute("http://" + IP_ADDRESS + "/getImage.php", table);
 
+        copiedList = new ArrayList<>();
+        mList = new ArrayList<>();
+        adapter = new CarSearchAdapter(mList, this);
+        adapter.notifyDataSetChanged();
+
+        recyclerView = findViewById(R.id.car_search_list);
+        recyclerView.setAdapter(adapter);
+        recyclerView.addItemDecoration(new DividerItemDecoration(getApplicationContext(), DividerItemDecoration.VERTICAL));
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        mList.clear();
+
         ImageButton backbtn = (ImageButton) findViewById(R.id.BackBtn);
         backbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,7 +83,6 @@ public class CarSearch extends AppCompatActivity {
             }
         });
 
-        FilteredList = new ArrayList<>();
         search_box = findViewById(R.id.search_box);
         search_box.addTextChangedListener(new TextWatcher() {
             @Override
@@ -85,7 +96,7 @@ public class CarSearch extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 String CarNum = search_box.getText().toString();
-                //searchFilter(CarNum);
+                searchFilter(CarNum);
             }
         });
 
@@ -109,18 +120,23 @@ public class CarSearch extends AppCompatActivity {
         items.setOutTime(OutTime);
 
         mList.add(items);
+        copiedList.add(items);
+        adapter.notifyDataSetChanged();
     }
 
     private void searchFilter(String SearchText) {
-        FilteredList.clear();
+        mList.clear();
 
-        for (int i = 0; i < mList.size(); i++) {
-            if (mList.get(i).getCarNum().toLowerCase().contains(SearchText.toLowerCase())) {
-                FilteredList.add(mList.get(i));
+        if (SearchText.length() == 0) {
+            mList.addAll(copiedList);
+        } else {
+            for (int i = 0; i < copiedList.size(); i++) {
+                if (copiedList.get(i).getCarNum().contains(SearchText)) {
+                    mList.add(copiedList.get(i));
+                }
             }
         }
-
-        adapter.FilterList(FilteredList);
+        adapter.notifyDataSetChanged();
     }
 
     private void showResult() {
@@ -130,13 +146,6 @@ public class CarSearch extends AppCompatActivity {
         String TAG_PASSTIME = "passtime";
         String TAG_IMGPATH = "imgpath";
         String TAG_PIMAGPATH = "pimgpath";
-
-        mList = new ArrayList<>();
-        adapter = new CarSearchAdapter(mList, this);
-        recyclerView = findViewById(R.id.car_search_list);
-        recyclerView.setAdapter(adapter);
-        recyclerView.addItemDecoration(new DividerItemDecoration(getApplicationContext(), DividerItemDecoration.VERTICAL));
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         try {
             JSONObject jsonObject = new JSONObject(mJsonImg);
@@ -159,6 +168,7 @@ public class CarSearch extends AppCompatActivity {
                 String path = "http://58.151.43.91/" + pimgPath;
                 Log.i("Path: ", path);
                 addItem(i, passTime, path, plateNum, "17:23", "19:20");
+
             }
         } catch (JSONException e) {
             Log.d("result", "showResult : ", e);
