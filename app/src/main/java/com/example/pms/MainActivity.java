@@ -11,6 +11,7 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Switch;
@@ -32,12 +33,14 @@ public class MainActivity extends AppCompatActivity {
     int NotifyCnt = 0;
     private String On = "on";
     private String Off = "off";
+    private final String ADDR = "58.151.43.91";//서버 IP
+    private final int PORT = 9900;//서버 PORT
 
-    String ADDR = "220.81.104.188";//서버 IP
-    int PORT = 5555;//서버 PORT
+//    String ADDR = "220.81.104.188";//서버 IP
+//    int PORT = 5555;//서버 PORT
 
     byte[] STX = {0x10, 0x01};//시작코드
-    byte[] LOCAL_CODE = {(byte) 0x1F, 0x25, (byte) 0x3A, (byte) 0xC1, (byte) 0x90, 0x26};//주차장 코드
+    byte[] LOCAL_CODE = {(byte) 0x50, 0x30, (byte) 0x30, (byte) 0x30, (byte) 0x30, 0x32};//주차장 코드
 
     byte TYPE_BAR_CONTROL = 0x01;//TYPE : 차단기 ON/OFF
     byte BAR_CONTROL_ON = 0x01;//DATA : 차단기 ON
@@ -93,11 +96,12 @@ public class MainActivity extends AppCompatActivity {
 
         checkVerify();
 
+        GlobalVar globalVar = (GlobalVar) getApplication();
+        globalVar.setIP(ADDR);
+        globalVar.setPORT(PORT);
+
         intent = new Intent(this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
-        sharedPreferences = getSharedPreferences("SwitchStatus", MODE_PRIVATE);
-        Status = sharedPreferences.getInt("SwitchStatus", 0);
 
         register = (CardView) findViewById(R.id.register_card);
         search = (CardView) findViewById(R.id.search_card);
@@ -132,15 +136,12 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //스위치 상태저장
-        barrierSwitch.setChecked(Status != 0);
+        barrierSwitch.setChecked(false);
 
         barrierSwitch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (Status == 0)
-                    customDialog = new CustomDialog(MainActivity.this, Confirm, Cancel, "차단바가 열립니다");
-                else
-                    customDialog = new CustomDialog(MainActivity.this, Confirm, Cancel, "차단바가 닫힙니다");
+                customDialog = new CustomDialog(MainActivity.this, Confirm, Cancel, "차단바가 열립니다");
                 customDialog.show();
             }
         });
@@ -172,13 +173,8 @@ public class MainActivity extends AppCompatActivity {
 
     private final View.OnClickListener Confirm = new View.OnClickListener() {
         public void onClick(View v) {
-            if (Status == 0) {
-                SEND_MESSAGE = BAR_ON;
-                barrierSwitch.setChecked(true);
-            } else {
-                SEND_MESSAGE = BAR_OFF;
-                barrierSwitch.setChecked(false);
-            }
+            SEND_MESSAGE = BAR_ON;
+            barrierSwitch.setChecked(false);
             SocketThread thread = new SocketThread(ADDR, SEND_MESSAGE);
             thread.start();
             customDialog.dismiss();
@@ -204,12 +200,11 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void run() {
             try {
-                editor = sharedPreferences.edit();
-
                 Socket socket = new Socket(IP, PORT); // 소켓 열어주기
                 OutputStream outstream = socket.getOutputStream(); //소켓의 출력 스트림 참조
                 outstream.write(DATA); // 출력 스트림에 데이터 넣기
                 outstream.flush(); // 출력
+                Log.d("확인(send1)", ByteToHexString(SEND_MESSAGE));
 
                 InputStream instream = socket.getInputStream(); // 소켓의 입력 스트림 참조
                 nReadSize = instream.read(RECV_MESSAGE);
@@ -221,51 +216,27 @@ public class MainActivity extends AppCompatActivity {
                         if (nReadSize > 0) {
                             //보내는 Message가 Bar Open 명령일 때
                             if (java.util.Arrays.equals(SEND_MESSAGE, BAR_ON) == true) {
-                                if (java.util.Arrays.equals(RECV_MESSAGE, BAR_RESULT_ON) == true) {
-                                    Status = 1;
-                                    editor.putInt("SwitchStatus", Status);
-                                    editor.apply();
+                                if (java.util.Arrays.equals(RECV_MESSAGE, BAR_ON) == true) {
+                                    Log.d("확인(send2)", ByteToHexString(SEND_MESSAGE));
+                                    Log.d("확인(recv)", ByteToHexString(RECV_MESSAGE));
                                     if (Off.equals(PrefsHelper.read("Push", ""))) {
                                         Toast.makeText(MainActivity.this, "차단기가 열렸습니다", Toast.LENGTH_LONG).show();
-                                    }else{
+                                    } else {
                                         createNotificationChannel("DEFAULT", "default", NotificationManager.IMPORTANCE_HIGH);
                                         createNotification("DEFAULT", NotifyCnt++, "스마트 주차관리", "차단기가 열렸습니다", intent);
                                     }
-                                } else if (java.util.Arrays.equals(RECV_MESSAGE, BAR_RESULT_OFF) == true) {
-                                    if (Off.equals(PrefsHelper.read("Push", ""))) {
-                                        Toast.makeText(MainActivity.this, "차단기가 열리지 않습니다", Toast.LENGTH_LONG).show();
-                                    }else{
-                                        createNotificationChannel("DEFAULT", "default", NotificationManager.IMPORTANCE_HIGH);
-                                        createNotification("DEFAULT", NotifyCnt++, "스마트 주차관리", "차단기가 열리지 않습니다", intent);
-                                    }
+//
                                 } else {
-                                    Toast.makeText(MainActivity.this, "다시 시도하세요.", Toast.LENGTH_LONG).show();
-                                }
-
-                                //보내는 Message가 Bar Off 명령일 때
-                            } else if (java.util.Arrays.equals(SEND_MESSAGE, BAR_OFF) == true) {
-                                if (java.util.Arrays.equals(RECV_MESSAGE, BAR_RESULT_ON) == true) {
-                                    Status = 0;
-                                    editor.putInt("SwitchStatus", Status);
-                                    editor.apply();
                                     if (Off.equals(PrefsHelper.read("Push", ""))) {
-                                        Toast.makeText(MainActivity.this, "차단기가 닫혔습니다", Toast.LENGTH_LONG).show();
-                                    }else{
+                                        Toast.makeText(MainActivity.this, "차단기가 열리지 않습니다. 다시 시도하세요.", Toast.LENGTH_LONG).show();
+                                    } else {
                                         createNotificationChannel("DEFAULT", "default", NotificationManager.IMPORTANCE_HIGH);
-                                        createNotification("DEFAULT", NotifyCnt++, "스마트 주차관리", "차단기가 닫혔습니다", intent);
+                                        createNotification("DEFAULT", NotifyCnt++, "스마트 주차관리", "차단기가 열리지 않습니다. 다시 시도하세요.", intent);
                                     }
-                                } else if (java.util.Arrays.equals(RECV_MESSAGE, BAR_RESULT_OFF) == true) {
-                                    if (Off.equals(PrefsHelper.read("Push", ""))) {
-                                        Toast.makeText(MainActivity.this, "차단기가 닫히지 않습니다", Toast.LENGTH_LONG).show();
-                                    }else{
-                                        createNotificationChannel("DEFAULT", "default", NotificationManager.IMPORTANCE_HIGH);
-                                        createNotification("DEFAULT", NotifyCnt++, "스마트 주차관리", "차단기가 닫히지 않습니다", intent);
-                                    }
-                                } else {
-                                    Toast.makeText(MainActivity.this, "다시 시도하세요.", Toast.LENGTH_LONG).show();
                                 }
                             }
-
+                        } else {
+                            Toast.makeText(MainActivity.this, "에러", Toast.LENGTH_LONG).show();
                         }
                     }
                 });

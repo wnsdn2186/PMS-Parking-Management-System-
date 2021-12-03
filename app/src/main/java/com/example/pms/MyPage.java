@@ -57,7 +57,6 @@ public class MyPage extends AppCompatActivity {
         addItem(R.drawable.ic_key_24, "비밀번호", "abcdsja", R.drawable.color_grey_round);
         addItem(R.drawable.ic_date_24, "생년월일", "1997.11.10", R.drawable.color_grey_round);
         addItem(R.drawable.ic_phone_24, "번호", "010-4506-2186", R.drawable.color_grey_round);
-        addItem(R.drawable.ic_register_24, "가입일", "2021.11.10", R.drawable.color_white_round);
 
         recyclerView2 = findViewById(R.id.rcView2);
         mList2 = new ArrayList<>();
@@ -67,7 +66,6 @@ public class MyPage extends AppCompatActivity {
         recyclerView2.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
 
         addItem2(R.drawable.ic_forward_36, "로그아웃", R.drawable.color_grey_round, mList2);
-        addItem2(R.drawable.ic_forward_36, "회원정보 수정", R.drawable.color_grey_round, mList2);
         addItem2(R.drawable.ic_forward_36, "회원 탈퇴", R.drawable.color_white_round, mList2);
 
         recyclerView3 = findViewById(R.id.rcView3);

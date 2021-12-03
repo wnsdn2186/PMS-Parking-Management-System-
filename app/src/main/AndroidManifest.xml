@@ -14,7 +14,8 @@
         android:roundIcon="@mipmap/ic_app_icon_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PMS"
-        android:usesCleartextTraffic="true">
+        android:usesCleartextTraffic="true"
+        android:name=".GlobalVar">
         <activity
             android:name=".UserRegister"
             android:windowSoftInputMode="adjustPan"/>
