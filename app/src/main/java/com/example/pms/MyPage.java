@@ -84,7 +84,7 @@ public class MyPage extends AppCompatActivity {
         addItem(R.drawable.ic_email_24, "이메일(아이디)", adminID, R.drawable.color_grey_round);
         addItem(R.drawable.ic_key_24, "비밀번호", adminPw, R.drawable.color_grey_round);
         addItem(R.drawable.ic_date_24, "생년월일", adminBirth, R.drawable.color_grey_round);
-        addItem(R.drawable.ic_phone_24, "번호", adminPhone, R.drawable.color_grey_round);
+        addItem(R.drawable.ic_phone_24, "번호", adminPhone, R.drawable.color_white_round);
 
         recyclerView2 = findViewById(R.id.rcView2);
         mList2 = new ArrayList<>();
