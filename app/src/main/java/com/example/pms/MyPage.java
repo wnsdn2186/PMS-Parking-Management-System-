@@ -1,6 +1,5 @@
 package com.example.pms;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -16,7 +15,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -60,7 +58,7 @@ public class MyPage extends AppCompatActivity {
 
         PrefsHelper.init(getApplicationContext());
 
-        adName = (TextView)findViewById(R.id.mypage_name);
+        adName = (TextView) findViewById(R.id.mypage_name);
         ImageButton backbtn = (ImageButton) findViewById(R.id.BackBtn);
         backbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -277,7 +275,7 @@ public class MyPage extends AppCompatActivity {
                 JSONObject jsonObject = new JSONObject(jsonString);
                 boolean success = jsonObject.getBoolean("success");
 
-                if(success) {
+                if (success) {
                     Intent logout_intent = new Intent(MyPage.this, Login.class);
                     logout_intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(logout_intent);
