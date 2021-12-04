@@ -249,6 +249,8 @@ public class ManageCustomer extends AppCompatActivity {
         String TAG_PNUM = "sttelno1";
         String TAG_CNUM = "stplate1";
         String TAB_RDATE = "regdatetime";
+        String TAB_SDATE = "startdate";
+        String TAB_EDATE = "enddate";
 
         try {
             JSONObject jsonObject = new JSONObject(mJsonString);
@@ -263,6 +265,11 @@ public class ManageCustomer extends AppCompatActivity {
                 String pnum = item.getString(TAG_PNUM);
                 String cnum = item.getString(TAG_CNUM);
                 String rdate = item.getString(TAB_RDATE);
+                String sdate = item.getString(TAB_SDATE);
+                String edate = item.getString(TAB_EDATE);
+
+                Log.i("sdate: ", sdate);
+                Log.i("edate: ", edate);
 
                 Customer cus = new Customer();
 
@@ -271,6 +278,8 @@ public class ManageCustomer extends AppCompatActivity {
                 cus.setPnum(pnum);
                 cus.setCnum(cnum);
                 cus.setRdate(rdate);
+                cus.setStart_date(sdate);
+                cus.setEnd_date(edate);
 
                 cust.add(cus);
                 copiedList.add(cus);
