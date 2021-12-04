@@ -32,7 +32,9 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 
 public class ManageCustomer extends AppCompatActivity {
@@ -49,6 +51,7 @@ public class ManageCustomer extends AppCompatActivity {
     private RecyclerView rc;
     private int customerCount;
     private int Ridx;
+    SimpleDateFormat simpleDateFormat;
 
     private CustomDialog customDialog;
 
