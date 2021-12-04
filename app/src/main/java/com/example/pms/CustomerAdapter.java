@@ -41,6 +41,8 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.Custom
         protected TextView pnum;
         protected TextView cnum;
         protected TextView rdate;
+        protected TextView sdate;
+        protected TextView enddate;
         protected ImageButton deletebtn;
         protected LinearLayout Period;
         protected ImageView ShowPeriodBtn;
@@ -50,7 +52,9 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.Custom
             this.idx = (TextView) view.findViewById(R.id.cusIdx);
             this.name = (TextView) view.findViewById(R.id.cusName);
             this.cnum = (TextView) view.findViewById(R.id.cusCnum);
-            this.rdate = (TextView) view.findViewById(R.id.StartDate);
+            this.rdate = (TextView) view.findViewById(R.id.RegisterDate);
+            this.sdate = (TextView) view.findViewById(R.id.StartDate);
+            this.enddate = (TextView) view.findViewById(R.id.EndDate);
             this.deletebtn = (ImageButton) view.findViewById(R.id.deleteButton);
             this.Period = (LinearLayout) view.findViewById(R.id.linear);
             this.ShowPeriodBtn = (ImageView) view.findViewById(R.id.ShowPeriodBtn);
@@ -98,6 +102,8 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.Custom
         viewholder.name.setText(cList.get(position).getName());
         viewholder.cnum.setText(cList.get(position).getCnum());
         viewholder.rdate.setText(cList.get(position).getRdate());
+        viewholder.sdate.setText(cList.get(position).getStart_date());
+        viewholder.enddate.setText(cList.get(position).getEnd_date());
     }
 
     @Override

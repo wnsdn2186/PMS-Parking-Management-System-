@@ -1,18 +1,15 @@
 package com.example.pms;
 
 import android.app.ProgressDialog;
-import android.media.Image;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -114,15 +111,15 @@ public class CarSearch extends AppCompatActivity {
         });
     }
 
-    private void addItem(Integer Cnt, String Date, String ImgURL, String CarNum, String InTime, String OutTime) {
+    private void addItem(String ImgURL, String CarNum, String PicTime) {
         CarSearchItem items = new CarSearchItem();
 
-        items.setCnt(Cnt);
-        items.setDate(Date);
+//        items.setCnt(Cnt);
+//        items.setDate(Date);
         items.setImgURL(ImgURL);
         items.setCarNum(CarNum);
-        items.setInTime(InTime);
-        items.setOutTime(OutTime);
+        items.setPicTime(PicTime);
+//        items.setOutTime(OutTime);
 
         mList.add(items);
         copiedList.add(items);
@@ -175,7 +172,7 @@ public class CarSearch extends AppCompatActivity {
                 Log.d("PassTime", passTime);
                 simpleDateFormat = new SimpleDateFormat("YYYY-MM-dd HH:mm", Locale.KOREA);
                 date = new Date(Long.valueOf(passTime) * 1000);
-                addItem(i + 1, simpleDateFormat.format(date), path, plateNum, "17:23", "19:20");
+                addItem(path, plateNum, simpleDateFormat.format(date));
             }
         } catch (JSONException e) {
             Log.d("result", "showResult : ", e);

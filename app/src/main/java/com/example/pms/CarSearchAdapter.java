@@ -43,12 +43,12 @@ public class CarSearchAdapter extends RecyclerView.Adapter<CarSearchAdapter.CarS
     public void onBindViewHolder(@NonNull CarSearchHolder holder, int position) {
         CarSearchItem carSearchItem = items.get(position);
 
-        holder.Cnt.setText(String.valueOf(carSearchItem.getCnt()));
-        holder.Date.setText(carSearchItem.getDate());
+//        holder.Cnt.setText(String.valueOf(carSearchItem.getCnt()));
+//        holder.Date.setText(carSearchItem.getDate());
         Glide.with(context).load(carSearchItem.getImgURL()).apply(RequestOptions.bitmapTransform(new RoundedCorners(15))).into(holder.NumPlate);
         holder.CarNum.setText(carSearchItem.getCarNum());
-        holder.InTime.setText(carSearchItem.getInTime());
-        holder.OutTime.setText(carSearchItem.getOutTime());
+        holder.PicTime.setText(carSearchItem.getPicTime());
+//        holder.OutTime.setText(carSearchItem.getOutTime());
     }
 
     @Override
@@ -58,23 +58,23 @@ public class CarSearchAdapter extends RecyclerView.Adapter<CarSearchAdapter.CarS
 
 
     public class CarSearchHolder extends RecyclerView.ViewHolder {
-        private final TextView Cnt;
-        private final TextView Date;
+//        private final TextView Cnt;
+//        private final TextView Date;
         private final TextView CarNum;
-        private final TextView InTime;
-        private final TextView OutTime;
+        private final TextView PicTime;
+//        private final TextView OutTime;
         private final ImageView NumPlate;
         private final ImageView ShowPicBtn;
 
         CarSearchHolder(@NonNull View itemView) {
             super(itemView);
 
-            Cnt = itemView.findViewById(R.id.Cnt);
-            Date = itemView.findViewById(R.id.Date);
+//            Cnt = itemView.findViewById(R.id.Cnt);
+//            Date = itemView.findViewById(R.id.Date);
 
             CarNum = itemView.findViewById(R.id.CarNum);
-            InTime = itemView.findViewById(R.id.InTime);
-            OutTime = itemView.findViewById(R.id.OutTime);
+            PicTime = itemView.findViewById(R.id.PicTime);
+//            OutTime = itemView.findViewById(R.id.OutTime);
 
             NumPlate = itemView.findViewById(R.id.NumPlate);
             NumPlate.setClipToOutline(true);
