@@ -20,9 +20,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="12dp"
-                android:layout_marginRight="20dp">
+                android:layout_marginTop="12dp">
 
                 <TextView
                     android:id="@+id/car_search_title"
@@ -57,7 +55,8 @@
                         android:importantForAutofill="no"
                         android:paddingStart="15dp"
                         android:textColor="@color/black"
-                        android:textSize="16dp" />
+                        android:textSize="16dp"
+                        android:inputType="number"/>
 
                     <ImageView
                         android:id="@+id/car_search_btn"
@@ -71,6 +70,35 @@
                 </LinearLayout>
 
             </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:orientation="horizontal"
+                android:padding="5dp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/elicedigitalbaeum_bold"
+                    android:gravity="center"
+                    android:text="날짜"
+                    android:textColor="@color/black"
+                    android:textSize="17dp">
+                </TextView>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/elicedigitalbaeum_bold"
+                    android:gravity="center"
+                    android:text="차량번호"
+                    android:textColor="@color/black"
+                    android:textSize="17dp">
+                </TextView>
+            </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/car_search_list"

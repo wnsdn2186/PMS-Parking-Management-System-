@@ -81,7 +81,7 @@
         <LinearLayout
             android:id="@+id/linear"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginBottom="5dp"
@@ -89,34 +89,89 @@
             android:orientation="horizontal"
             android:visibility="gone">
 
-            <TextView
-                android:id="@+id/StartDate"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:fontFamily="@font/font"
-                android:gravity="center|right"
-                android:text="2021.11.21 15:00"
-                android:textSize="15dp"></TextView>
+                android:orientation="vertical">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1.4"
-                android:fontFamily="@font/font"
-                android:gravity="center"
-                android:text="~"
-                android:textSize="20dp"></TextView>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/elicedigitalbaeum_bold"
+                    android:gravity="center"
+                    android:text="등록일"
+                    android:textColor="@color/black"
+                    android:textSize="15dp"
+                    android:layout_marginBottom="6dp"></TextView>
 
-            <TextView
-                android:id="@+id/EndDate"
+                <TextView
+                    android:id="@+id/RegisterDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/font"
+                    android:gravity="center"
+                    android:text="2021.11.21 15:00"
+                    android:textSize="15dp"></TextView>
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:fontFamily="@font/font"
-                android:gravity="center|left"
-                android:text="2021.11.24 17:21"
-                android:textSize="15dp"></TextView>
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/elicedigitalbaeum_bold"
+                    android:gravity="center"
+                    android:text="시작일"
+                    android:textColor="@color/black"
+                    android:textSize="15dp"
+                    android:layout_marginBottom="6dp"></TextView>
+
+                <TextView
+                    android:id="@+id/StartDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/font"
+                    android:gravity="center"
+                    android:text="2021.11.21 15:00"
+                    android:textSize="15dp"></TextView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/elicedigitalbaeum_bold"
+                    android:gravity="center"
+                    android:text="종료일"
+                    android:textColor="@color/black"
+                    android:textSize="15dp"
+                    android:layout_marginBottom="6dp"></TextView>
+
+                <TextView
+                    android:id="@+id/EndDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/font"
+                    android:gravity="center"
+                    android:text="2021.11.24 17:21"
+                    android:textSize="15dp"></TextView>
+            </LinearLayout>
         </LinearLayout>
 
     </LinearLayout>

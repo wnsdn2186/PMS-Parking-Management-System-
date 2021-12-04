@@ -46,6 +46,8 @@ public class Customer {
     }
 
     public void setStart_date(String start_date) {
+        if(!(start_date.equals("null")))
+            start_date = start_date.substring(0, start_date.indexOf(" "));
         this.start_date = start_date;
     }
 
@@ -54,6 +56,8 @@ public class Customer {
     }
 
     public void setEnd_date(String end_date) {
+        if(!(end_date.equals("null")))
+            end_date = end_date.substring(0, end_date.indexOf(" "));
         this.end_date = end_date;
     }
 
@@ -62,6 +66,8 @@ public class Customer {
     }
 
     public void setRdate(String rdate) {
+        if(!(rdate.equals("null")))
+            rdate = rdate.substring(0, rdate.indexOf(" "));
         this.rdate = rdate;
     }
 }
