@@ -1,18 +1,36 @@
 package com.example.pms;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.w3c.dom.Text;
+
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 public class MyPage extends AppCompatActivity {
+    private static String IP_ADDRESS = "58.151.43.91";
+    private String jsonString;
+
     private RecyclerView recyclerView = null;
     private MyPageAdapter adapter = null;
     ArrayList<MyPageItem> mList;
@@ -32,11 +50,17 @@ public class MyPage extends AppCompatActivity {
 
     CustomDialog customDialog;
 
+    private String adminID, adminPw, adminName, adminBirth, adminPhone;
+    private TextView adName;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mypage);
 
+        PrefsHelper.init(getApplicationContext());
+
+        adName = (TextView)findViewById(R.id.mypage_name);
         ImageButton backbtn = (ImageButton) findViewById(R.id.BackBtn);
         backbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,7 +69,6 @@ public class MyPage extends AppCompatActivity {
                 overridePendingTransition(R.anim.none, R.anim.horizon_exit);
             }
         });
-
         recyclerView = findViewById(R.id.rcView);
         mList = new ArrayList<>();
 
@@ -53,10 +76,17 @@ public class MyPage extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
 
-        addItem(R.drawable.ic_email_24, "이메일(아이디)", "wnsdn2186@naver.com", R.drawable.color_grey_round);
-        addItem(R.drawable.ic_key_24, "비밀번호", "abcdsja", R.drawable.color_grey_round);
-        addItem(R.drawable.ic_date_24, "생년월일", "1997.11.10", R.drawable.color_grey_round);
-        addItem(R.drawable.ic_phone_24, "번호", "010-4506-2186", R.drawable.color_grey_round);
+
+        adminID = PrefsHelper.read("userID", "");
+        adminPw = PrefsHelper.read("userPwd", "");
+        adminName = PrefsHelper.read("userName", "");
+        adminBirth = PrefsHelper.read("userBirth", "");
+        adminPhone = PrefsHelper.read("userPhone", "");
+        adName.setText(adminName + " 님");
+        addItem(R.drawable.ic_email_24, "이메일(아이디)", adminID, R.drawable.color_grey_round);
+        addItem(R.drawable.ic_key_24, "비밀번호", adminPw, R.drawable.color_grey_round);
+        addItem(R.drawable.ic_date_24, "생년월일", adminBirth, R.drawable.color_grey_round);
+        addItem(R.drawable.ic_phone_24, "번호", adminPhone, R.drawable.color_grey_round);
 
         recyclerView2 = findViewById(R.id.rcView2);
         mList2 = new ArrayList<>();
@@ -102,13 +132,7 @@ public class MyPage extends AppCompatActivity {
                         break;
 
                     case 1:
-                        Intent intent = new Intent(MyPage.this, EditAccount.class);
-                        startActivity(intent);
-                        overridePendingTransition(R.anim.horizon_enter, R.anim.none);
-                        break;
-
-                    case 2:
-                        customDialog = new CustomDialog(MyPage.this, Confirm, Cancel, "정말 탈퇴하시겠습니까?");
+                        customDialog = new CustomDialog(MyPage.this, Delete, Cancel, "정말 탈퇴하시겠습니까?");
                         customDialog.show();
                         break;
 
@@ -171,4 +195,100 @@ public class MyPage extends AppCompatActivity {
             customDialog.dismiss();
         }
     };
+
+    private final View.OnClickListener Delete = new View.OnClickListener() {
+        public void onClick(View v) {
+            MyPage.Delete delete = new MyPage.Delete();
+            delete.execute("http://" + IP_ADDRESS + "/user_delete.php", adminID);
+            /*Intent logout_intent = new Intent(MyPage.this, Login.class);
+            logout_intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(logout_intent);
+            customDialog.dismiss();*/
+        }
+    };
+
+    public class Delete extends AsyncTask<String, Void, String> {
+        String TAG = "JsonParseTest";
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+
+            jsonString = result;
+            checkDelete();
+        }
+
+        @Override
+        protected String doInBackground(String... strings) {
+            String url = strings[0];
+            String userID = strings[1];
+
+            String selectData = "userID=" + userID;
+            try {
+                URL serverurl = new URL(url);
+                HttpURLConnection httpURLConnection = (HttpURLConnection) serverurl.openConnection();
+
+                httpURLConnection.setReadTimeout(5000);
+                httpURLConnection.setConnectTimeout(5000);
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.connect();
+
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+                outputStream.write(selectData.getBytes(StandardCharsets.UTF_8));
+                outputStream.flush();
+                outputStream.close();
+
+                int responseStatusCode = httpURLConnection.getResponseCode();
+                Log.d(TAG, "DELETE/ POST response code - " + responseStatusCode);
+
+                InputStream inputStream;
+                if (responseStatusCode == HttpURLConnection.HTTP_OK) {
+                    inputStream = httpURLConnection.getInputStream();
+                } else {
+                    inputStream = httpURLConnection.getErrorStream();
+                }
+
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
+                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+
+                StringBuilder sb = new StringBuilder();
+                String line = null;
+
+                while ((line = bufferedReader.readLine()) != null) {
+                    sb.append(line);
+                }
+
+                bufferedReader.close();
+                return sb.toString();
+            } catch (Exception e) {
+                Log.d(TAG, "DeleteData: Error ", e);
+                return "Error: " + e.getMessage();
+            }
+
+        }
+
+        private void checkDelete() {
+            try {
+                JSONObject jsonObject = new JSONObject(jsonString);
+                boolean success = jsonObject.getBoolean("success");
+
+                if(success) {
+                    Intent logout_intent = new Intent(MyPage.this, Login.class);
+                    logout_intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(logout_intent);
+                    customDialog.dismiss();
+                } else {
+                    customDialog.dismiss();
+                    Toast.makeText(getApplicationContext(), "계정이 삭제되지 않았습니다. 다시 시도해주세요", Toast.LENGTH_LONG).show();
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }

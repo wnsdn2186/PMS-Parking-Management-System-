@@ -84,6 +84,7 @@
                     android:layout_weight="1"
                     android:fontFamily="@font/font"
                     android:hint="비밀번호"
+                    android:inputType="textPassword"
                     android:singleLine="true"
                     android:textColor="@color/black"
                     android:textSize="20dp" />

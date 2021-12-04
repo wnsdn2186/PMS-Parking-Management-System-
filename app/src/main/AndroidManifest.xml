@@ -7,19 +7,18 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
-        android:requestLegacyExternalStorage="true"
+        android:name=".GlobalVar"
         android:allowBackup="true"
         android:icon="@mipmap/ic_app_icon"
         android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_app_icon_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PMS"
-        android:usesCleartextTraffic="true"
-        android:name=".GlobalVar">
+        android:usesCleartextTraffic="true">
         <activity
             android:name=".UserRegister"
-            android:windowSoftInputMode="adjustPan"/>
-
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name=".Login" />
         <activity
             android:name=".Splashscreen"
@@ -32,9 +31,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"
-            android:alwaysRetainTaskState="true"/>
-
+        <activity
+            android:name=".MainActivity"
+            android:alwaysRetainTaskState="true" />
         <activity
             android:name=".ManageCustomer"
             android:parentActivityName=".MainActivity" />
@@ -44,7 +43,7 @@
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".RegisterTime"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".RegisterSubmit"
             android:parentActivityName=".Register" />
@@ -60,29 +59,19 @@
         <activity
             android:name=".MyPage"
             android:parentActivityName=".MainActivity" />
-
         <activity
             android:name=".ScreenLock"
-            android:parentActivityName=".Setting"/>
-
+            android:parentActivityName=".Setting" />
         <activity
             android:name=".ScreenLockCheck"
-            android:parentActivityName=".ScreenLock"/>
-
-        <activity
-            android:name=".ScreenLockMain"/>
-
+            android:parentActivityName=".ScreenLock" />
+        <activity android:name=".ScreenLockMain" />
         <activity
             android:name=".EditAccount"
-            android:parentActivityName=".MyPage">
-        </activity>
-
+            android:parentActivityName=".MyPage"></activity>
         <activity
             android:name=".MagnifyingImage"
-            android:parentActivityName=".CarSearch">
-        </activity>
-
+            android:parentActivityName=".CarSearch"></activity>
     </application>
-
 
 </manifest>

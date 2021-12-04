@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -64,20 +65,14 @@ public class Login extends AppCompatActivity {
         });
 
         if (checkBox.isChecked()) {
-            PrefsHelper.write("userID", userID);
-            PrefsHelper.write("userPwd", userPassword);
             PrefsHelper.write("AutoLogin", "on");
         } else {
-            PrefsHelper.write("userID", "null");
-            PrefsHelper.write("userPwd", "null");
             PrefsHelper.write("AutoLogin", "off");
         }
 
         checkBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                PrefsHelper.write("userID", userID);
-                PrefsHelper.write("userPwd", userPassword);
                 PrefsHelper.write("AutoLogin", "on");
             }
         });
@@ -88,7 +83,7 @@ public class Login extends AppCompatActivity {
         String TAG = "JsonParseTest";
 
         @Override
-        protected String doInBackground(String... strings) {    // execute의 매개변수를 받아와서 사용
+        protected String doInBackground(String... strings) {
             String url = strings[0];
             String userID = strings[1];
             String userPassword = strings[2];
@@ -140,7 +135,7 @@ public class Login extends AppCompatActivity {
         }
 
         @Override
-        protected void onPostExecute(String result) { // doInBackgroundString에서 return한 값을 받음
+        protected void onPostExecute(String result) {
             super.onPostExecute(result);
 
             jsonString = result;
@@ -161,32 +156,25 @@ public class Login extends AppCompatActivity {
         private void checkLogin() {
             try {
                 JSONObject jsonObject = new JSONObject(jsonString);
-                boolean success = jsonObject.getBoolean("success");
-                Log.d("success", String.valueOf(success));
+                JSONArray jsonArray = jsonObject.getJSONArray("Admin");
+                if(jsonArray.length() != 0) {
+                        JSONObject item = jsonArray.getJSONObject(0);
 
-                if (success) {
-                    /*Admin admin = new Admin();
-                    String userID = jsonObject.getString("userID");
-                    String userPassword = jsonObject.getString("userPassword");
-                    String userName = jsonObject.getString("userName");
-                    String userBirth = jsonObject.getString("userBirth");
-                    String userPhone = jsonObject.getString("userPhone");
+                        String Id = item.getString("userID");
+                        String Pw = item.getString("userPassword");
+                        String Name = item.getString("userName");
+                        String Birth = item.getString("userBirth");
+                        String Phone = item.getString("userPhone");
 
-                    Log.d("data1", userID);
-                    Log.d("data2", userPassword);
-                    Log.d("data3", userName);
-                    Log.d("data4", userBirth);
-                    Log.d("data5", userPhone);
+                        PrefsHelper.write("userID", Id);
+                        PrefsHelper.write("userPwd", Pw);
+                        PrefsHelper.write("userName", Name);
+                        PrefsHelper.write("userBirth", Birth);
+                        PrefsHelper.write("userPhone", Phone);
 
-                    admin.setId(userID);
-                    admin.setPassword(userPassword);
-                    admin.setName(userName);
-                    admin.setBirth(userBirth);
-                    admin.setPassword(userPhone);*/
-
-                    Intent intent = new Intent(Login.this, MainActivity.class);
-                    startActivity(intent);
-                    finish();
+                        Intent intent = new Intent(Login.this, MainActivity.class);
+                        startActivity(intent);
+                        finish();
                 } else {
                     Toast.makeText(getApplicationContext(), "등록되지 않은 회원입니다. 아이디 또는 비밀번호를 확인해주세요", Toast.LENGTH_LONG).show();
                     id.setText(null);
