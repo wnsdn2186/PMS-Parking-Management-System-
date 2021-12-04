@@ -3,6 +3,7 @@ package com.example.pms;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -28,7 +29,7 @@ public class UserRegister extends AppCompatActivity {
     private EditText id, password, name, birth, phone, date;
     private Button register;
     private String uid, upw, uname, ubirth, uphone;
-    private static final String IP_ADDRESS = "13.59.85.177";
+    private static final String IP_ADDRESS = "58.151.43.91";
     private static String temp;
     long mNow;
     Date mDate;
@@ -60,6 +61,7 @@ public class UserRegister extends AppCompatActivity {
         name = (EditText) findViewById(R.id.nameField);
         birth = (EditText) findViewById(R.id.birthField);
         phone = (EditText) findViewById(R.id.phoneField);
+        phone.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
         date = (EditText) findViewById(R.id.dateField);
 
         id.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -208,7 +210,7 @@ public class UserRegister extends AppCompatActivity {
                 bufferedReader.close();
                 Log.d(TAG, sb.toString().trim());
 
-                return sb.toString().trim();        // 받아온 JSON의 공백을 제거
+                return sb.toString().trim();
             } catch (Exception e) {
                 Log.d(TAG, "InsertData: Error ", e);
                 String errorString = e.toString();
@@ -217,7 +219,7 @@ public class UserRegister extends AppCompatActivity {
         }
 
         @Override
-        protected void onPostExecute(String fromdoInBackgroundString) { // doInBackgroundString에서 return한 값을 받음
+        protected void onPostExecute(String fromdoInBackgroundString) {
             super.onPostExecute(fromdoInBackgroundString);
         }
 

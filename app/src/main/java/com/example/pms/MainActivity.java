@@ -13,8 +13,10 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -35,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
     private String Off = "off";
     private final String ADDR = "58.151.43.91";//서버 IP
     private final int PORT = 9900;//서버 PORT
-
+    private TextView adName;
 //    String ADDR = "220.81.104.188";//서버 IP
 //    int PORT = 5555;//서버 PORT
 
@@ -93,6 +95,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        PrefsHelper.init(getApplicationContext());
+        adName = (TextView) findViewById(R.id.name);
+        adName.setText(PrefsHelper.read("userName", "") + " 님");
 
         checkVerify();
 

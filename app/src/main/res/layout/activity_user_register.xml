@@ -146,10 +146,9 @@
                     android:layout_below="@+id/phoneTv"
                     android:layout_marginTop="12dp"
                     android:backgroundTint="@color/grey"
-                    android:digits="0123456789"
                     android:fontFamily="@font/font"
-                    android:inputType="number"
-                    android:maxLength="11"
+                    android:inputType="phone"
+                    android:maxLength="13"
                     android:singleLine="true"
                     android:textSize="20dp" />
 
