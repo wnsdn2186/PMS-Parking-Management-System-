@@ -170,7 +170,7 @@ public class UserRegister extends AppCompatActivity {
                 Pattern p = Pattern.compile("^[_a-zA-Z0-9-\\.]+@[\\.a-zA-Z0-9-]+\\.[a-zA-Z]+$");
                 Matcher m = p.matcher((id).getText().toString());
                 if (id.length() == 0) {
-                    Toast.makeText(getApplicationContext(), "아이디를 입력하세요!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "아이디를 입력하세요!", Toast.LENGTH_SHORT).show();
                     id.requestFocus();
                 } else if ( !m.matches()) {
                     Toast.makeText(UserRegister.this, "Email형식으로 입력하세요!", Toast.LENGTH_SHORT).show();
@@ -179,16 +179,22 @@ public class UserRegister extends AppCompatActivity {
                     Toast.makeText(UserRegister.this, "아이디 중복 확인을 해주세요!", Toast.LENGTH_SHORT).show();
                     id.requestFocus();
                 } else if (password.length() == 0) {
-                    Toast.makeText(getApplicationContext(), "비밀번호를 입력하세요!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "비밀번호를 입력하세요!", Toast.LENGTH_SHORT).show();
+                    password.requestFocus();
+                } else if (password.length() < 7) {
+                    Toast.makeText(getApplicationContext(), "비밀번호는 7자리 이상이여야 합니다!", Toast.LENGTH_SHORT).show();
                     password.requestFocus();
                 } else if (name.length() == 0) {
-                    Toast.makeText(getApplicationContext(), "이름을 입력하세요!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "이름을 입력하세요!", Toast.LENGTH_SHORT).show();
                     name.requestFocus();
-                } else if (birth.length() == 0) {
-                    Toast.makeText(getApplicationContext(), "생일을 입력하세요!", Toast.LENGTH_LONG).show();
+                } else if (name.length() < 2) {
+                    Toast.makeText(getApplicationContext(), "이름은 2자리 이상이여야 합니다!", Toast.LENGTH_SHORT).show();
+                    name.requestFocus();
+                }else if (birth.length() == 0) {
+                    Toast.makeText(getApplicationContext(), "생일을 입력하세요!", Toast.LENGTH_SHORT).show();
                     birth.requestFocus();
                 } else if (phone.length() == 0) {
-                    Toast.makeText(getApplicationContext(), "휴대폰 번호을 입력하세요!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "휴대폰 번호을 입력하세요!", Toast.LENGTH_SHORT).show();
                     phone.requestFocus();
                 } else {
 
@@ -366,11 +372,11 @@ public class UserRegister extends AppCompatActivity {
                 JSONArray jsonArray = jsonObject.getJSONArray("Admin");
 
                 if(jsonArray.length() != 0) {
-                    Toast.makeText(getApplicationContext(), "이미 사용중인 아이디 입니다.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "이미 사용중인 아이디 입니다.", Toast.LENGTH_SHORT).show();
                     id.setText(null);
                     id.requestFocus();
                 } else {
-                    Toast.makeText(getApplicationContext(), "사용 가능한 아이디 입니다.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "사용 가능한 아이디 입니다.", Toast.LENGTH_SHORT).show();
                     password.requestFocus();
                     dup = true;
                     return;

@@ -77,8 +77,9 @@
                     android:layout_below="@+id/idField"
                     android:layout_marginTop="10dp"
                     android:fontFamily="@font/font"
-                    android:text="비밀번호"
+                    android:text="비밀번호 (7자리 이상)"
                     android:textColor="@color/grey"
+                    android:maxLength="14"
                     android:textSize="20dp" />
 
                 <EditText
@@ -101,7 +102,7 @@
                     android:layout_below="@+id/pwField"
                     android:layout_marginTop="10dp"
                     android:fontFamily="@font/font"
-                    android:text="이름"
+                    android:text="이름 (2자리 이상)"
                     android:textColor="@color/grey"
                     android:textSize="20dp" />
 
